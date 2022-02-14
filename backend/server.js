@@ -15,7 +15,8 @@ const corsOptions ={
 }
 
 app.use(cors(corsOptions)) 
-app.use(express.static("src"));
+// app.use(express.static("src"));
+app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(routes);
 app.listen(PORT, ()=> console.log(`Listing on  port ${PORT}`));
 app.get('/api', (req, res)=>{
@@ -25,7 +26,7 @@ app.get('/api', (req, res)=>{
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/build/index'));
-      });
+    // app.get('*', (req, res) => {
+    //     res.sendFile(path.join(__dirname, '../client/build/index'));
+    //   });
   }
