@@ -24,9 +24,9 @@ app.listen(PORT, ()=> console.log(`Listing on  port ${PORT}`));
 //     res.json({"bodyofres":"Connected to express back end"});
 // })
 // Serve up static assets
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/build/index'));
-      });
-  }
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static(path.join(__dirname, '../client/build')));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.join(__dirname, '../client/build/index'));
+//       });
+//   }
