@@ -18,7 +18,6 @@ app.use(cors(corsOptions))
 app.use(express.static("src"));
 app.use(routes);
 app.listen(PORT, ()=> console.log(`Listing on  port ${PORT}`));
-
 app.get('/api', (req, res)=>{
     console.log('this route did get hit');
     res.json({"bodyofres":"Connected to express back end"});
@@ -27,6 +26,6 @@ app.get('/api', (req, res)=>{
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/src')));
   }
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
-//   });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
