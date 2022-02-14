@@ -21,7 +21,7 @@
     "concurrently": "^5.1.0"
   },
   "scripts": {
-    "start": "concurrently \"cd backend && npm run watch\" \"cd client && npm start\"",
+    "start": "npm run develop",
     "develop": "concurrently \"cd backend && npm run watch\" \"cd client && npm start\"",
     "install": "cd backend && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
