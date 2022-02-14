@@ -2,8 +2,6 @@ import {
     Col,
     Row,
     Container,
-    Form,
-    Button,
     Nav
 } from 'react-bootstrap'
 import './style.css';

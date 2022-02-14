@@ -1,17 +1,41 @@
-
-
+const axios = require("axios");
 const router = require('express').Router();
 
 // GET "/api/notes" responds with all notes from the database
 router.get('/testing', (req, res) => {
-  res.send("from the server");
+  console.log('route hit');
+  res.json({ server: 'from server' });
 });
 
-router.post('/notes', (req, res) => {
-  store
-    .addNote(req.body)
-    .then((note) => res.json(note))
-    .catch((err) => res.status(500).json(err));
+router.get('/getweather', (req, res) => {
+  // store
+  //   .addNote(req.body)
+  //   .then((note) => res.json(note))
+  //   .catch((err) => res.status(500).json(err));
+
+
+  var options = {
+    method: 'GET',
+    url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',
+    params: {
+      aggregateHours: '24',
+      location: 'Rogers,AR,USA',
+      contentType: 'json',
+      unitGroup: 'us',
+      shortColumnNames: '0'
+    },
+    headers: {
+      'x-rapidapi-host': 'visual-crossing-weather.p.rapidapi.com',
+      'x-rapidapi-key': '4f514922bamsh130a9b7d139bda9p126f35jsnb81cc8ebed46'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+    res.json(response.data)
+  }).catch(function (error) {
+    console.error(error);
+  });
 });
 
 // DELETE "/api/notes" deletes the note with an id equal to req.params.id
