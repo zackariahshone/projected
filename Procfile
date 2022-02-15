@@ -1,1 +1,1 @@
-web:  "concurrently \"cd backend && npm run start\" \"cd client && npm start\""
+web: 

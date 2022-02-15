@@ -2,7 +2,7 @@
   "name": "projected",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "backend/server.js",
+  "main": "client/index.js",
   "dependencies": {
     "bootstrap": "^5.1.3",
     "eslint-config-prettier": "^8.3.0",
@@ -21,7 +21,8 @@
     "concurrently": "^5.1.0"
   },
   "scripts": {
-    "start": "concurrently \"cd backend && npm run start\" \"cd client && npm start\"",
+    "startsky": "concurrently \"cd backend && npm run start\" \"cd client && npm start\"",
+    "start":"node backend/server.js",
     "develop": "concurrently \"cd backend && npm run watch\" \"cd client && npm start\"",
     "install": "cd backend && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
