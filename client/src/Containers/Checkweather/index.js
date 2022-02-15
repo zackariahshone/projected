@@ -44,7 +44,7 @@ const Checkweather = () => {
             <h1>
                 Check Weather
             </h1>
-            <div className ='searchBar'>
+            <div className='searchBar'>
                 <input
                     onChange={setSearchedLoction}
                     placeholder='ex: Rogers,AR,USA'
@@ -64,18 +64,41 @@ const Checkweather = () => {
                             </Col>
                             <Row>
                                 <Carousel
-                                    plugins = {
+                                    plugins={
                                         [
-                                            'infinite', 
+                                            'infinite',
                                             'arrows',
                                             {
-                                                resolve:slidesToShowPlugin,
-                                                options:{
+                                                resolve: slidesToShowPlugin,
+                                                options: {
                                                     numberOfSlides: 5
                                                 }
                                             }
                                         ]
                                     }
+
+                                    breakpoints={{
+                                        500: {
+                                            plugins: [
+                                                {
+                                                    resolve: slidesToShowPlugin,
+                                                    options: {
+                                                        numberOfSlides: 3
+                                                    }
+                                                },
+                                            ]
+                                        },
+                                        900: {
+                                            plugins: [
+                                                {
+                                                    resolve: slidesToShowPlugin,
+                                                    options: {
+                                                        numberOfSlides: 4
+                                                    }
+                                                },
+                                            ]
+                                        }
+                                    }}
                                 >
                                     {multidayForcast.map((fiveDay, i) => (
 

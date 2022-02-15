@@ -1,13 +1,29 @@
 .navSquare{
     border-style: solid;
     border-color: black;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border-width: 1px;
-    height: 200px;
+    /* height: 200px; */
     width: 100%;
     margin-bottom: 10%;
+    background-color: black;
 }
 .squareText{
     text-decoration: none;
     margin: 34%;
+}
+
+.checkweather{
+    background-image: url('../../photos/great_weather.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+.weathertrends{
+    background-image: url('../../photos/line_graph.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+    /* height: 100%; */
 }

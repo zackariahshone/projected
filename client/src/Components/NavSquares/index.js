@@ -4,12 +4,12 @@ import {
     Container,
     Nav
 } from 'react-bootstrap'
+import Weather from '../../photos/great_weather.jpg'
 import './style.css';
 const routes = [
-
     {
         name: 'Check Weather',
-        link: "checkweather"
+        link: "checkweather",
     },
     {
         name: 'Weather Trends',
@@ -34,7 +34,7 @@ const NavSquares = () => {
                 {routes.map((route) => (
 
                     <Col xs={12} md={4} lg={3} xl={3}>
-                        <div className='navSquare'>
+                        <div className={`navSquare ${route.link}`}>
                             <Nav.Link href={route.link}>
 
                                 <div className= "squareText">
