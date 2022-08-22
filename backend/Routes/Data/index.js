@@ -1,5 +1,6 @@
 const axios = require("axios");
 const router = require('express').Router();
+const bodyParser = require('body-parser')
 
 // GET "/api/notes" responds with all notes from the database
 router.get('/testing', (req, res) => {
@@ -7,13 +8,11 @@ router.get('/testing', (req, res) => {
   res.json({ server: 'from server' });
 });
 
+router.post('/api/getTheBackEnd',(req,res)=>{
+  console.log(req.body);
+})
 router.get('/getweather', (req, res) => {
-  // store
-  //   .addNote(req.body)
-  //   .then((note) => res.json(note))
-  //   .catch((err) => res.status(500).json(err));
-
-
+  // console.log(JSON.parse(req.body));
   var options = {
     method: 'GET',
     url: 'https://visual-crossing-weather.p.rapidapi.com/forecast',

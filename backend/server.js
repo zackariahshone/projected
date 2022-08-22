@@ -4,6 +4,7 @@ const path = require('path');
 // const htmlRoutes = require('./routes/htmlRoutes');
 const routes = require('./Routes');
 const cors = require("cors");
+const bodyParser = require('body-parser')
 
 // Initialize the app and create a port
 const app = express();
@@ -14,11 +15,18 @@ const corsOptions = {
   optionSuccessStatus: 200,
 }
 
-app.use(cors(corsOptions))
+// var app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// parse application/json
+app.use(bodyParser.json())
+
+// app.use(cors(corsOptions))
 // app.use(express.static("src"));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(routes);
-app.listen(PORT, () => console.log(`Listing on  port ${PORT}`));
 // app.get('/api', (req, res)=>{
 //     console.log('this route did get hit');
 //     res.json({"bodyofres":"Connected to express back end"});
@@ -27,6 +35,7 @@ app.listen(PORT, () => console.log(`Listing on  port ${PORT}`));
 // if (process.env.NODE_ENV === 'production') {
 //     app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.static("client/build"));
+app.listen(PORT, () => console.log(`Listing on  port ${PORT}`));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });

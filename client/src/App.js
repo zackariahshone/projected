@@ -1,10 +1,10 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom'
-import Checkweather from './Containers/Checkweather';
-import Weathertrends from './Containers/Weathertrends';
+import FoodTruckNearBy from './Containers/FoodTruckNearBy';
+import NewTrucks from './Containers/NewTrucks';
 import Trashtrends from './Containers/Trashtrends';
-import StateOfOzone from './Containers/StateOfOzone';
+import RecommendedTrucks from './Containers/RecommendedTrucks';
 import NavSquares from './Components/NavSquares';
 
 function App() {
@@ -15,20 +15,20 @@ function App() {
         element = {<NavSquares/>}
         />
       <Route
-        exact path='checkweather'
-        element={<Checkweather />} 
+        exact path='foodtrucksnearby'
+        element={<FoodTruckNearBy />} 
         />
       <Route
-        exact path='weathertrends'
-        element={<Weathertrends />} 
+        exact path='newfoodtrucks'
+        element={<NewTrucks data={[1,2,3]} />} 
         />
       <Route
-        exact path='trashtrends'
+        exact path='trucksearch'
         element={<Trashtrends />} 
         />
       <Route
-        exact path='ozonestatus'
-        element={<StateOfOzone />} 
+        exact path='recommendedtrucks'
+        element={<RecommendedTrucks />} 
 
         />
     </Routes>

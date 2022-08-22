@@ -8,20 +8,20 @@ import Weather from '../../photos/great_weather.jpg'
 import './style.css';
 const routes = [
     {
-        name: 'Check Weather',
-        link: "checkweather",
+        name: 'Closest Food-Trucks',
+        link: "foodtrucksnearby",
     },
     {
-        name: 'Weather Trends',
-        link: "weathertrends"
+        name: 'New Food-Trucks',
+        link: "newfoodtrucks"
     },
     {
-        name: 'Trash Trends',
-        link: "trashtrends"
+        name: 'Food-Truck Search',
+        link: "trucksearch"
     },
     {
-        name: 'Status of the Ozone',
-        link: "ozonestatus"
+        name: 'Recommended For You!',
+        link: "recommendedtrucks"
     }
 ];
 
@@ -32,11 +32,9 @@ const NavSquares = () => {
         >
             <Row>
                 {routes.map((route) => (
-
-                    <Col xs={12} md={4} lg={3} xl={3}>
+                    <Col xs={12} md={6} lg={6} xl={6}>
                         <div className={`navSquare ${route.link}`}>
                             <Nav.Link href={route.link}>
-
                                 <div className= "squareText">
                                     {route.name}
                                 </div>

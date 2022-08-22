@@ -1,26 +1,38 @@
+import { Fragment } from 'react';
 import {
-    Navbar, 
-    Container, 
-    Nav,
+  Navbar,
+  Container,
+  Nav,
 } from 'react-bootstrap'
 
 const TopNav = () => {
-    return(
-        <Navbar bg="light" expand="lg">
+  return (
+    <Fragment>
+
+      <Navbar bg="light" expand="lg">
         <Container>
+
           <Navbar.Brand href="/">Projected</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/checkweather">Checkweather</Nav.Link>
-              <Nav.Link href="/weathertrends">WeatherTrends</Nav.Link>
-              <Nav.Link href="/trashtrends">Trash Trends</Nav.Link>
-              <Nav.Link href="/ozonestatus">Ozone Status</Nav.Link>
+              <Nav.Link href="/foodtrucksnearby">Closest Food-Truck</Nav.Link>
+              <Nav.Link href="/newfoodtrucks">New Food-Trucks</Nav.Link>
+              <Nav.Link href="/trucksearch">Food-Truck Search</Nav.Link>
+              <Nav.Link href="/recommendedtrucks">Recommended For You!!</Nav.Link>
+              {/* <Navbar.Collapse className="justify-content-end"> */}
+              {/* </Navbar.Collapse> */}
+            </Nav>
+            <Nav>
+              <Navbar.Text className="justify-content-end">
+               <Nav.Link href="/login"> Log In </Nav.Link>
+              </Navbar.Text>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    )
+    </Fragment>
+  )
 }
 
 export default TopNav;

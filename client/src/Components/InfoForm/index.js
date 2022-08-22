@@ -1,5 +1,4 @@
 import {
-    // Jumbotron, 
     Col, 
     Row, 
     Container,
@@ -10,7 +9,6 @@ import {
 const Inputform =()=>{
 return (
     <Container>
-    {/* <Jumbotron> */}
     <Form>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
@@ -31,7 +29,6 @@ return (
     Submit
   </Button>
 </Form>
-    {/* </Jumbotron> */}
 </Container>
 )
 }
