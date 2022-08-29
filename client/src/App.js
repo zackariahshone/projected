@@ -6,6 +6,7 @@ import NewTrucks from './Containers/NewTrucks';
 import Trashtrends from './Containers/Trashtrends';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import NavSquares from './Components/NavSquares';
+import Login from './Containers/Login';
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
       <Route
         exact path='recommendedtrucks'
         element={<RecommendedTrucks />} 
-
+        />
+      <Route 
+      exact path='login'
+      element={<Login />}
         />
     </Routes>
 
