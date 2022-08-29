@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import TopNav from './Containers/TopNav';
 import App from './App';
@@ -12,12 +12,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-  <Provider store={store}>
-  <Router>
-    <TopNav/>
-    <App/>
-  </Router>
-  </Provider>
+    <Provider store={store}>
+      <Router>
+        <TopNav />
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
