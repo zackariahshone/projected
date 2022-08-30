@@ -4,7 +4,6 @@ import {
     Container,
     Nav
 } from 'react-bootstrap'
-import Weather from '../../photos/great_weather.jpg'
 import './style.css';
 const routes = [
     {
@@ -22,6 +21,10 @@ const routes = [
     {
         name: 'Recommended For You!',
         link: "recommendedtrucks"
+    },
+    {
+        name:'new square',
+        link: 'newlink'
     }
 ];
 

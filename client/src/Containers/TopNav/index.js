@@ -5,6 +5,26 @@ import {
   Nav,
 } from 'react-bootstrap'
 
+
+const navLinks = [
+  {
+    link: '/foodtrucksnearby',
+    title: 'Closest Food-Truck'
+  },
+  {
+    link: '/newfoodtrucks',
+    title: 'New Food-Trucks'
+  },
+  {
+    link: '/trucksearch',
+    title: 'Food-Truck Search'
+  },
+  {
+    link: '/recommendedtrucks',
+    title: 'Recommended For You!!'
+  },
+]
+
 const TopNav = () => {
   return (
     <Fragment>
@@ -16,13 +36,12 @@ const TopNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/foodtrucksnearby">Closest Food-Truck</Nav.Link>
-              <Nav.Link href="/newfoodtrucks">New Food-Trucks</Nav.Link>
-              <Nav.Link href="/trucksearch">Food-Truck Search</Nav.Link>
-              <Nav.Link href="/recommendedtrucks">Recommended For You!!</Nav.Link>
+              {navLinks.map((nav) => (
+                <Nav.Link href={nav.link}>{nav.title}</Nav.Link>
+              ))}
             </Nav>
             <Nav className="justify-content-end">
-               <Nav.Link href="/login"> Log In </Nav.Link>
+              <Nav.Link href="/login"> Log In </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

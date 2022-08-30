@@ -13,7 +13,11 @@ import {
 
 const geoUrl =
     "https://raw.githubusercontent.com/deldersveld/topojson/master/continents/north-america.json";
+// useEffect(()=>{
 
+//     //query data base refresh trucks
+
+// })
 const markers = [
     {
         markerOffset: -15,

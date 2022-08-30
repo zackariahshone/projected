@@ -20,7 +20,7 @@ export const counterSlice = createSlice({
       state.value += action.payload
     },
     isLoggedIn:(state,action)=>{
-      state.value += action.payload;
+      state.value = action.payload;
     }
   },
 })
