@@ -3,8 +3,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom'
 import FoodTruckNearBy from './Containers/FoodTruckNearBy';
 import NewTrucks from './Containers/NewTrucks';
-import Trashtrends from './Containers/Trashtrends';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
+import TruckSearch from './Containers/TruckSearch';
 import NavSquares from './Components/NavSquares';
 import Login from './Containers/Login';
 
@@ -25,7 +25,7 @@ function App() {
         />
       <Route
         exact path='trucksearch'
-        element={<Trashtrends />} 
+        element={<TruckSearch />} 
         />
       <Route
         exact path='recommendedtrucks'
