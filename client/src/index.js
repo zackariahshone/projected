@@ -1,24 +1,24 @@
+import {store} from './appstore/store'
+import { Provider } from 'react-redux'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
-import TopNav from './Containers/TopNav';
 import App from './App';
+import TopNav from './Containers/TopNav';
 import reportWebVitals from './reportWebVitals';
-import store from './appstore/store'
-import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
+  <React.StrictMode>
       <Router>
         <TopNav />
         <App />
       </Router>
-    </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
+    </Provider>,
   document.getElementById('root')
 );
 

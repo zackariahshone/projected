@@ -1,20 +1,30 @@
 import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Button,
   Form
 } from 'react-bootstrap';
+import {
+  decrement, 
+  selectCount,
+  isLoggedIn,
+  handleLoggin,
+  loginLogout,
+} from '../../appstore/counterSlice'
 import './style.css';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-
-
+  // const count = useSelector(selectCount);
+  const amLoggedIn = useSelector(isLoggedIn);
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/");
-  }
+  const dispatch = useDispatch();
+  // const handleClick = () => {
+  //   useDispatch(handleLoggin());
+  //   navigate("/");
+  // }
+  console.log(amLoggedIn);
   const setLogin = () => {
     //set redux and or context to user logged in
   }
@@ -39,7 +49,8 @@ const Login = () => {
             variant="primary"
             type="submit"
             onClick={() => {
-              handleClick()
+              dispatch(handleLoggin());
+              navigate("/");
             }}
           >
             Submit
