@@ -18,7 +18,8 @@ const Login = () => {
   console.log(loggedInStatus.isLoggedIn);
   const handleClick = () => {
     if(
-      loggedInStatus.isLoggedIn === false
+      loggedInStatus.isLoggedIn === false ||
+      loggedInStatus.isLoggedIn === null
       ){
         setSignIn(true);
         dispatch(login({value:true,type:'login'}))

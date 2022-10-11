@@ -9,17 +9,15 @@ import TopNav from './Containers/TopNav';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// let store = createStore(parentStore)
 
 ReactDOM.render(
   <React.StrictMode>
-  <Provider store={store}>
-      <Router>
-        <TopNav />
+    <Router>
+      <Provider store={store}>
         <App />
-      </Router>
-  </Provider>
-    </React.StrictMode>,
+      </Provider>
+    </Router>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

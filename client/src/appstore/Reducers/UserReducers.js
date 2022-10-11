@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
-  name: 'userData',
+  name: 'UserState',
   initialState: {
-  isLoggedIn:false,
+  isLoggedIn:null,
+  
   },
   reducers: {
     login: (state,action) => {
@@ -11,10 +12,14 @@ export const userSlice = createSlice({
         // doesn't actually mutate the state because it uses the Immer library,
         // which detects changes to a "draft state" and produces a brand new
         // immutable state based off those changes
-        state.isLoggedIn = action.payload.value
+        state = {...state,
+            isLoggedIn:action.payload.value
+        }
     },
     logout: (state,action) => {
-      state.isLoggedIn = action.payload.value
+      state = {...state,
+                isLoggedIn: action.payload.value
+    }
     },
   },
 })
@@ -22,6 +27,6 @@ export const userSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { login, logout, incrementByAmount } = userSlice.actions
 
-export default userSlice.reducer
-
 export const isLoggedIn = (state) => state.UserState
+
+export default userSlice.reducer

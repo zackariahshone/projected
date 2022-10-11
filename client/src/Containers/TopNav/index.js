@@ -42,12 +42,12 @@ const TopNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {navLinks.map((nav) => (
-                <Nav.Link href={nav.link}>{nav.title}</Nav.Link>
+              {navLinks.map((nav,x) => (
+                <Nav.Link key = {`nav_${x}`} href={nav.link}>{nav.title}</Nav.Link>
               ))}
             </Nav>
             <Nav className="justify-content-end">
-              <Nav.Link href="/login"> {loggedInStatus.isLoggedIn ? `Sign Out` : `Sign In`} </Nav.Link>
+              <Nav.Link href="/login"> {loggedInStatus?.isLoggedIn ? `Sign Out` : `Sign In`} </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

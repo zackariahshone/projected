@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import FoodTruckNearBy from './Containers/FoodTruckNearBy';
 import NewTrucks from './Containers/NewTrucks';
@@ -7,9 +7,13 @@ import RecommendedTrucks from './Containers/RecommendedTrucks';
 import TruckSearch from './Containers/TruckSearch';
 import NavSquares from './Components/NavSquares';
 import Login from './Containers/Login';
+import TopNav from './Containers/TopNav';
 
 function App() {
   return (
+    <Fragment>
+
+    <TopNav />
     <Routes>
       <Route
         exact path = '/'
@@ -36,6 +40,7 @@ function App() {
       element={<Login />}
         />
     </Routes>
+    </Fragment>
 
   );
 }
