@@ -1,32 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Button,
   Form
 } from 'react-bootstrap';
-import {
-  decrement, 
-  selectCount,
-  isLoggedIn,
-  handleLoggin,
-  loginLogout,
-} from '../../appstore/counterSlice'
+import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
 import './style.css';
 import { useNavigate } from "react-router-dom";
-
 const Login = () => {
-  // const count = useSelector(selectCount);
-  const amLoggedIn = useSelector(isLoggedIn);
+ 
+  // may remove signIn/setSignIn 
+  const [signIn, setSignIn] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const handleClick = () => {
-  //   useDispatch(handleLoggin());
-  //   navigate("/");
-  // }
-  console.log(amLoggedIn);
-  const setLogin = () => {
-    //set redux and or context to user logged in
+  const loggedInStatus = useSelector(isLoggedIn);
+  console.log(loggedInStatus.isLoggedIn);
+  const handleClick = () => {
+    if(
+      loggedInStatus.isLoggedIn === false
+      ){
+        setSignIn(true);
+        dispatch(login({value:true,type:'login'}))
+      }else if(loggedInStatus.isLoggedIn === true){
+        setSignIn(false);
+        dispatch(logout({value:false,type:'logout'}));
+      }
   }
 
   return (
@@ -47,9 +46,8 @@ const Login = () => {
           </Form.Group>
           <Button
             variant="primary"
-            type="submit"
             onClick={() => {
-              dispatch(handleLoggin());
+              handleClick();
               navigate("/");
             }}
           >

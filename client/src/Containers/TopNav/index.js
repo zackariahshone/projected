@@ -1,10 +1,13 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Navbar,
   Container,
   Nav,
 } from 'react-bootstrap'
-
+import {
+  isLoggedIn
+} from '../../appstore/Reducers/UserReducers'
 
 const navLinks = [
   {
@@ -26,6 +29,9 @@ const navLinks = [
 ]
 
 const TopNav = () => {
+  const [loggedIn, setLoggedIn] =useState();
+  const loggedInStatus = useSelector(isLoggedIn);
+
   return (
     <Fragment>
 
@@ -41,7 +47,7 @@ const TopNav = () => {
               ))}
             </Nav>
             <Nav className="justify-content-end">
-              <Nav.Link href="/login"> Log In </Nav.Link>
+              <Nav.Link href="/login"> {loggedInStatus.isLoggedIn ? `Sign Out` : `Sign In`} </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -1,4 +1,4 @@
-import {store} from './appstore/store'
+import store from './appstore/store'
 import { Provider } from 'react-redux'
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,16 +9,17 @@ import TopNav from './Containers/TopNav';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// let store = createStore(parentStore)
 
 ReactDOM.render(
-    <Provider store={store}>
   <React.StrictMode>
+  <Provider store={store}>
       <Router>
         <TopNav />
         <App />
       </Router>
-  </React.StrictMode>
-    </Provider>,
+  </Provider>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
