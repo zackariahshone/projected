@@ -26,6 +26,10 @@ const navLinks = [
     link: '/recommendedtrucks',
     title: 'Recommended For You!!'
   },
+  {
+    link:'neverland',
+    title: 'new box'
+  }
 ]
 
 const TopNav = () => {
@@ -47,7 +51,7 @@ const TopNav = () => {
               ))}
             </Nav>
             <Nav className="justify-content-end">
-              <Nav.Link href="/login"> {loggedInStatus?.isLoggedIn ? `Sign Out` : `Sign In`} </Nav.Link>
+              <Nav.Link href="/login"> {loggedInStatus ? `Sign Out` : `Sign In`} </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

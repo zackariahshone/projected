@@ -15,15 +15,16 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
-  console.log(loggedInStatus.isLoggedIn);
+  console.log(loggedInStatus)
   const handleClick = () => {
     if(
-      loggedInStatus.isLoggedIn === false ||
-      loggedInStatus.isLoggedIn === null
+      loggedInStatus === false ||
+      loggedInStatus === null ||
+      loggedInStatus === undefined
       ){
         setSignIn(true);
         dispatch(login({value:true,type:'login'}))
-      }else if(loggedInStatus.isLoggedIn === true){
+      }else if(loggedInStatus === true){
         setSignIn(false);
         dispatch(logout({value:false,type:'logout'}));
       }

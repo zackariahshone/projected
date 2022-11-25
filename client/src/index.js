@@ -1,4 +1,5 @@
-import store from './appstore/store'
+// import {store} from './appstore/store';
+import {persistor, store} from './appstore/store';
 import { Provider } from 'react-redux'
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,16 +9,19 @@ import App from './App';
 import TopNav from './Containers/TopNav';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Provider store={store}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
         <App />
-      </Provider>
-    </Router>
-  </React.StrictMode>,
+      </Router>
+    </PersistGate>
+  </Provider>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 

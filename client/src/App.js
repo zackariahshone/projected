@@ -16,27 +16,27 @@ function App() {
     <TopNav />
     <Routes>
       <Route
-        exact path = '/'
+         path = '/'
         element = {<NavSquares/>}
         />
       <Route
-        exact path='foodtrucksnearby'
+         path='foodtrucksnearby'
         element={<FoodTruckNearBy />} 
         />
       <Route
-        exact path='newfoodtrucks'
-        element={<NewTrucks data={[1,2,3]} />} 
+         path='newfoodtrucks'
+        element={<NewTrucks/>} 
         />
       <Route
-        exact path='trucksearch'
+         path='trucksearch'
         element={<TruckSearch />} 
         />
       <Route
-        exact path='recommendedtrucks'
+         path='recommendedtrucks'
         element={<RecommendedTrucks />} 
         />
       <Route 
-      exact path='login'
+       path='login'
       element={<Login />}
         />
     </Routes>

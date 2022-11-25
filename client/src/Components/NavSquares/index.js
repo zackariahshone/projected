@@ -25,6 +25,10 @@ const routes = [
     {
         name:'new square',
         link: 'newlink'
+    },
+    {
+        name:'newbox',
+        link:'linkto_neverland'
     }
 ];
 
