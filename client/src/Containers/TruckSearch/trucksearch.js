@@ -22,12 +22,6 @@ const FoodTruckSearch = () => {
 
     const [truckList, setTruckList] = useState(testList);
     const [searchTerm, setSearchTerm] = useState('');
-    const displaySearch = (searchTerm) => {
-    console.log(searchTerm);
-    const result = truckList.filter(truck => truck.includes(searchTerm));
-    //    searchTerm !== null || searchTerm !== '' ? 
-    //    setTruckList(testList)
-}
 useEffect(()=>{
     const result = truckList.filter(truck => truck.includes(searchTerm));
     searchTerm !== '' ? setTruckList(result): setTruckList(testList);
@@ -39,7 +33,6 @@ useEffect(()=>{
                 <input
                     onChange={(e) => {
                         setSearchTerm(e.target.value)
-                        displaySearch(e.target.value);
                     }}
                 />
             </div>
