@@ -4,10 +4,10 @@ import { Routes, Route } from 'react-router-dom'
 import FoodTruckNearBy from './Containers/FoodTruckNearBy';
 import NewTrucks from './Containers/NewTrucks';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
-import TruckSearch from './Containers/TruckSearch';
+import TruckSearch from './Containers/TruckSearch/trucksearch';
 import NavSquares from './Components/NavSquares';
-import Login from './Containers/Login';
-import TopNav from './Containers/TopNav';
+import Login from './Containers/Login/login';
+import TopNav from './Containers/TopNav/topNav';
 
 function App() {
   return (

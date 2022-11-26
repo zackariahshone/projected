@@ -21,36 +21,39 @@ const testList = [
 const FoodTruckSearch = () => {
 
     const [truckList, setTruckList] = useState(testList);
-
+    const [searchTerm, setSearchTerm] = useState('');
     const displaySearch = (searchTerm) => {
-        const result = truckList.filter(truck => truck.includes(searchTerm));
+    console.log(searchTerm);
+    const result = truckList.filter(truck => truck.includes(searchTerm));
     //    searchTerm !== null || searchTerm !== '' ? 
-       setTruckList(result);
     //    setTruckList(testList)
-    }
+}
 useEffect(()=>{
+    const result = truckList.filter(truck => truck.includes(searchTerm));
+    searchTerm !== '' ? setTruckList(result): setTruckList(testList);
+},[searchTerm])
 
-})
     return (
         <Container>
             <div id='searchInput'>
                 <input
                     onChange={(e) => {
+                        setSearchTerm(e.target.value)
                         displaySearch(e.target.value);
                     }}
                 />
             </div>
             <div id='searchResults'>
-                <ui>
+                <ul>
 
                     {
                         truckList.map((truck, i) => (
-                            <li>
+                            <li key = {`${i}_truckname`}>
                                 {truck}
                             </li>
                         ))
                     }
-                </ui>
+                </ul>
             </div>
         </Container>
     )
