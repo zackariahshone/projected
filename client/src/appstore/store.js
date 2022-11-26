@@ -1,4 +1,6 @@
 import UserState from './Reducers/UserReducers';
+import truckSearchState from './Reducers/TruckSearch';
+
 import { configureStore } from '@reduxjs/toolkit'
 
 import storage from 'redux-persist/lib/storage';
@@ -7,7 +9,8 @@ import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
-  userState: UserState
+  userState: UserState,
+  truckSearchState: truckSearchState
 })
 
 const persistConfig = {
