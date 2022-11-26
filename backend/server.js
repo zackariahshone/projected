@@ -27,13 +27,6 @@ app.use(bodyParser.json())
 // app.use(express.static("src"));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(routes);
-// app.get('/api', (req, res)=>{
-//     console.log('this route did get hit');
-//     res.json({"bodyofres":"Connected to express back end"});
-// })
-// Serve up static assets
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.static("client/build"));
 app.listen(PORT, () => console.log(`Listing on  port ${PORT}`));
 app.get('/*', (req, res) => {

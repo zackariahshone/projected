@@ -11,7 +11,10 @@ const initialState = {
         "Boondocks Grill",
         "City Pump",
         "Takashimura Hibachi - Rogers",
-        "T-Mo's cajun Cookin"
+        "T-Mo's cajun Cookin",
+        'new truck',
+        'one more',
+        "test after black list"
     ]
 }
 
@@ -20,7 +23,7 @@ export const truckSearchSlice = createSlice({
     initialState,
     reducers: {
         loadReducer: (state,action)=>{
-            state = state;
+            // state = state;
         }
     }
 })
