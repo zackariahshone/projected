@@ -1,21 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    listOfTrucks:[
-        "The Witching Hour",
-        "Food Therapy NWA",
-        "Foodology Food Truck",
-        "Burntsugars Food Truck",
-        "Fatt Fingers",
-        "Roll & Fold",
-        "Boondocks Grill",
-        "City Pump",
-        "Takashimura Hibachi - Rogers",
-        "T-Mo's cajun Cookin",
-        'new truck',
-        'one more',
-        "test after black list"
-    ]
+    
 }
 
 export const truckSearchSlice = createSlice({
@@ -24,10 +10,12 @@ export const truckSearchSlice = createSlice({
     reducers: {
         loadReducer: (state,action)=>{
             // state = state;
+            console.log(action.payload.data.listOfTrucks);
+            state.listOfTrucks = action.payload.data.listOfTrucks;
         }
     }
 })
 
 export const {loadReducer } = truckSearchSlice.actions
-export const truckSearchList = (state) => state.truckSearchState.listOfTrucks
+export const truckSearchList = (state) => state.truckSearchState.listOfTrucks;
 export default truckSearchSlice.reducer

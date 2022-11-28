@@ -36,8 +36,7 @@ router.get('/api/foodtrucklists', (req, res) => {
       "Takashimura Hibachi - Rogers",
       "T-Mo's cajun Cookin",
       'new truck',
-      'one more',
-      "test after black list"
+      // 'one more',
     ]
   }
   res.json(listofTrucks)

@@ -1,14 +1,7 @@
 //all requests stored here
 import { directReducer } from "./reduxUtils"
 
-// import { get } from "jquery"
-
-
-//let hit the back end
-
-
-
-export const getData = (route,method,body) =>{
+export const getData = (route,method,body,action,type) =>{
     if(method.toLowerCase() !== 'get'){
             fetch(route,{
                 method: method,
@@ -26,7 +19,7 @@ export const getData = (route,method,body) =>{
                     'Accept': 'application/json',
                 },
             }) .then(response=>response.json()).then(data=>{
-
+                directReducer(action,data,type)
             })
         }
 }

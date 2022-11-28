@@ -12,23 +12,15 @@ const FoodTruckSearch = () => {
     const [truckList, setTruckList] = useState(foodTruckList);
     const [searchTerm, setSearchTerm] = useState('');
     // dispatch(loadReducer({test:'string'}))
+    console.log(truckList);
     useEffect(()=>{
-       getData('api/foodtrucklists','GET')
-       
-        // fetch('/api/foodtrucklists',{
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //     },
-        // }).then(response=>response.json()).then(data=>{
-        //     console.log(data); 
-        // })
-
-        dispatch(loadReducer);
-    })
+        // if(truckList === '' || truckList ===null || typeof truckList === 'undefined' ){
+            getData('api/foodtrucklists','GET',{},loadReducer,{});
+        // }
+        // dispatch(loadReducer);
+    },[truckList]);
     useEffect(()=>{
-    const result = truckList.filter(truck => truck.toLowerCase().includes(searchTerm.toLowerCase()));
+    const result = truckList?.filter(truck => truck.toLowerCase().includes(searchTerm.toLowerCase()));
     searchTerm !== '' ? setTruckList(result): setTruckList(foodTruckList);
 },[searchTerm])
 
@@ -45,7 +37,7 @@ const FoodTruckSearch = () => {
                 <ul>
 
                     {
-                        truckList.map((truck, i) => (
+                        truckList?.map((truck, i) => (
                             <li key = {`${i}_truckname`}>
                                 {truck}
                             </li>
