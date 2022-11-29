@@ -39,7 +39,7 @@ const NavSquares = () => {
         >
             <Row>
                 {routes.map((route,x) => (
-                    <Col key = {`col_${x}`} xs={12} md={6} lg={6} xl={6}>
+                    <Col key = {`col_${x}`} xs={12} md={6} lg={4} xl={4}>
                         <div key = {`square_${x}`} className={`navSquare ${route.link}`}>
                             <Nav.Link key = {`square_link_${x}`} href={route.link}>
                                 <div key = {`square_info_${x}`} className= "squareText">

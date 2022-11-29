@@ -5,7 +5,7 @@ import FoodTruckNearBy from './Containers/FoodTruckNearBy';
 import NewTrucks from './Containers/NewTrucks';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import TruckSearch from './Containers/TruckSearch/trucksearch';
-import NavSquares from './Components/NavSquares';
+import NavSquares from './Components/NavSquares/navSquares';
 import Login from './Containers/Login/login';
 import TopNav from './Containers/TopNav/topNav';
 
