@@ -8,6 +8,7 @@ import TruckSearch from './Containers/TruckSearch/trucksearch';
 import NavSquares from './Components/NavSquares/navSquares';
 import Login from './Containers/Login/login';
 import TopNav from './Containers/TopNav/topNav';
+import SignUp from './Containers/Signup/signup'
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
        path='login'
       element={<Login />}
         />
+      <Route
+        path='signUp'
+        element={<SignUp/>}
+      />
     </Routes>
     </Fragment>
 

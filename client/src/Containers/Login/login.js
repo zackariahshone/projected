@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
 import './style.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 const Login = () => {
 
   // may remove signIn/setSignIn 
@@ -87,13 +87,21 @@ const Login = () => {
           <Button
             variant="primary"
             onClick={() => {
-              console.log(userCred)
               handleClick();
               // navigate("/");
             }}
           >
             Submit
           </Button>
+          <Link to="/signup">
+
+        <Button  
+        className="signUp" 
+        onClick={()=>{
+          navigate('/signup')
+        }}
+        >Sign Up Please </Button>
+          </Link>
         </Form>
       </div>
     </Container>
