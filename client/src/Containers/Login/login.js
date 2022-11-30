@@ -16,7 +16,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
-  console.log(window.location.pathname)
   // console.log(window.location);
 
   const thisStuff = () => {
@@ -88,7 +87,7 @@ const Login = () => {
             variant="primary"
             onClick={() => {
               handleClick();
-              // navigate("/");
+              navigate("/");
             }}
           >
             Submit
