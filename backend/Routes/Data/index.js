@@ -1,13 +1,22 @@
 const axios = require("axios");
 const router = require('express').Router();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
+const mongoose = require('../../dbconnection/connection');
+const models = require('../../dbconnection/models')
 // GET "/api/notes" responds with all notes from the database
 
+
 /**
- * 
+ * Handle Sign up
+ */
+router.post('/signup',(req, res)=>{
+  // console.log(JSON.parse(req.body));
+ models.User.create(req.body)
+  
+})
+/**
  * Handle log in 
- * 
  */
 router.post('/login', (req, res) => {
   console.log(req.body)

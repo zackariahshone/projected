@@ -95,7 +95,7 @@ const Login = () => {
           <Link to="/signup">
 
         <Button  
-        className="signUp" 
+        className="signUp signUp-button" 
         onClick={()=>{
           navigate('/signup')
         }}
