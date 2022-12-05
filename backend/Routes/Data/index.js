@@ -11,18 +11,28 @@ const models = require('../../dbconnection/models')
  * Handle Sign up
  */
 router.post('/signup',(req, res)=>{
-  // console.log(JSON.parse(req.body));
  models.User.create(req.body)
-  
-})
+ res.json({status:200});
+});
 /**
  * Handle log in 
  */
 router.post('/login', (req, res) => {
   console.log(req.body)
   //check user auth
-  res.send(true)
-})
+  // models.User.find({}).then((data)=>{console.log(data)})
+  console.log(`find only email and pwd`)
+  models.User.find({email: req.body.email, pwd: req.body.password})
+  .then(currentUser=>{
+    console.log(`currentUser`)
+    console.log(currentUser);
+    if(currentUser.length !== 0){
+      res.send(true);
+    }else{
+      res.send(false);
+    }
+  })
+});
 
 /**
  * 

@@ -14,7 +14,9 @@ const SignUp = () => {
                 'Accept': 'application/json',
             },
             body: JSON.stringify(userInfo),
-        })
+        }).then(response=>(
+            console.log(response)
+        ))
     }
     return (
         <Container >
