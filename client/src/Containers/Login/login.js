@@ -12,14 +12,13 @@ const Login = () => {
 
   // may remove signIn/setSignIn 
   const [userCred, setUserCred] = useState();
-  const [signIn, setSignIn] = useState();
+  const [userFound, setUserFound] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
   // console.log(window.location);
 
   const thisStuff = () => {
-    console.log(userCred);
     fetch('/login',{
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -28,6 +27,11 @@ const Login = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
+        if(data === false){
+          setUserFound(true);
+        }else{
+          setUserFound(false)
+        }
       });
   }
 
@@ -36,12 +40,13 @@ const Login = () => {
     if (
       loggedInStatus === false ||
       loggedInStatus === null ||
-      loggedInStatus === undefined
+      loggedInStatus === undefined || 
+      userFound === true
     ) {
-      setSignIn(true);
+      // setSignIn(true);
       dispatch(login({ value: true, type: 'login' }))
     } else if (loggedInStatus === true) {
-      setSignIn(false);
+      // setSignIn(false);
       dispatch(logout({ value: false, type: 'logout' }));
     }
   }
@@ -87,7 +92,7 @@ const Login = () => {
             variant="primary"
             onClick={() => {
               handleClick();
-              navigate("/");
+              // navigate("/");
             }}
           >
             Submit
