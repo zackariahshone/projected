@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
@@ -16,7 +16,6 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
-  // console.log(window.location);
 
   const thisStuff = () => {
     fetch('/login',{
@@ -26,7 +25,6 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         if(data === false){
           setUserFound(true);
         }else{
@@ -61,7 +59,6 @@ const Login = () => {
               type="email"
               placeholder="Enter email"
               onChange={(e) => {
-                console.log(e.target.value)
                 setUserCred({ 
                   ...userCred, 
                   email: e.target.value 
@@ -76,7 +73,6 @@ const Login = () => {
               type="password"
               placeholder="Password"
               onChange={(e) => {
-                console.log(e.target.value)
                 setUserCred(
                   {
                     ...userCred,
