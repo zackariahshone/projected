@@ -1,3 +1,34 @@
+
 #searchResults{
     margin:auto;
+}
+.truckCard{
+    border-width: '5px' ;
+    border-color: black;
+    border-style: solid;
+    border-radius: 30px;
+    padding:5%;
+    width:100%;
+    height: 80%;
+    margin:5%;
+}
+.filterButton{
+    height: 80%;
+    margin-left: 1%;
+    border-radius: 25px;
+    margin-bottom:1%;
+}
+.searchInput{
+    border-radius: 10px 25px 25px 10px;
+}
+.mockBox{
+    height: 100%;
+    width:100%;
+    /* background-color: aqua; */
+    border-radius: 25px;
+}
+.mockImg{
+    height: 50%;
+    width:50%;
+    float:right;
 }

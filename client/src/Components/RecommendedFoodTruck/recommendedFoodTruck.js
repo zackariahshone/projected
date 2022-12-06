@@ -1,7 +1,7 @@
 // import { data } from 'jquery';
 import { Button, Container, Form } from 'react-bootstrap';
 import { getData } from '../../genUtils/requests'
-const TestingRoutes = () => {
+const RecommendedTrucks = () => {
     return (
         // <></>
         <Container>
@@ -17,7 +17,6 @@ const TestingRoutes = () => {
                     title={"Push this button"}
                     onClick={() => {
                       getData().then((response) => {
-                            console.log(response)
                         })
                     }}
                 >
@@ -28,4 +27,4 @@ const TestingRoutes = () => {
     );
 }
 
-export default TestingRoutes;
+export default RecommendedTrucks;

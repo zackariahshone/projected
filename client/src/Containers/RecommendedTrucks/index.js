@@ -1,5 +1,5 @@
 // import React from 'react';
-import TestingRoutes from '../../Components/OzoneStates/';
+import TestingRoutes from '../../Components/RecommendedFoodTruck/recommendedFoodTruck';
 
 const StateOfOzone =()=>{
     return (
