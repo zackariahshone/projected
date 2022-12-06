@@ -14,7 +14,7 @@ const FoodTruckSearch = () => {
     // dispatch(loadReducer({test:'string'}))
     useEffect(() => {
         getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
-    }, [truckList, foodTruckList]);
+    }, [truckList]);
     useEffect(() => {
         const result = truckList?.filter(truck => truck.name.toLowerCase().includes(searchTerm.toLowerCase()));
         searchTerm !== '' ? setTruckList(result) : setTruckList(foodTruckList);
