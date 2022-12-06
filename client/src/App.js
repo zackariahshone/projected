@@ -2,7 +2,7 @@ import './App.css';
 import React, { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import FoodTruckNearBy from './Containers/FoodTruckNearBy';
-import NewTrucks from './Containers/NewTrucks';
+import NewTrucks from './Containers/NewTrucks/newTrucks';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import TruckSearch from './Containers/TruckSearch/trucksearch';
 import NavSquares from './Components/NavSquares/navSquares';

@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 // import { Doughnut } from 'react-chartjs-2';
 
 
 // var ctx = document.getElementById("myChart1").getContext("2d");
-// console.log(ctx);
-const Weathertrends = () => {
+const NewTrucks = () => {
 
     return (
         <>
@@ -13,4 +12,4 @@ const Weathertrends = () => {
     )
 }
 
-export default Weathertrends;
+export default NewTrucks;
