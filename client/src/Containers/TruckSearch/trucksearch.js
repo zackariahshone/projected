@@ -36,7 +36,7 @@ const FoodTruckSearch = () => {
                 <Row>
 
                     {
-                        truckList?.map(({ name, description, address, dateAdded }, i) => (
+                        truckList?.map(({ name, description, address, dateAdded,IMG }, i) => (
                             <Col xs={12} md={6} lg={4} xl={4} >
 
                                 <div className='truckCard'>
@@ -51,7 +51,9 @@ const FoodTruckSearch = () => {
                                     <p> <b>been on app since:</b> {dateAdded}</p>
                             </Col>
                             <Col>
-                                <div className='mockImg'></div>
+                                <div className='mockBox'>
+                                    <img className='mockImg' src={IMG} alt='foodtruck_image'/>
+                                </div>
                             </Col>
                             </Row>
                                 </div>

@@ -9,7 +9,7 @@
     border-radius: 30px;
     padding:5%;
     width:100%;
-    /* height: 80%; */
+    height: 80%;
     margin:5%;
 }
 .filterButton{
@@ -21,9 +21,14 @@
 .searchInput{
     border-radius: 10px 25px 25px 10px;
 }
-.mockImg{
+.mockBox{
     height: 100%;
     width:100%;
-    background-color: aqua;
+    /* background-color: aqua; */
     border-radius: 25px;
+}
+.mockImg{
+    height: 50%;
+    width:50%;
+    float:right;
 }
