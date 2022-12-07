@@ -10,7 +10,7 @@ export const truckSearchSlice = createSlice({
     reducers: {
         loadReducer: (state,action)=>{
             // state = state;
-            state.listOfTrucks = action.payload.data.listOfTrucks;
+            state.listOfTrucks = action.payload.data;
         }
     }
 })
