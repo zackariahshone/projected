@@ -13,11 +13,12 @@ const Login = () => {
   // may remove signIn/setSignIn 
   const [userCred, setUserCred] = useState();
   const [userFound, setUserFound] = useState();
+  const [loginError, setLoginError] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
 
-  const thisStuff = () => {
+  const getUser = () => {
     fetch('/login',{
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -25,16 +26,12 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(data => {
-        if(data === false){
-          setUserFound(true);
-        }else{
-          setUserFound(false)
-        }
+       setUserFound(data);
       });
   }
 
   const handleClick = () => {
-    thisStuff()
+    getUser()
     if (
       loggedInStatus === false ||
       loggedInStatus === null ||
@@ -43,7 +40,9 @@ const Login = () => {
     ) {
       // setSignIn(true);
       dispatch(login({ value: true, type: 'login' }))
-    } else if (loggedInStatus === true) {
+    }if(userFound === false ){
+      setLoginError(true);
+    }else if (loggedInStatus === true) {
       // setSignIn(false);
       dispatch(logout({ value: false, type: 'logout' }));
     }
@@ -52,6 +51,7 @@ const Login = () => {
   return (
     <Container>
       <div className='loginContainer'>
+      {loginError?<h4 className='error'> User not found try again or create and account! </h4> : ''}
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
