@@ -33,7 +33,6 @@ const navLinks = [
 ]
 
 const TopNav = () => {
-  const [loggedIn, setLoggedIn] =useState();
   const loggedInStatus = useSelector(isLoggedIn);
   const dispatch = useDispatch();
   return (

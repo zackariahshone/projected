@@ -13,16 +13,16 @@ router.get('/api/foodtrucklists', (req, res) => {
       {
         "name": "The Witching Hour",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "704 SW A St, Bentonville, AR 72712",
         "IMG": 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Ffood-truck&psig=AOvVaw3fxWXYVbIaEHSWlpGyDvyp&ust=1670377631199000&source=images&cd=vfe&ved=0CA4QjRxqFwoTCPjImNzv4_sCFQAAAAAdAAAAABAE',
         "dateAdded": "12/5/2022"
       },
       {
         "name": "Food Therapy NWA",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "623 W Walnut St. Rogers, AR 72756",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022",
+        "dateAdded": "12/1/2022",
         "category":[
           
         ]
@@ -30,72 +30,102 @@ router.get('/api/foodtrucklists', (req, res) => {
       {
         "name": "Foodology Food Truck",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "115 NW 2nd St, Bentonville, AR 72712",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/2/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "Burntsugars Food Truck",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "105 1st Ave SE, Gravette, AR 72736",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/4/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "Fatt Fingers",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": " 623 W Walnut St, Rogers, AR 72756",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/1/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "Roll & Fold",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "801 SE 8th St, Bentonville, AR 72712",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/6/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "Boondocks Grill",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "623 W Walnut St, Rogers, AR 72756",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/5/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "City Pump",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "623 W Walnut St, Rogers, AR 72756",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/1/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "Takashimura Hibachi - Rogers",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "623 W Walnut St, Rogers, AR 72756",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/5/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": "T-Mo's cajun Cookin",
         "description": ";lasdkjfl;sadjflsajdf",
-        "address": "1234 W Dr Rogers,AR",
+        "address": "401 S Bloomington St, Lowell, AR 72745",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "11/4/2022",
+        "category":[
+          
+        ]
       },
       {
         "name": 'new truck',
         "description": ";lasdkjfl;sadjflsajdf",
         "address": "1234 W Dr Rogers,AR",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/5/2022",
+        "category":[
+          'vegen', 'veggie', 'sandwitch'
+        ]
       },
       {
         "name": 'one more',
         "description": ";lasdkjfl;sadjflsajdf",
         "address": "1234 W Dr Rogers,AR",
         "IMG": dummyImage,
-        "dateAdded": "12/5/2022"
+        "dateAdded": "12/5/2022",
+        "category":[
+          'vegen', 'veggie'
+        ]
       }
     ]
   }
