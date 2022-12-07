@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const mongoose = require('../../dbconnection/connection');
 const User = require('../../dbconnection/models/User')
 
 /**
