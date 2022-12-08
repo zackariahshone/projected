@@ -15,7 +15,7 @@ const { Schema, model } = require('mongoose');
   },
   'dateAdded': String,
   category:{
-    array:[]
+    array: Array
   }
 });
 

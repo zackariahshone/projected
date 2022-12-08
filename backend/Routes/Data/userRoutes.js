@@ -13,8 +13,6 @@ const User = require('../../dbconnection/models/User')
     * Handle log in 
     */
    router.post('/login', (req, res) => {
-     //check user auth
-     // models.User.find({}).then((data)=>{console.log(data)})
      User.find({email: req.body.email, pwd: req.body.password})
      .then(currentUser=>{
        if(currentUser.length !== 0){
