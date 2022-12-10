@@ -9,12 +9,19 @@ export const truckSearchSlice = createSlice({
     initialState,
     reducers: {
         loadReducer: (state,action)=>{
-            // state = state;
             state.listOfTrucks = action.payload.data;
+        },
+        setCategories:(state, action)=>{
+            // state = {
+            //     ...state,
+            //     truckCategories:[...action.payload.data]
+            // }
+            state.truckCategories= action.payload.data
         }
     }
 })
 
-export const {loadReducer } = truckSearchSlice.actions
+export const {loadReducer,setCategories } = truckSearchSlice.actions
 export const truckSearchList = (state) => state.truckSearchState.listOfTrucks;
+export const truckCategories = (state) => state.truckSearchList.truckCategories;
 export default truckSearchSlice.reducer

@@ -14,9 +14,7 @@ const { Schema, model } = require('mongoose');
     type:String,
   },
   'dateAdded': String,
-  category:{
-    array: Array
-  }
+  category:[String]
 });
 
 const FoodTruck = model('Trucks', FoodTruckSchema);

@@ -15,6 +15,7 @@ const User = require('../../dbconnection/models/User')
    router.post('/login', (req, res) => {
      User.find({email: req.body.email, pwd: req.body.password})
      .then(currentUser=>{
+      console.log(currentUser);
        if(currentUser.length !== 0){
          res.send(true);
        }else{
