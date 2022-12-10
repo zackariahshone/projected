@@ -4,7 +4,6 @@ import TestingRoutes from '../../Components/RecommendedFoodTruck/recommendedFood
 const StateOfOzone =()=>{
     return (
         <h1>
-            Check Ozone
             <TestingRoutes/>
         </h1>
     )

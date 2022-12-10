@@ -23,5 +23,5 @@ export const truckSearchSlice = createSlice({
 
 export const {loadReducer,setCategories } = truckSearchSlice.actions
 export const truckSearchList = (state) => state.truckSearchState.listOfTrucks;
-export const truckCategories = (state) => state.truckSearchList.truckCategories;
+export const truckCategories = (state) => state.truckSearchState.truckCategories;
 export default truckSearchSlice.reducer
