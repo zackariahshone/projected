@@ -13,7 +13,6 @@ const RecommendedTrucks = () => {
     let textIndex = buttonColors.length;
     const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
-    console.log(userCategories);
     return (
         // <></>
         <Container>
@@ -34,7 +33,7 @@ const RecommendedTrucks = () => {
                     >{category}</button>
                 )
             })}
-        <DisplayTrucks />
+        <DisplayTrucks categories={userCategories} />
         </Container>
     );
 }
