@@ -3,6 +3,8 @@ const path = require('path');
 const routes = require('./Routes');
 const cors = require("cors");
 const bodyParser = require('body-parser')
+var session = require('express-session')
+
 require('./dbconnection/connection');
 
 // Initialize the app and create a port
@@ -13,6 +15,14 @@ const corsOptions = {
   credentials: true,            //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 }
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../client/build')));
