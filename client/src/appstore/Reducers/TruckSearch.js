@@ -12,10 +12,6 @@ export const truckSearchSlice = createSlice({
             state.listOfTrucks = action.payload.data;
         },
         setCategories:(state, action)=>{
-            // state = {
-            //     ...state,
-            //     truckCategories:[...action.payload.data]
-            // }
             state.truckCategories= action.payload.data
         }
     }
