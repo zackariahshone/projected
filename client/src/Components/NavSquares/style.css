@@ -1,9 +1,10 @@
 .navSquare{
     border-style: solid;
     border-color: black;
-    /* border-radius: 10px; */
+    border-radius: 10px;
     border-width: 1px;
     /* height: 200px; */
+    text-decoration: none;
     height:92%;
     width: 100%;
     margin-bottom: 10%;
