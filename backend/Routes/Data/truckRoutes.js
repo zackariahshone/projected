@@ -140,6 +140,11 @@ const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truc
     const truckData = await Truck.find().lean()
     res.send(truckData)
   });
+
+  router.get('/dbClean', (req, res)=>{
+    //  Truck.collection.drop();
+    //  Truck.create(listOfTrucks.listOfTrucks)
+  })
   
   module.exports = router;
  /**

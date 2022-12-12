@@ -16,7 +16,16 @@ const RecommendedTrucks = () => {
     return (
         // <></>
         <Container>
+        <div>
+
             <h1>Find Your Flavor! </h1>
+            <button 
+                className='categoryButtons'
+                onClick={()=>{
+                    setUserCategories([]);
+                }}
+            >Reset Selection</button>
+        </div>
             {Object.values(categories).map((category, i) => {
                 colorIndex++;
                 textIndex--;
