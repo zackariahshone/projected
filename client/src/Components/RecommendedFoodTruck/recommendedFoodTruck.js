@@ -17,7 +17,6 @@ const RecommendedTrucks = () => {
         // <></>
         <Container>
         <div>
-
             <h1>Find Your Flavor! </h1>
             <button 
                 className='categoryButtons'
