@@ -2,6 +2,40 @@ import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import './style.css';
 
+function SignUp() {
+    const [email, setEmail] = useState('');
+    const errorObj = { email: '', password: ''};
+    const [error, setError] = useState(errorObj);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [password, setPassword] = useState('');
+
+    function onSignUp(e) {
+        e.preventDefault();
+        let error = false;
+        const errorObj = { ...errorObj };
+        if (email === '') {
+            errorObj.email = "Please enter a valid email";
+            error = true;
+        }
+
+        if (firstName === '') {
+            errorObj.firstName = "Frist name is required";
+            error = true;
+        }
+
+        if (lastName === '') {
+            errorObj.lastName = "Last name is required";
+            error = true;
+        }
+
+        if (password === '') {
+            errorObj.password = "Password is required";
+            error = true;
+        }
+    }
+}
+
 const SignUp = () => {
     const [userData, setUserData] = useState();
     
@@ -28,6 +62,7 @@ const SignUp = () => {
 
                 <Form>
                     <Form.Group className="mb-3">
+                        {/* {emailError ? <text className="error">Please enter a valid email</text>} */}
                         <Form.Label>Email address</Form.Label>
                         <Form.Control onChange={(e)=>{
                                         setUserData({...userData,
