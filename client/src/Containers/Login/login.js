@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
@@ -13,60 +13,78 @@ const Login = () => {
   // may remove signIn/setSignIn 
   const [userCred, setUserCred] = useState();
   const [userFound, setUserFound] = useState();
+  const [loginError, setLoginError] = useState();
+  const [emailError, setEmailError] = useState();
+  const [pwdError, setPwdError] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
 
-  const thisStuff = () => {
-    fetch('/login',{
+  const getUser = () => {
+    fetch('/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:JSON.stringify(userCred),
+      body: JSON.stringify(userCred),
     })
       .then(response => response.json())
       .then(data => {
-        if(data === false){
-          setUserFound(true);
-        }else{
-          setUserFound(false)
-        }
+        console.log(data)
+        setUserFound(data);
       });
   }
 
   const handleClick = () => {
-    thisStuff()
-    if (
-      loggedInStatus === false ||
-      loggedInStatus === null ||
-      loggedInStatus === undefined || 
-      userFound === true
-    ) {
-      // setSignIn(true);
-      dispatch(login({ value: true, type: 'login' }))
-    } else if (loggedInStatus === true) {
-      // setSignIn(false);
-      dispatch(logout({ value: false, type: 'logout' }));
+    if (pwdError === false && emailError === false) {
+      getUser()
+      if (
+        loggedInStatus === false &&
+        userFound === true
+      ) {
+        dispatch(login({ value: true, type: 'login' }))
+        setLoginError(false);
+        navigate("/");
+      }
     }
   }
-
+  useEffect(() => {
+    if (
+      loggedInStatus === false &&
+      userFound === true
+    ) {
+      dispatch(login({ value: true, type: 'login' }))
+      setLoginError(false);
+      navigate("/");
+    }
+    if (userFound === false) {
+      setLoginError(true);
+    }
+  }, [userFound, loggedInStatus])
   return (
     <Container>
       <div className='loginContainer'>
+        {loginError ? <h6 className='error'>* User not found try again or create and account! </h6> : ''}
         <Form>
+          {emailError ? <text className='error'> * Email cannot be blank</text> : null}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
               onChange={(e) => {
-                setUserCred({ 
-                  ...userCred, 
-                  email: e.target.value 
-                  })
+                setUserCred({
+                  ...userCred,
+                  email: e.target.value
+                })
+                setEmailError(false);
+              }}
+              onBlur={(e) => {
+                if (e.target.value === '') {
+                  setEmailError(true)
+                }
               }}
             />
           </Form.Group>
-
+          {pwdError ? <p className='error'>*password cannot be blank</p>:null}
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -78,6 +96,12 @@ const Login = () => {
                     ...userCred,
                     password: e.target.value
                   })
+                  setPwdError(false);
+              }}
+              onBlur={(e) => {
+                if (e.target.value === '') {
+                  setPwdError(true)
+                }
               }}
             />
           </Form.Group>
@@ -88,19 +112,19 @@ const Login = () => {
             variant="primary"
             onClick={() => {
               handleClick();
-              // navigate("/");
+
             }}
           >
             Submit
           </Button>
           <Link to="/signup">
 
-        <Button  
-        className="signUp signUp-button" 
-        onClick={()=>{
-          navigate('/signup')
-        }}
-        >Sign Up Please </Button>
+            <Button
+              className="signUp signUp-button"
+              onClick={() => {
+                navigate('/signup')
+              }}
+            >Sign Up Please </Button>
           </Link>
         </Form>
       </div>

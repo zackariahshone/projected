@@ -3,6 +3,7 @@ const path = require('path');
 const routes = require('./Routes');
 const cors = require("cors");
 const bodyParser = require('body-parser')
+// require('./dbconnection/connection');
 
 // Initialize the app and create a port
 const app = express();
@@ -21,3 +22,4 @@ app.listen(PORT, () => console.log(`Listing on  port ${PORT}`));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+

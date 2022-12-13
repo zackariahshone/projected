@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import TruckSearchFilterButtons from './truckSearchFilterButtons';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { truckSearchList, loadReducer } from '../../appstore/Reducers/TruckSearch';
+import { truckSearchList, loadReducer,setCategories } from '../../appstore/Reducers/TruckSearch';
 import { getData } from '../../genUtils/requests';
 import './style.css';
 // var ctx = document.getElementById("myChart1").getContext("2d");
@@ -14,7 +14,8 @@ const FoodTruckSearch = () => {
     // dispatch(loadReducer({test:'string'}))
     useEffect(() => {
         getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
-    }, [truckList, foodTruckList]);
+        getData('api/getcategories','GET',{},setCategories,{});
+    }, [truckList]);
     useEffect(() => {
         const result = truckList?.filter(truck => truck.name.toLowerCase().includes(searchTerm.toLowerCase()));
         searchTerm !== '' ? setTruckList(result) : setTruckList(foodTruckList);
@@ -36,7 +37,7 @@ const FoodTruckSearch = () => {
                 <Row>
 
                     {
-                        truckList?.map(({ name, description, address, dateAdded,IMG }, i) => (
+                       truckList ? truckList?.map(({ name, description, address, dateAdded,IMG }, i) => (
                             <Col xs={12} md={6} lg={4} xl={4} >
 
                                 <div className='truckCard'>
@@ -59,6 +60,7 @@ const FoodTruckSearch = () => {
                                 </div>
                             </Col>
                         ))
+                    :''
                     }
                 </Row>
             </div>

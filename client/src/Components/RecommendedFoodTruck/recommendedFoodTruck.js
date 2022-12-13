@@ -1,28 +1,65 @@
 // import { data } from 'jquery';
-import { Button, Container, Form } from 'react-bootstrap';
-import { getData } from '../../genUtils/requests'
+import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import Switch from "react-switch";
+import {
+    truckCategories
+} from '../../appstore/Reducers/TruckSearch';
+import DisplayTrucks from './DisplayTruck';
+import './style.css';
+const buttonColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
 const RecommendedTrucks = () => {
+    let colorIndex = 0;
+    let textIndex = buttonColors.length;
+    const categories = useSelector(truckCategories);
+    const [userCategories, setUserCategories] = useState([]);
+    const [checked, setChecked] = useState();
     return (
         // <></>
         <Container>
-            <Form>
-                <Form.Group>
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
-                <Button
-                    title={"Push this button"}
-                    onClick={() => {
-                      getData().then((response) => {
-                        })
-                    }}
-                >
-                    Push me Please!!!
-                </Button>
-            </Form>
+            <div>
+                <Row>
+                    <Col sm={10}>
+                        <h1>Find Your Flavor! </h1>
+                    </Col>
+                    <Col>
+
+                        <button
+                            className='resetButton'
+                            onClick={() => {
+                                setUserCategories([]);
+                            }}
+                        >Reset Selection</button>
+                    </Col>
+                    <label>
+                        <Switch
+                            onChange={(setChecked)}
+                            checked={checked}
+                        />
+                    </label>
+                </Row>
+                <Row>
+                    
+                </Row>
+            </div>
+            {Object.values(categories).map((category, i) => {
+                colorIndex++;
+                textIndex--;
+                colorIndex = buttonColors.length - 1 !== colorIndex ? colorIndex : 0;
+                textIndex = textIndex !== 0 ? textIndex : buttonColors.length - 1;
+                return (
+                    <button
+                        style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}
+                        key={`catButton_${i}`}
+                        className='categoryButtons'
+                        onClick={() => {
+                            setUserCategories([...userCategories, category])
+                        }}
+                    >{category}</button>
+                )
+            })}
+            <DisplayTrucks categories={userCategories} />
         </Container>
     );
 }
