@@ -1,7 +1,8 @@
 // import { data } from 'jquery';
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import Switch from "react-switch";
 import {
     truckCategories
 } from '../../appstore/Reducers/TruckSearch';
@@ -13,35 +14,52 @@ const RecommendedTrucks = () => {
     let textIndex = buttonColors.length;
     const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
+    const [checked, setChecked] = useState();
     return (
         // <></>
         <Container>
-        <div>
-            <h1>Find Your Flavor! </h1>
-            <button 
-                className='categoryButtons'
-                onClick={()=>{
-                    setUserCategories([]);
-                }}
-            >Reset Selection</button>
-        </div>
+            <div>
+                <Row>
+                    <Col sm={10}>
+                        <h1>Find Your Flavor! </h1>
+                    </Col>
+                    <Col>
+
+                        <button
+                            className='resetButton'
+                            onClick={() => {
+                                setUserCategories([]);
+                            }}
+                        >Reset Selection</button>
+                    </Col>
+                    <label>
+                        <Switch
+                            onChange={(setChecked)}
+                            checked={checked}
+                        />
+                    </label>
+                </Row>
+                <Row>
+                    
+                </Row>
+            </div>
             {Object.values(categories).map((category, i) => {
                 colorIndex++;
                 textIndex--;
-                colorIndex = buttonColors.length !== colorIndex ? colorIndex : 0;
-                textIndex = textIndex !== 0 ? textIndex : buttonColors.length;
+                colorIndex = buttonColors.length - 1 !== colorIndex ? colorIndex : 0;
+                textIndex = textIndex !== 0 ? textIndex : buttonColors.length - 1;
                 return (
                     <button
-                        style={{backgroundColor:`${buttonColors[colorIndex]}`,color:`${buttonColors[textIndex]}`}}
+                        style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}
                         key={`catButton_${i}`}
                         className='categoryButtons'
-                        onClick={()=>{
-                         setUserCategories([...userCategories,category])
+                        onClick={() => {
+                            setUserCategories([...userCategories, category])
                         }}
                     >{category}</button>
                 )
             })}
-        <DisplayTrucks categories={userCategories} />
+            <DisplayTrucks categories={userCategories} />
         </Container>
     );
 }

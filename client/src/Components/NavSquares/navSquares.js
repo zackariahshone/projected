@@ -44,8 +44,8 @@ const NavSquares = () => {
                 {routes.map((route,x) => {
                     colorIndex++;
                 textIndex--;
-                colorIndex = squareColors.length !== colorIndex ? colorIndex : 0;
-                textIndex = textIndex !== 0 ? textIndex : squareColors.length;     
+                colorIndex = squareColors.length - 1 !== colorIndex ? colorIndex : 0;
+                textIndex = textIndex !== 0 ? textIndex : squareColors.length - 1;     
                   return(  <Col key = {`col_${x}`} xs={12} md={6} lg={4} xl={4}>
                         <div key = {`square_${x}`} 
                              className={`navSquare ${route.link}`}

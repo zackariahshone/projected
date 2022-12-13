@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container,Row,Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {_} from 'lodash';
 import {
@@ -24,6 +24,7 @@ const buttonFilters = (arr, filters)=>{
 const DisplayTrucks = ({categories}) => {
     const truckList = useSelector(truckSearchList);
     const [displayNames, setDisplayNames] =useState([]);
+    console.log(displayNames)
     useEffect(()=>{
      setDisplayNames(buttonFilters(truckList,categories))
     },[categories])
@@ -32,11 +33,20 @@ const DisplayTrucks = ({categories}) => {
         
         <div>{
             displayNames.length === 0 ? `select at least one category`:
-            <Fragment>
+            <Container>
+            <Row>
                 {displayNames.map((truck)=>(
-                    <b>{truck.name} ,</b>
+                    <Col sm={6} md={4}>
+                        <div
+                            className={'foodRecTrucks'}
+                        >
+                            <b>{truck.name}</b>
+                            <p>{truck.address}</p>
+                        </div>
+                    </Col>
                 ))}
-            </Fragment> }   
+            </Row>
+            </Container> }   
         </div>
     )
 }
