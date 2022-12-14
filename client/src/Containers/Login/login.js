@@ -14,8 +14,8 @@ const Login = () => {
   const [userCred, setUserCred] = useState();
   const [userFound, setUserFound] = useState();
   const [loginError, setLoginError] = useState();
-  const [emailError, setEmailError] = useState();
-  const [pwdError, setPwdError] = useState();
+  const [emailError, setEmailError] = useState(false);
+  const [pwdError, setPwdError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
@@ -26,9 +26,10 @@ const Login = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userCred),
     })
-      .then(response => response.json())
+      .then(response => {
+        return response.json()
+      })
       .then(data => {
-        console.log(data)
         setUserFound(data);
       });
   }
@@ -64,7 +65,7 @@ const Login = () => {
       <div className='loginContainer'>
         {loginError ? <h6 className='error'>* User not found try again or create and account! </h6> : ''}
         <Form>
-          {emailError ? <text className='error'> * Email cannot be blank</text> : null}
+          {emailError ? <p className='error'> * Email cannot be blank</p> : null}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
