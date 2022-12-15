@@ -3,7 +3,7 @@ const path = require('path');
 const routes = require('./Routes');
 const cors = require("cors");
 const bodyParser = require('body-parser')
-// require('./dbconnection/connection');
+require('./dbconnection/connection');
 
 // Initialize the app and create a port
 const app = express();
