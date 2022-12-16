@@ -1,43 +1,10 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import './style.css';
-import {validator} from './signupUtils'
-
-function SignUp() {
-    const [email, setEmail] = useState('');
-    const errorObj = { email: '', password: ''};
-    const [error, setError] = useState(errorObj);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [password, setPassword] = useState('');
-
-    function onSignUp(e) {
-        e.preventDefault();
-        let error = false;
-        const errorObj = { ...errorObj };
-        if (email === '') {
-            errorObj.email = "Please enter a valid email";
-            error = true;
-        }
-
-        if (firstName === '') {
-            errorObj.firstName = "Frist name is required";
-            error = true;
-        }
-
-        if (lastName === '') {
-            errorObj.lastName = "Last name is required";
-            error = true;
-        }
-
-        if (password === '') {
-            errorObj.password = "Password is required";
-            error = true;
-        }
-    }
-}
+import { validator } from './signupUtils'
 
 const SignUp = () => {
+    const [errorHandle, setErrorhandle] = useState();
     const [userData, setUserData] = useState();
     const handleRegister = (userInfo) => {
         fetch('signup', {
@@ -51,6 +18,7 @@ const SignUp = () => {
             console.log(response)
         ))
     }
+    // Object.keys(errorHandle)
     return (
         <Container >
             <center>
@@ -63,18 +31,18 @@ const SignUp = () => {
                     <Form.Group className="mb-3">
                         {/* {emailError ? <text className="error">Please enter a valid email</text>} */}
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control 
-                        onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'email': e.target.value
-                            })
-                            
-                        }}
-                        onBlur={(e)=>{
-                            console.log(validator(e.target.value,'email'))
-                        }}
-                         type="email" placeholder="Enter email" />
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'email': e.target.value
+                                })
+
+                            }}
+                            onBlur={(e) => {
+                                setErrorhandle({ ...errorHandle, emailError: validator(e.target.value, 'email') })
+                            }}
+                            type="email" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>First Name</Form.Label>
@@ -83,7 +51,11 @@ const SignUp = () => {
                                 ...userData,
                                 'firstName': e.target.value
                             })
-                        }} type="text" placeholder="Enter First Name" />
+                        }}
+                            onBlur={(e) => {
+                                setErrorhandle({ ...errorHandle, fnameError: validator(e.target.value, 'text') })
+                            }}
+                            type="text" placeholder="Enter First Name" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Last Name</Form.Label>
@@ -92,7 +64,11 @@ const SignUp = () => {
                                 ...userData,
                                 'lastName': e.target.value
                             })
-                        }} type="text" placeholder="Enter Last Name" />
+                        }}
+                            onBlur={(e) => {
+                                setErrorhandle({ ...errorHandle, lnameError: validator(e.target.value, 'text') })
+                            }}
+                            type="text" placeholder="Enter Last Name" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>
@@ -101,7 +77,11 @@ const SignUp = () => {
                                 ...userData,
                                 'pwd': e.target.value
                             })
-                        }} type="password" placeholder="Enter a super secret password" />
+                        }}
+                            onBlur={(e) => {
+                                setErrorhandle({ ...errorHandle, pwdError: validator(e.target.value, 'password') })
+                            }}
+                            type="password" placeholder="Enter a super secret password" />
                     </Form.Group>
                 </Form>
                 <Button

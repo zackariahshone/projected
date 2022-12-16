@@ -6,14 +6,14 @@ export const validator = (value, toBeValidated) => {
                 .match(
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 )) {
-                return false;
-            } else {
                 return true;
+            } else {
+                return false;
             }
         case 'text':
-            return value ? true : false;
+            return value ? false : true;
         case 'password':
-            return value ? true : false;
+            return value ? false : true;
         default:
             break;
     }
