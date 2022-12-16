@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
+import {  logout, isLoggedIn,currentUser } from '../../appstore/Reducers/UserReducers';
 
 import {
   Navbar,
@@ -34,6 +34,8 @@ const navLinks = [
 
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
+  const userInfo = useSelector(currentUser);
+  console.log(userInfo);
   const dispatch = useDispatch();
   return (
     <Fragment>
@@ -56,7 +58,7 @@ const TopNav = () => {
                      dispatch(logout({ value: false, type: 'logout' }));
                   }
                 }}
-                 href="/login"> {loggedInStatus ? `Sign Out` : `Sign In`} 
+                 href="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`} 
                  
               </Nav.Link>
             </Nav>
