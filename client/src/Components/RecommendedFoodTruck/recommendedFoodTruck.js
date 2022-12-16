@@ -46,8 +46,8 @@ const RecommendedTrucks = () => {
             {Object.values(categories).map((category, i) => {
                 colorIndex++;
                 textIndex--;
-                colorIndex = buttonColors.length - 1 !== colorIndex ? colorIndex : 0;
-                textIndex = textIndex !== 0 ? textIndex : buttonColors.length - 1;
+                colorIndex = buttonColors.length === colorIndex ? 0 : colorIndex;
+                textIndex = textIndex !== 0 ? textIndex : buttonColors.length;
                 return (
                     <button
                         style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}

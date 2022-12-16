@@ -5,7 +5,6 @@ import {
     Nav
 } from 'react-bootstrap'
 import './style.css';
-const squareColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
 const routes = [
     {
         name: 'Closest Food-Trucks',
@@ -34,18 +33,23 @@ const routes = [
 ];
 
 const NavSquares = () => {
+    const squareColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
     let colorIndex = 0;
-    let textIndex = squareColors.length;
+    let textIndex = squareColors.length - 1;
     return (
         <Container 
             style = {{marginTop: '10%'}}
         >
             <Row>
                 {routes.map((route,x) => {
-                    colorIndex++;
+
+                if(x > 0){
+                colorIndex++;
                 textIndex--;
-                colorIndex = squareColors.length - 1 !== colorIndex ? colorIndex : 0;
-                textIndex = textIndex !== 0 ? textIndex : squareColors.length - 1;     
+                }
+                console.log(colorIndex);
+                colorIndex = squareColors.length === colorIndex ? 0: colorIndex;
+                textIndex = textIndex !== 0 ? textIndex : squareColors.length;     
                   return(  <Col key = {`col_${x}`} xs={12} md={6} lg={4} xl={4}>
                         <div key = {`square_${x}`} 
                              className={`navSquare ${route.link}`}
