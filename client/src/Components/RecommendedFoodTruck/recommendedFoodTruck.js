@@ -8,10 +8,10 @@ import {
 } from '../../appstore/Reducers/TruckSearch';
 import DisplayTrucks from './DisplayTruck';
 import './style.css';
-const buttonColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
+const buttonColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15','#428F5A'];
 const RecommendedTrucks = () => {
     let colorIndex = 0;
-    let textIndex = buttonColors.length;
+    let textIndex = buttonColors.length-1;
     const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
@@ -44,10 +44,14 @@ const RecommendedTrucks = () => {
                 </Row>
             </div>
             {Object.values(categories).map((category, i) => {
+               if(i>0){
                 colorIndex++;
                 textIndex--;
+               }
                 colorIndex = buttonColors.length === colorIndex ? 0 : colorIndex;
-                textIndex = textIndex !== 0 ? textIndex : buttonColors.length;
+                textIndex = textIndex !== -1 ? textIndex : buttonColors.length-1;
+                console.log(`Color Index: ${colorIndex} Text Index: ${textIndex}`)  
+
                 return (
                     <button
                         style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}

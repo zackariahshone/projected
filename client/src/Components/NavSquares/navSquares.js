@@ -33,7 +33,7 @@ const routes = [
 ];
 
 const NavSquares = () => {
-    const squareColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
+    const squareColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15','#428F5A'];
     let colorIndex = 0;
     let textIndex = squareColors.length - 1;
     return (
@@ -47,9 +47,9 @@ const NavSquares = () => {
                 colorIndex++;
                 textIndex--;
                 }
-                console.log(colorIndex);
                 colorIndex = squareColors.length === colorIndex ? 0: colorIndex;
-                textIndex = textIndex !== 0 ? textIndex : squareColors.length;     
+                textIndex = textIndex === -1 ?  squareColors.length-1 : textIndex ;   
+                console.log(`Color Index: ${colorIndex} Text Index: ${textIndex}`)  
                   return(  <Col key = {`col_${x}`} xs={12} md={6} lg={4} xl={4}>
                         <div key = {`square_${x}`} 
                              className={`navSquare ${route.link}`}
