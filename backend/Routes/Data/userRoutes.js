@@ -12,16 +12,14 @@ const User = require('../../dbconnection/models/User')
    /**
     * Handle log in 
     */
-   router.post('/login', (req, res) => {
-     User.find({email: req.body.email, pwd: req.body.password})
-     .then(currentUser=>{
-      console.log(currentUser);
-       if(currentUser.length !== 0){
+   router.post('/login', async (req, res) => {
+    const currentUser = await User.find({email: req.body.email, pwd: req.body.password});
+      // send tokenized user credenctial to decode on the front end. 
+    if(currentUser.length !== 0){
          res.send(true);
        }else{
          res.send(false);
        }
-     })
    });
    
    module.exports = router;

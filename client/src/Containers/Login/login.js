@@ -5,7 +5,7 @@ import {
   Button,
   Form
 } from 'react-bootstrap';
-import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
+import { login, isLoggedIn,userData } from '../../appstore/Reducers/UserReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
 const Login = () => {
@@ -14,8 +14,8 @@ const Login = () => {
   const [userCred, setUserCred] = useState();
   const [userFound, setUserFound] = useState();
   const [loginError, setLoginError] = useState();
-  const [emailError, setEmailError] = useState();
-  const [pwdError, setPwdError] = useState();
+  const [emailError, setEmailError] = useState(false);
+  const [pwdError, setPwdError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
@@ -26,18 +26,22 @@ const Login = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userCred),
     })
-      .then(response => response.json())
+      .then(response => {
+        return response.json()
+      })
       .then(data => {
-        console.log(data)
+        dispatch(userData(data))
         setUserFound(data);
       });
   }
 
   const handleClick = () => {
+    console.log(`loggedInStatus ${loggedInStatus}, userFound ${userFound} `)
     if (pwdError === false && emailError === false) {
       getUser()
       if (
-        loggedInStatus === false &&
+       ( loggedInStatus === false || 
+        loggedInStatus === undefined) &&
         userFound === true
       ) {
         dispatch(login({ value: true, type: 'login' }))
@@ -48,8 +52,9 @@ const Login = () => {
   }
   useEffect(() => {
     if (
-      loggedInStatus === false &&
-      userFound === true
+     ( loggedInStatus === false || 
+       loggedInStatus === undefined) &&
+       userFound === true
     ) {
       dispatch(login({ value: true, type: 'login' }))
       setLoginError(false);
@@ -62,9 +67,9 @@ const Login = () => {
   return (
     <Container>
       <div className='loginContainer'>
-        {loginError ? <h6 className='error'>* User not found try again or create and account! </h6> : ''}
+        {loginError ? <p className='error'>* User not found try again or create and account! </p> : null}
         <Form>
-          {emailError ? <text className='error'> * Email cannot be blank</text> : null}
+          {emailError ? <p className='error'> * Not an email</p> : null}
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -78,9 +83,15 @@ const Login = () => {
                 setEmailError(false);
               }}
               onBlur={(e) => {
-                if (e.target.value === '') {
+                
+                if (!String(e.target.value)
+                      .toLowerCase()
+                      .match(
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                  )) {
                   setEmailError(true)
                 }
+                console.log()
               }}
             />
           </Form.Group>
@@ -100,6 +111,8 @@ const Login = () => {
               }}
               onBlur={(e) => {
                 if (e.target.value === '') {
+
+
                   setPwdError(true)
                 }
               }}
