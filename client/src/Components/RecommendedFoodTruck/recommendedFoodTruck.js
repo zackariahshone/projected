@@ -7,11 +7,12 @@ import {
     truckCategories
 } from '../../appstore/Reducers/TruckSearch';
 import DisplayTrucks from './DisplayTruck';
+import {DisplayCategories} from './DisplayButtonCategories';
 import './style.css';
-const buttonColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15','#428F5A'];
+import { colorArray } from '../../GlobalConstanst';
 const RecommendedTrucks = () => {
     let colorIndex = 0;
-    let textIndex = buttonColors.length-1;
+    let textIndex = colorArray.length-1;
     const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
@@ -43,26 +44,7 @@ const RecommendedTrucks = () => {
                     
                 </Row>
             </div>
-            {Object.values(categories).map((category, i) => {
-               if(i>0){
-                colorIndex++;
-                textIndex--;
-               }
-                colorIndex = buttonColors.length === colorIndex ? 0 : colorIndex;
-                textIndex = textIndex !== -1 ? textIndex : buttonColors.length-1;
-                console.log(`Color Index: ${colorIndex} Text Index: ${textIndex}`)  
-
-                return (
-                    <button
-                        style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}
-                        key={`catButton_${i}`}
-                        className='categoryButtons'
-                        onClick={() => {
-                            setUserCategories([...userCategories, category])
-                        }}
-                    >{category}</button>
-                )
-            })}
+            <DisplayCategories setUserCategories={setUserCategories} userCategories = {userCategories}/>
             <DisplayTrucks categories={userCategories} />
         </Container>
     );

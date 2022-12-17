@@ -30,7 +30,6 @@ const Login = () => {
         return response.json()
       })
       .then(data => {
-        console.log(data)
         dispatch(setUserData({...data}))
         setUserFound(data.token);
       });
@@ -91,7 +90,6 @@ const Login = () => {
                   )) {
                   setEmailError(true)
                 }
-                console.log()
               }}
             />
           </Form.Group>
