@@ -7,6 +7,8 @@ import Login from './Containers/Login/login';
 import SignUp from './Containers/Signup/signup'
 import { VendorPortal } from './Containers/VendorPortal/vendorPortal.js'
 import { ERRORPage } from './Components/Error/error'
+
+
 export const colorArray = ['#80B0A4', '#D04F2C', '#D9AC36', '#431E15', '#428F5A', '#D6742B'];
 export const DUMMY_IMG = 'https://media.istockphoto.com/id/1301655857/vector/food-truck-illustration.jpg?s=1024x1024&w=is&k=20&c=GVgNLfVIJFCwH70eMQZd5dRvNbP0F7WcixupUFJtl6g=';
 

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { DisplayCategories } from "../../Components/RecommendedFoodTruck/DisplayButtonCategories";
+import {
+    Container,
+    Form,
+    Button,
+    Row
+} from "react-bootstrap";
 import './style.css';
-import {validator} from './signupUtils'
-
+import { validator } from './signupUtils'
 const SignUp = () => {
     const [userData, setUserData] = useState();
+    const [userCategories, setUserCategories] = useState([]);
+    console.log(userCategories);
     const handleRegister = (userInfo) => {
         fetch('signup', {
             method: 'POST', // or 'PUT'
@@ -28,18 +35,18 @@ const SignUp = () => {
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control 
-                        onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'email': e.target.value
-                            })
-                            
-                        }}
-                        onBlur={(e)=>{
-                            console.log(validator(e.target.value,'email'))
-                        }}
-                         type="email" placeholder="Enter email" />
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'email': e.target.value
+                                })
+
+                            }}
+                            onBlur={(e) => {
+                                console.log(validator(e.target.value, 'email'))
+                            }}
+                            type="email" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>First Name</Form.Label>
@@ -66,15 +73,21 @@ const SignUp = () => {
                                 ...userData,
                                 'pwd': e.target.value
                             })
+                             console.log({...userData,category:userCategories})
                         }} type="password" placeholder="Enter a super secret password" />
                     </Form.Group>
                 </Form>
-                <radioButton/>
+                <Container>
+                    <div>
+                        <label>Which foods are you looking for?</label>
+                    </div>
+                    <DisplayCategories setUserCategories = {setUserCategories} userCategories = {userCategories}/>
+                </Container>
                 <Button
+                    className="signUpButton"
                     value={`Get Registered! `}
                     onClick={() => {
-                        console.log(userData)
-                        handleRegister(userData);
+                        handleRegister({...userData,category:userCategories});
                     }}
                 >Get Registered!!!</Button>
             </div>

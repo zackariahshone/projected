@@ -13,7 +13,7 @@ const { Schema, model } = require('mongoose');
   IMG:{
     type:String,
   },
-  'dateAdded': String,
+  dateAdded: String,
   category:[String]
 });
 

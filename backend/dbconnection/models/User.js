@@ -13,6 +13,7 @@ const { Schema, model } = require('mongoose');
   pwd:{
     type:String,
   },
+  category:[String]
 });
 
 const User = model('User', UserSchema);

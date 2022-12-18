@@ -9,8 +9,8 @@ import { colorArray } from '../../GlobalConstanst';
 
 export const DisplayCategories =({setUserCategories,userCategories})=>{
     const categories = useSelector(truckCategories);
-     let colorIndex = 0;
-     let textIndex = colorArray.length-1;
+    let colorIndex = 0;
+    let textIndex = colorArray.length-1;
      return (
 
          Object.values(categories).map((category, i) => {
@@ -25,8 +25,10 @@ export const DisplayCategories =({setUserCategories,userCategories})=>{
                  style={{ backgroundColor: `${colorArray[colorIndex]}`, color: `${colorArray[textIndex]}` }}
                  key={`catButton_${i}`}
                  className='categoryButtons'
-                 onClick={() => {
+                 onClick={(e) => {
+                    if(!userCategories.includes(category)){
                      setUserCategories([...userCategories, category])
+                    }
                  }}
              >{category}</button>
          )

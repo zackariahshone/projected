@@ -6,3 +6,9 @@
     width:50%;
 
 }
+
+.signUpButton{
+    margin-top: 10%;
+    border-radius: 25px !important; 
+    background-color: #D6742B !important;
+}

@@ -1,8 +1,10 @@
 // import { data } from 'jquery';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Switch from "react-switch";
+import { currentUser } from '../../appstore/Reducers/UserReducers';
+
 import {
     truckCategories
 } from '../../appstore/Reducers/TruckSearch';
@@ -16,8 +18,15 @@ const RecommendedTrucks = () => {
     const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
+    const userInfo = useSelector(currentUser);
+
+    useEffect(()=>{
+        if(checked){
+            setUserCategories(userInfo.category)
+        }
+    });
+
     return (
-        // <></>
         <Container>
             <div>
                 <Row>
@@ -44,7 +53,7 @@ const RecommendedTrucks = () => {
                     
                 </Row>
             </div>
-            <DisplayCategories setUserCategories={setUserCategories} userCategories = {userCategories}/>
+            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked?userInfo.category :userCategories} />
             <DisplayTrucks categories={userCategories} />
         </Container>
     );
