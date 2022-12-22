@@ -1,9 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container,Row,Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {_} from 'lodash';
 import {
-    truckCategories,
     truckSearchList
 } from '../../appstore/Reducers/TruckSearch';
 import './style.css';

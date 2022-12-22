@@ -1,31 +1,21 @@
-// import { data } from 'jquery';
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Switch from "react-switch";
 import { currentUser } from '../../appstore/Reducers/UserReducers';
-
-import {
-    truckCategories
-} from '../../appstore/Reducers/TruckSearch';
 import DisplayTrucks from './DisplayTruck';
 import {DisplayCategories} from './DisplayButtonCategories';
 import './style.css';
-import { colorArray } from '../../GlobalConstanst';
 const RecommendedTrucks = () => {
-    let colorIndex = 0;
-    let textIndex = colorArray.length-1;
-    const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
     const userInfo = useSelector(currentUser);
 
     useEffect(()=>{
-        if(checked){
+        if(checked && userInfo.category){
             setUserCategories(userInfo.category)
         }
     });
-
     return (
         <Container>
             <div>
@@ -34,7 +24,6 @@ const RecommendedTrucks = () => {
                         <h1>Find Your Flavor! </h1>
                     </Col>
                     <Col>
-
                         <button
                             className='resetButton'
                             onClick={() => {
