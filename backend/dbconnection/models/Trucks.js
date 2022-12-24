@@ -1,3 +1,4 @@
+const { isInteger } = require('lodash');
 const { Schema, model } = require('mongoose');
 
  const FoodTruckSchema = new Schema({
@@ -14,7 +15,11 @@ const { Schema, model } = require('mongoose');
     type:String,
   },
   dateAdded: String,
-  category:[String]
+  category:[String],
+  coordinates:
+  {
+    type:Object
+  }
 });
 
 const FoodTruck = model('Trucks', FoodTruckSchema);
