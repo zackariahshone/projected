@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './style.css'
-if(process.env.NODE_ENV !== production){   
+ 
     const GOOGLE_MAPS_API =  require('../../hiddenvariable').GOOGLE_MAPS_API;
-} 
+
 const googleKey = GOOGLE_MAPS_API ? GOOGLE_MAPS_API:process.env.GOOGLE_MAPS_API;
 console.log(googleKey)
 export function CustomMap({ google }) {
