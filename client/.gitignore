@@ -10,7 +10,6 @@
 
 # production
 /build
-hiddenvariable.js
 # misc
 .DS_Store
 .env.local
