@@ -5,11 +5,7 @@ import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import {GOOGLE_MAPS_API} from "../../hiddenvariable";
 import './style.css'
-// const { env } = require('process');
 
-// require('dotenv').config()
-
-// console.log(process.GOOGLE_MAPS_API)
 const googleKey = GOOGLE_MAPS_API ? GOOGLE_MAPS_API:process.env.GOOGLE_MAPS_API;
 console.log(googleKey)
 export function CustomMap({ google }) {
@@ -57,42 +53,5 @@ export function CustomMap({ google }) {
 };
 
 export default GoogleApiWrapper({
-    // apiKey: process.env.GOOGLE_API_KEY
     apiKey: googleKey
 })(CustomMap);
-
-// export const FoodTrucksNearBy = () => {
-//     const markerSet = [];
-//     const foodTruckList = useSelector(truckSearchList)
-//     foodTruckList.forEach((truck) => {
-//         console.log(truck);
-//         const { lat, lon } = truck.coordinates;
-//         markerSet.push(
-//             {
-//                 markerOffset: -15,
-//                 name: truck.name,
-//                 coordinates: [lon, lat]
-//             }
-//         )
-
-//     })
-
-//     return (
-//         <Container>
-//             <Map google={google} zoom={14}>
-
-//                 <Marker onClick={onMarkerClick}
-//                     name={'Current location'} />
-
-//                 <InfoWindow onClose={this.onInfoWindowClose}>
-//                     <div>
-//                         <h1>{this.state.selectedPlace.name}</h1>
-//                     </div>
-//                 </InfoWindow>
-//             </Map>
-//         </Container>
-//     )
-// };
-
-
-// export default FoodTrucksNearBy;
