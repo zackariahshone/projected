@@ -7,7 +7,7 @@ import './style.css'
  
     const GOOGLE_MAPS_API =  require('../../hiddenvariable').GOOGLE_MAPS_API;
 
-const googleKey = GOOGLE_MAPS_API ? GOOGLE_MAPS_API:process.env.GOOGLE_MAPS_API;
+const googleKey = process.env.GOOGLE_MAPS_API;
 console.log(googleKey)
 export function CustomMap({ google }) {
     // console.log(window);
