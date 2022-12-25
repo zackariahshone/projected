@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // mongodb+srv://ZackShone:1234@clustertruck.dvwuahh.mongodb.net/?retryWrites=true&w=majority
-const connectionString = 'mongodb+srv://ZackShone:1234@clustertruck.dvwuahh.mongodb.net/?retryWrites=true&w=majority'
+const connectionString = process.env.MONGO_CONNECTION //'mongodb+srv://ZackShone:1234@clustertruck.dvwuahh.mongodb.net/?retryWrites=true&w=majority'
 const connection = mongoose.connect(connectionString);
 
 // mongoose.set('useCreateIndex', true);
