@@ -3,18 +3,21 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-
-
+import {GOOGLE_MAPS_API} from "../../hiddenvariable";
 import './style.css'
-const googleKey = 'AIzaSyBeVD6oESOY60Vzb4LWTWHfzwXfVQxM-Ik';
+// const { env } = require('process');
 
+// require('dotenv').config()
 
+// console.log(process.GOOGLE_MAPS_API)
+const googleKey = GOOGLE_MAPS_API ? GOOGLE_MAPS_API:process.env.GOOGLE_MAPS_API;
+console.log(googleKey)
 export function CustomMap({ google }) {
-
+    // console.log(window);
+    // process.env.GOOGLE_MAPS_API;
     const markerSet = [];
     const foodTruckList = useSelector(truckSearchList)
     foodTruckList.forEach((truck) => {
-        console.log(truck);
         const { lat, lon } = truck.coordinates;
         markerSet.push({ lat: lat, lng: lon })
     })
