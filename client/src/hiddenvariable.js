@@ -1,1 +1,0 @@
-export const GOOGLE_MAPS_API = 'AIzaSyBeVD6oESOY60Vzb4LWTWHfzwXfVQxM-Ik'

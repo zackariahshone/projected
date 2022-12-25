@@ -4,14 +4,11 @@ import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './style.css'
- 
-    const GOOGLE_MAPS_API =  require('../../hiddenvariable').GOOGLE_MAPS_API;
-
-const googleKey = process.env.GOOGLE_MAPS_API;
-console.log(googleKey)
+// const ckey = require('ckey')
+// console.log(process.config);
+const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
+console.log(googleKey);
 export function CustomMap({ google }) {
-    // console.log(window);
-    // process.env.GOOGLE_MAPS_API;
     const markerSet = [];
     const foodTruckList = useSelector(truckSearchList)
     foodTruckList.forEach((truck) => {
