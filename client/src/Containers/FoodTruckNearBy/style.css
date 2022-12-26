@@ -14,3 +14,7 @@
     margin-bottom: 2%;
     display: inline;
 }
+.mapPin{
+    height: 9px;
+    width: 9px;
+}

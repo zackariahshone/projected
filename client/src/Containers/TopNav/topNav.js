@@ -1,7 +1,7 @@
-import { Fragment, useState } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
-import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
-
+import { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, isLoggedIn, currentUser } from '../../appstore/Reducers/UserReducers';
+import { ROUTES } from '../../GlobalConstanst';
 import {
   Navbar,
   Container,
@@ -9,31 +9,10 @@ import {
 } from 'react-bootstrap'
 
 
-const navLinks = [
-  {
-    link: '/foodtrucksnearby',
-    title: 'Closest Food-Truck'
-  },
-  {
-    link: '/newfoodtrucks',
-    title: 'New Food-Trucks'
-  },
-  {
-    link: '/trucksearch',
-    title: 'Food-Truck Search'
-  },
-  {
-    link: '/recommendedtrucks',
-    title: 'Recommended For You!!'
-  },
-  {
-    link:'neverland',
-    title: 'new box'
-  }
-]
-
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
+  const userInfo = useSelector(currentUser);
+  console.log(userInfo);
   const dispatch = useDispatch();
   return (
     <Fragment>
@@ -45,19 +24,25 @@ const TopNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {navLinks.map((nav,x) => (
-                <Nav.Link key = {`nav_${x}`} href={nav.link}>{nav.title}</Nav.Link>
-              ))}
+              {ROUTES.map((nav, x) => {
+                /**
+                 * check status of user and route in order to expose
+                 */
+                if (nav.protected && !loggedInStatus) {
+                  return;
+                }
+                return <Nav.Link key={`nav_${x}`} href={nav.link}>{nav.name}</Nav.Link>
+              })}
             </Nav>
             <Nav className="justify-content-end">
               <Nav.Link
-                onClick={()=>{
-                  if(loggedInStatus){
-                     dispatch(logout({ value: false, type: 'logout' }));
+                onClick={() => {
+                  if (loggedInStatus) {
+                    dispatch(logout({ value: false, type: 'logout' }));
                   }
                 }}
-                 href="/login"> {loggedInStatus ? `Sign Out` : `Sign In`} 
-                 
+                href="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`}
+
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

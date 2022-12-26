@@ -1,4 +1,18 @@
 .categoryButtons{
     border-radius: 25px;
-    text-size-adjust: auto;
+    font-size: smaller;
+}
+.resetButton{
+    font-size:small;
+    border-radius:25px;
+}
+.foodRecTrucks{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 25px;
+    margin:2%;
+    padding:2%;
+    /* text-size-adjust: auto; */
+    font-size:small
 }
