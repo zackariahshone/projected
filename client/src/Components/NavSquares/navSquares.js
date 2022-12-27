@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ Fragment }from 'react';
 import { useSelector } from 'react-redux';
 import {
     Col,
@@ -22,7 +22,9 @@ const NavSquares = () => {
             <Row>
                 {ROUTES.map((route, x) => {
                     if (route.protected && !loggedInStatus) {
-                        return;
+                        return<Fragment
+                            key={`${x}_squareFrag`}
+                        />;
                     }
                     if (x > 0) {
                         colorIndex++;

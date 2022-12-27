@@ -11,8 +11,9 @@ export const userSlice = createSlice({
         state.isLoggedIn = action.payload.value
     },
     logout: (state,action) => {
+      console.log(state.userState);
         state.isLoggedIn = action.payload.value
-        state.userData = {}
+        state.userData = null
     
     },
     setUserData:(state,action)=>{

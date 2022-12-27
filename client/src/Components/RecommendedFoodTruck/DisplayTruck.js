@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container,Row,Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import {_} from 'lodash';
 import {
     truckSearchList
 } from '../../appstore/Reducers/TruckSearch';

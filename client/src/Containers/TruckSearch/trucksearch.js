@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TruckSearchFilterButtons from './truckSearchFilterButtons';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -38,11 +38,15 @@ const FoodTruckSearch = () => {
 
                     {
                        truckList ? truckList?.map(({ name, description, address, dateAdded,IMG }, i) => (
-                            <Col xs={12} md={6} lg={4} xl={4} >
+                            <Col key={`${i}_COl1`} xs={12} md={6} lg={4} xl={4} >
 
-                                <div className='truckCard'>
-                            <Row>
-                            <Col>
+                                <div key={`${i}_div1`} className='truckCard'>
+                            <Row
+                                key={`${i}_ROW1`}
+                            >
+                            <Col
+                                key={`${i}_Col2`}
+                            >
 
                                     <li key={`${i}_truckname`}>
                                         {name}
@@ -51,9 +55,13 @@ const FoodTruckSearch = () => {
                                     <p> <b>here we are:</b> {address}</p>
                                     <p> <b>been on app since:</b> {dateAdded}</p>
                             </Col>
-                            <Col>
-                                <div className='mockBox'>
-                                    <img className='mockImg' src={IMG} alt='foodtruck_image'/>
+                            <Col
+                                key={`${i}_COl3`}
+                            >
+                                <div 
+                                    key={`${i}_div2`}
+                                    className='mockBox'>
+                                    <img key={`${i}_img1`} className='mockImg' src={IMG} alt='foodtruck_image'/>
                                 </div>
                             </Col>
                             </Row>

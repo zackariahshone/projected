@@ -31,7 +31,7 @@ const SignUp = () => {
         <Container >
             <center>
                 <h1>Lets get Truckin`! </h1>
-                <h2>sign up here</h2>
+                <h2>{loggedInStatus?`edit user here`:`sign up here`}</h2>
             </center>
             <div className='signup-container'>
 

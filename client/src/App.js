@@ -19,10 +19,11 @@ function App() {
     <Fragment>
       <TopNav />
       <Routes>
-        {BROWSER_ROUTER_CONFIGS.map((route) => {
+        {BROWSER_ROUTER_CONFIGS.map((route,i) => {
           const Element = route.element;
           return (
             <Route
+              key={`${route}_${i}`}
               path={route.path}
               element={<Element/>}
             />

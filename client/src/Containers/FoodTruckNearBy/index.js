@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './style.css'
 // const ckey = require('ckey')
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;

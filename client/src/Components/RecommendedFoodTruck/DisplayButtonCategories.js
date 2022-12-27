@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import {
     truckCategories

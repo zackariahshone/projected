@@ -22,7 +22,6 @@ const TopNav = () => {
   useEffect(()=>{
 
   },[selected])
-  const ProfileIcon = <CgProfile />
   return (
     <Fragment>
 
@@ -37,9 +36,10 @@ const TopNav = () => {
                 /**
                  * check status of user and route in order to expose
                  */
-                 {/* let selected = '';  */}
                 if (nav.protected && !loggedInStatus) {
-                  return;
+                  return <Fragment
+                    key={`${x}_fragment`}
+                  />;
                 }
                 return <Nav.Link
                   onClick={()=>{
@@ -61,7 +61,7 @@ const TopNav = () => {
                   }
                 }}
                 as={Link}
-                to="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`}
+                to="/login"> {loggedInStatus ? `Hi ${userInfo?.firstName}! Sign Out Here` : `Sign In`}
               </Nav.Link>
             </Nav>
               {loggedInStatus ? <CgProfile
