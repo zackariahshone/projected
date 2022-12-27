@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DisplayCategories } from "../../Components/RecommendedFoodTruck/DisplayButtonCategories";
+import { useSelector } from 'react-redux';
 import {
     Container,
     Form,
@@ -8,9 +9,13 @@ import {
 } from "react-bootstrap";
 import './style.css';
 import { validator } from './signupUtils'
+import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
+
 const SignUp = () => {
     const [userData, setUserData] = useState();
     const [userCategories, setUserCategories] = useState([]);
+    const loggedInStatus = useSelector(isLoggedIn);
+    const handleEdit=()=>{};
     const handleRegister = (userInfo) => {
         fetch('signup', {
             method: 'POST', // or 'PUT'
@@ -81,6 +86,7 @@ const SignUp = () => {
                     </div>
                     <DisplayCategories setUserCategories = {setUserCategories} userCategories = {userCategories}/>
                 </Container>
+                {!loggedInStatus?
                 <Button
                     className="signUpButton"
                     value={`Get Registered! `}
@@ -88,6 +94,14 @@ const SignUp = () => {
                         handleRegister({...userData,category:userCategories});
                     }}
                 >Get Registered!!!</Button>
+                :<Button
+                    className="signUpButton"
+                    value={`Get Registered! `}
+                    onClick={() => {
+                        handleEdit()
+                    }}
+                >Edit Profile</Button>
+                }
             </div>
         </Container>
     )

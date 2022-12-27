@@ -5,7 +5,7 @@ import {
   Button,
   Form
 } from 'react-bootstrap';
-import { login, isLoggedIn,setUserData } from '../../appstore/Reducers/UserReducers';
+import { login, isLoggedIn, setUserData } from '../../appstore/Reducers/UserReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
 import authHeader from '../../userServices/authHeader'
