@@ -1,71 +1,51 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {
     Col,
     Row,
     Container,
     Nav
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import './style.css';
-const routes = [
-    {
-        name: 'Closest Food-Trucks',
-        link: "foodtrucksnearby",
-    },
-    {
-        name: 'New Food-Trucks',
-        link: "newfoodtrucks"
-    },
-    {
-        name: 'Food-Truck Search',
-        link: "trucksearch"
-    },
-    {
-        name: 'Recommended For You!',
-        link: "recommendedtrucks"
-    },
-    {
-        name:'new square',
-        link: 'newlink'
-    },
-    {
-        name:'newbox',
-        link:'linkto_neverland'
-    }
-];
+import { colorArray, ROUTES } from '../../GlobalConstanst';
+import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
 
 const NavSquares = () => {
-    const squareColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
     let colorIndex = 0;
-    let textIndex = squareColors.length - 1;
+    let textIndex = colorArray.length - 1;
+    const loggedInStatus = useSelector(isLoggedIn);
+
     return (
-        <Container 
-            style = {{marginTop: '10%'}}
+        <Container
+            style={{ marginTop: '10%' }}
         >
             <Row>
-                {routes.map((route,x) => {
-
-                if(x > 0){
-                colorIndex++;
-                textIndex--;
-                }
-                console.log(colorIndex);
-                colorIndex = squareColors.length === colorIndex ? 0: colorIndex;
-                textIndex = textIndex !== 0 ? textIndex : squareColors.length;     
-                  return(  <Col key = {`col_${x}`} xs={12} md={6} lg={4} xl={4}>
-                        <div key = {`square_${x}`} 
-                             className={`navSquare ${route.link}`}
-                             style={{backgroundColor:`${squareColors[colorIndex]}`}}
-                             >
-                            <Nav.Link key = {`square_link_${x}`} 
-                                      href={route.link}
-                                      style={{textDecoration:'none','color':`${squareColors[textIndex]}`}}
-                                      >
-                                <div key = {`square_info_${x}`} className= "squareText">
+                {ROUTES.map((route, x) => {
+                    if (route.protected && !loggedInStatus) {
+                        return;
+                    }
+                    if (x > 0) {
+                        colorIndex++;
+                        textIndex--;
+                    }
+                    colorIndex = colorArray.length === colorIndex ? 0 : colorIndex;
+                    textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
+                    return (<Col key={`col_${x}`} xs={12} md={6} lg={3} xl={3}>
+                        <div key={`square_${x}`}
+                            className={`navSquare ${route.link}`}
+                            style={{ backgroundColor: `${colorArray[colorIndex]}` }}
+                        >
+                            <Nav.Link key={`square_link_${x}`}
+                                href={route.link}
+                                style={{ textDecoration: 'none', 'color': `${colorArray[textIndex]}` }}
+                            >
+                                <div key={`square_info_${x}`} className="squareText">
                                     {route.name}
                                 </div>
                             </Nav.Link>
                         </div>
                     </Col>
-                  )
+                    )
                 })}
             </Row>
         </Container>

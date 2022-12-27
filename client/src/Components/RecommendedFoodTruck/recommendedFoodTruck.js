@@ -1,22 +1,22 @@
-// import { data } from 'jquery';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Switch from "react-switch";
-import {
-    truckCategories
-} from '../../appstore/Reducers/TruckSearch';
+import { currentUser } from '../../appstore/Reducers/UserReducers';
 import DisplayTrucks from './DisplayTruck';
+import {DisplayCategories} from './DisplayButtonCategories';
 import './style.css';
-const buttonColors = ['#80B0A4', '#D04F2C', '#D9AC36', '#D6742B', '#431E15'];
 const RecommendedTrucks = () => {
-    let colorIndex = 0;
-    let textIndex = buttonColors.length;
-    const categories = useSelector(truckCategories);
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
+    const userInfo = useSelector(currentUser);
+
+    useEffect(()=>{
+        if(checked && userInfo.category){
+            setUserCategories(userInfo.category)
+        }
+    });
     return (
-        // <></>
         <Container>
             <div>
                 <Row>
@@ -24,7 +24,6 @@ const RecommendedTrucks = () => {
                         <h1>Find Your Flavor! </h1>
                     </Col>
                     <Col>
-
                         <button
                             className='resetButton'
                             onClick={() => {
@@ -43,22 +42,7 @@ const RecommendedTrucks = () => {
                     
                 </Row>
             </div>
-            {Object.values(categories).map((category, i) => {
-                colorIndex++;
-                textIndex--;
-                colorIndex = buttonColors.length === colorIndex ? 0 : colorIndex;
-                textIndex = textIndex !== 0 ? textIndex : buttonColors.length;
-                return (
-                    <button
-                        style={{ backgroundColor: `${buttonColors[colorIndex]}`, color: `${buttonColors[textIndex]}` }}
-                        key={`catButton_${i}`}
-                        className='categoryButtons'
-                        onClick={() => {
-                            setUserCategories([...userCategories, category])
-                        }}
-                    >{category}</button>
-                )
-            })}
+            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked?userInfo.category :userCategories} />
             <DisplayTrucks categories={userCategories} />
         </Container>
     );

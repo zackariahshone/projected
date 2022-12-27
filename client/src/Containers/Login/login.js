@@ -5,9 +5,11 @@ import {
   Button,
   Form
 } from 'react-bootstrap';
-import { login, isLoggedIn,userData } from '../../appstore/Reducers/UserReducers';
+import { login, isLoggedIn, setUserData } from '../../appstore/Reducers/UserReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
+import authHeader from '../../userServices/authHeader'
+import localStorage from 'redux-persist/es/storage';
 const Login = () => {
 
   // may remove signIn/setSignIn 
@@ -23,20 +25,25 @@ const Login = () => {
   const getUser = () => {
     fetch('/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: 
+        { 
+          'Content-Type': 'application/json',
+          'x-access-token': authHeader(userCred).toString()
+        },
       body: JSON.stringify(userCred),
     })
       .then(response => {
         return response.json()
       })
       .then(data => {
-        dispatch(userData(data))
-        setUserFound(data);
+        console.log(data);
+        dispatch(setUserData({...data}))
+        setUserFound(data.token);
+        localStorage.setItem('authToken',data.authToken)
       });
   }
 
   const handleClick = () => {
-    console.log(`loggedInStatus ${loggedInStatus}, userFound ${userFound} `)
     if (pwdError === false && emailError === false) {
       getUser()
       if (
@@ -91,7 +98,6 @@ const Login = () => {
                   )) {
                   setEmailError(true)
                 }
-                console.log()
               }}
             />
           </Form.Group>
@@ -117,9 +123,6 @@ const Login = () => {
                 }
               }}
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
           <Button
             variant="primary"

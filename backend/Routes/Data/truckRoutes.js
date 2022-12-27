@@ -3,7 +3,7 @@ const { set } = require('mongoose');
 const Categories = require('../../dbconnection/models/Categories');
 const Truck = require('../../dbconnection/models/Trucks');
 const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truck-illustration.jpg?s=1024x1024&w=is&k=20&c=GVgNLfVIJFCwH70eMQZd5dRvNbP0F7WcixupUFJtl6g=';
-
+const nodeGeocoder = require('node-geocoder');
 
     const listOfTrucks = {
   'listOfTrucks': [
@@ -141,9 +141,30 @@ const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truc
     res.send(truckData)
   });
 
-  router.get('/dbClean', (req, res)=>{
+  router.get('/dbClean', async (req, res)=>{
+    //drop the truck collection
     //  Truck.collection.drop();
+    //create list of trucks off of dummy data
     //  Truck.create(listOfTrucks.listOfTrucks)
+    //
+    let options = {
+      provider: 'openstreetmap'
+    };
+    const geoCoder = nodeGeocoder(options);
+    const truckData = await Truck.find().lean()
+    truckData.forEach(async (truck) =>{
+      const location = await geoCoder.geocode(truck.address);
+      const truckCoord = {
+        coordinates:
+          {
+            lat:location[0]?.latitude,
+            lon:location[0]?.longitude
+          }
+      }
+    //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
+    })
+    // const _truckData = await Truck.find().lean()
+    res.send(truckData)
   })
   
   module.exports = router;

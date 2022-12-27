@@ -1,40 +1,28 @@
-import { Fragment, useState } from 'react';
-import { useSelector,useDispatch } from 'react-redux';
-import { login, logout, isLoggedIn } from '../../appstore/Reducers/UserReducers';
-
+import { Fragment , useEffect, useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, isLoggedIn, currentUser } from '../../appstore/Reducers/UserReducers';
+import { ROUTES } from '../../GlobalConstanst';
 import {
   Navbar,
   Container,
   Nav,
 } from 'react-bootstrap'
+import { CgProfile } from 'react-icons/cg';
 
-
-const navLinks = [
-  {
-    link: '/foodtrucksnearby',
-    title: 'Closest Food-Truck'
-  },
-  {
-    link: '/newfoodtrucks',
-    title: 'New Food-Trucks'
-  },
-  {
-    link: '/trucksearch',
-    title: 'Food-Truck Search'
-  },
-  {
-    link: '/recommendedtrucks',
-    title: 'Recommended For You!!'
-  },
-  {
-    link:'neverland',
-    title: 'new box'
-  }
-]
-
+import './style.css';
+const token = localStorage.getItem('authToken')
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
+  const userInfo = useSelector(currentUser);
   const dispatch = useDispatch();
+  const [selected, setSelected]= useState();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+
+  },[selected])
+  const ProfileIcon = <CgProfile />
   return (
     <Fragment>
 
@@ -45,22 +33,43 @@ const TopNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {navLinks.map((nav,x) => (
-                <Nav.Link key = {`nav_${x}`} href={nav.link}>{nav.title}</Nav.Link>
-              ))}
+              {ROUTES.map((nav, x) => {
+                /**
+                 * check status of user and route in order to expose
+                 */
+                 {/* let selected = '';  */}
+                if (nav.protected && !loggedInStatus) {
+                  return;
+                }
+                return <Nav.Link
+                  onClick={()=>{
+                    setSelected(nav.name)
+                  }}
+                  key={`nav_${x}`}
+                  as = {Link}
+                  to={nav.link}
+                  className={selected === nav.name ? 'active' : ''}
+                >{nav.name}</Nav.Link>
+              })}
             </Nav>
             <Nav className="justify-content-end">
               <Nav.Link
-                onClick={()=>{
-                  if(loggedInStatus){
-                     dispatch(logout({ value: false, type: 'logout' }));
+                onClick={() => {
+                  if (loggedInStatus && token) {
+                    dispatch(logout({ value: false, type: 'logout' }));
+                    localStorage.setItem('authToken', null)
                   }
                 }}
-                 href="/login"> {loggedInStatus ? `Sign Out` : `Sign In`} 
-                 
+                as={Link}
+                to="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+              {loggedInStatus ? <CgProfile
+                onClick={()=>{
+                  navigate('/signUp')
+                }}
+              />:''}
         </Container>
       </Navbar>
     </Fragment>

@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { DisplayCategories } from "../../Components/RecommendedFoodTruck/DisplayButtonCategories";
+import { useSelector } from 'react-redux';
+import {
+    Container,
+    Form,
+    Button,
+    Row
+} from "react-bootstrap";
 import './style.css';
 import { validator } from './signupUtils'
+import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
 
 const SignUp = () => {
     const [errorHandle, setErrorhandle] = useState();
     const [userData, setUserData] = useState();
+    const [userCategories, setUserCategories] = useState([]);
+    const loggedInStatus = useSelector(isLoggedIn);
+    const handleEdit=()=>{};
     const handleRegister = (userInfo) => {
         fetch('signup', {
             method: 'POST', // or 'PUT'
@@ -40,7 +51,7 @@ const SignUp = () => {
 
                             }}
                             onBlur={(e) => {
-                                setErrorhandle({ ...errorHandle, emailError: validator(e.target.value, 'email') })
+                                validator(e.target.value, 'email')
                             }}
                             type="email" placeholder="Enter email" />
                     </Form.Group>
@@ -84,13 +95,28 @@ const SignUp = () => {
                             type="password" placeholder="Enter a super secret password" />
                     </Form.Group>
                 </Form>
+                <Container>
+                    <div>
+                        <label>Which foods are you looking for?</label>
+                    </div>
+                    <DisplayCategories setUserCategories = {setUserCategories} userCategories = {userCategories}/>
+                </Container>
+                {!loggedInStatus?
                 <Button
+                    className="signUpButton"
                     value={`Get Registered! `}
                     onClick={() => {
-                        console.log(userData)
-                        handleRegister(userData);
+                        handleRegister({...userData,category:userCategories});
                     }}
                 >Get Registered!!!</Button>
+                :<Button
+                    className="signUpButton"
+                    value={`Get Registered! `}
+                    onClick={() => {
+                        handleEdit()
+                    }}
+                >Edit Profile</Button>
+                }
             </div>
         </Container>
     )
