@@ -13,10 +13,10 @@ const RecommendedTrucks = () => {
     const userInfo = useSelector(currentUser);
 
     useEffect(()=>{
-        if(checked && userInfo.category){
+        if(checked){
             setUserCategories(userInfo.category)
         }
-    },[userCategories]);
+    });
     return (
         <Container>
             <div>
@@ -46,7 +46,7 @@ const RecommendedTrucks = () => {
                     
                 </Row>
             </div>
-            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked?userInfo.category :userCategories} />
+            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked ? userInfo.category :userCategories} />
             <DisplayTrucks categories={userCategories} />
         </Container>
     );
