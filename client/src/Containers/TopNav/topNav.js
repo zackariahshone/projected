@@ -12,7 +12,6 @@ const token = localStorage.getItem('authToken')
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
   const userInfo = useSelector(currentUser);
-  console.log(userInfo);
   const dispatch = useDispatch();
   return (
     <Fragment>

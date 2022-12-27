@@ -89,7 +89,6 @@ export const CreateTruck = () => {
                 <Button
                     value={`Get Registered! `}
                     onClick={() => {
-                        console.log(userData)
                         handleRegister(userData);
                     }}
                 >Get Registered!!!</Button>

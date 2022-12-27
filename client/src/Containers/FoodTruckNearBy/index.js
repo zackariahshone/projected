@@ -5,9 +5,7 @@ import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import './style.css'
 // const ckey = require('ckey')
-// console.log(process.config);
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
-console.log(googleKey);
 export function CustomMap({ google }) {
     const markerSet = [];
     const foodTruckList = useSelector(truckSearchList)

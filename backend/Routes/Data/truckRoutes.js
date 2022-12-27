@@ -154,7 +154,6 @@ const nodeGeocoder = require('node-geocoder');
     const truckData = await Truck.find().lean()
     truckData.forEach(async (truck) =>{
       const location = await geoCoder.geocode(truck.address);
-      console.log(location);
       const truckCoord = {
         coordinates:
           {
@@ -162,7 +161,6 @@ const nodeGeocoder = require('node-geocoder');
             lon:location[0]?.longitude
           }
       }
-      console.log(truckCoord)
     //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
     })
     // const _truckData = await Truck.find().lean()

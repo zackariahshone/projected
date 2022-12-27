@@ -6,7 +6,6 @@ import { truckSearchList, loadReducer,setCategories } from '../../appstore/Reduc
 import { getData } from '../../genUtils/requests';
 import './style.css';
 // var ctx = document.getElementById("myChart1").getContext("2d");
-// console.log(ctx);
 const FoodTruckSearch = () => {
     const foodTruckList = useSelector(truckSearchList)
     const [truckList, setTruckList] = useState(foodTruckList);

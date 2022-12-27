@@ -11,7 +11,6 @@ import { validator } from './signupUtils'
 const SignUp = () => {
     const [userData, setUserData] = useState();
     const [userCategories, setUserCategories] = useState([]);
-    console.log(userCategories);
     const handleRegister = (userInfo) => {
         fetch('signup', {
             method: 'POST', // or 'PUT'
@@ -44,7 +43,7 @@ const SignUp = () => {
 
                             }}
                             onBlur={(e) => {
-                                console.log(validator(e.target.value, 'email'))
+                                validator(e.target.value, 'email')
                             }}
                             type="email" placeholder="Enter email" />
                     </Form.Group>
@@ -73,7 +72,6 @@ const SignUp = () => {
                                 ...userData,
                                 'pwd': e.target.value
                             })
-                             console.log({...userData,category:userCategories})
                         }} type="password" placeholder="Enter a super secret password" />
                     </Form.Group>
                 </Form>
