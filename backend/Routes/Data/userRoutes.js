@@ -16,9 +16,10 @@ router.post('/signup', (req, res) => {
 router.post('/login', async (req, res) => {
   const currentUser = await User.find({ email: req.body.email, pwd: req.body.password }).lean();
   // send tokenized user credenctial to decode on the front end.
-  const token = jwt.sign(currentUser[0],'123');
-
+  
+  
   if (currentUser.length !== 0) {
+    const token = jwt.sign(currentUser[0],'123');
     req.session.loginStatus = true;
     res.send(
       {
