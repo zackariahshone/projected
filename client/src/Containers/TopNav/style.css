@@ -1,7 +1,7 @@
 .active {
-    transform: scale(0.98);
+    transform: scale(0.95);
     /* Scaling button to 0.98 to its original size */
-    box-shadow: 1px 1px 10px 1px rgba(217, 83, 21, 0.868);
+    box-shadow: 1px 1px 1px 1px rgba(217, 83, 21, 0.868);
     /* Lowering the shadow */
     border-radius: 25px;
     /* padding-left: 3% !important;     */

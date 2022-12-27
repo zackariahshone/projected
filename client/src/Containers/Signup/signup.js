@@ -8,13 +8,26 @@ import {
 } from "react-bootstrap";
 import './style.css';
 import { validator } from './signupUtils'
-import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
+import { isLoggedIn,currentUser } from '../../appstore/Reducers/UserReducers';
 
 const SignUp = () => {
     const [userData, setUserData] = useState();
     const [userCategories, setUserCategories] = useState([]);
     const loggedInStatus = useSelector(isLoggedIn);
-    const handleEdit=()=>{};
+    const userInfo = useSelector(currentUser);
+    const handleEdit=(userData)=>{
+        fetch('editUser',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'x-access-token':userInfo.authToken
+            },
+            body:JSON.stringify(userData)
+        }).then(res=>(
+            console.log(res)
+        ))
+    };
     const handleRegister = (userInfo) => {
         fetch('signup', {
             method: 'POST', // or 'PUT'
@@ -97,7 +110,7 @@ const SignUp = () => {
                     className="signUpButton"
                     value={`Get Registered! `}
                     onClick={() => {
-                        handleEdit()
+                        handleEdit({...userData,category:userCategories})
                     }}
                 >Edit Profile</Button>
                 }

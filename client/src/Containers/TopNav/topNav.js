@@ -1,4 +1,4 @@
-import { Fragment , useEffect, useState} from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, isLoggedIn, currentUser } from '../../appstore/Reducers/UserReducers';
@@ -16,12 +16,12 @@ const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
   const userInfo = useSelector(currentUser);
   const dispatch = useDispatch();
-  const [selected, setSelected]= useState();
+  const [selected, setSelected] = useState();
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[selected])
+  }, [selected])
   return (
     <Fragment>
 
@@ -30,7 +30,7 @@ const TopNav = () => {
 
           <Navbar.Brand href="/">Projected</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse collapseOnSelect={true} id="basic-navbar-nav">
             <Nav className="me-auto">
               {ROUTES.map((nav, x) => {
                 /**
@@ -42,11 +42,11 @@ const TopNav = () => {
                   />;
                 }
                 return <Nav.Link
-                  onClick={()=>{
+                  onClick={() => {
                     setSelected(nav.name)
                   }}
                   key={`nav_${x}`}
-                  as = {Link}
+                  as={Link}
                   to={nav.link}
                   className={selected === nav.name ? 'active' : ''}
                 >{nav.name}</Nav.Link>
@@ -55,22 +55,25 @@ const TopNav = () => {
             <Nav className="justify-content-end">
               <Nav.Link
                 onClick={() => {
+                  setSelected('login')
                   if (loggedInStatus && token) {
                     dispatch(logout({ value: false, type: 'logout' }));
-                    localStorage.setItem('authToken', null)
+                    localStorage.setItem('authToken', null);
                   }
                 }}
+                className={selected === 'login' ? 'active' : ''}
                 as={Link}
                 to="/login"> {loggedInStatus ? `Hi ${userInfo?.firstName}! Sign Out Here` : `Sign In`}
               </Nav.Link>
             </Nav>
-              {loggedInStatus ? <CgProfile
+            {loggedInStatus ? <CgProfile
+              className={selected === 'edit' ? 'active' : ''}
               title='Edit Profile'
-              label="edit profile"
-                onClick={()=>{
-                  navigate('/signUp')
-                }}
-              />:''}
+              onClick={() => {
+                setSelected('edit')
+                navigate('/signUp')
+              }}
+            /> : ''}
           </Navbar.Collapse>
         </Container>
       </Navbar>

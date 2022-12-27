@@ -22,8 +22,8 @@ export const DisplayCategories =({setUserCategories,userCategories})=>{
              <button
                  style={{ backgroundColor: `${colorArray[colorIndex]}`, color: `${colorArray[textIndex]}` }}
                  key={`catButton_${i}`}
-                 className='categoryButtons'
-                 onClick={(e) => {
+                 className={`categoryButtons ${userCategories.includes(category)? 'recTruckActive' :''}`}
+                 onClick={() => {
                     if(!userCategories.includes(category)){
                      setUserCategories([...userCategories, category])
                     }

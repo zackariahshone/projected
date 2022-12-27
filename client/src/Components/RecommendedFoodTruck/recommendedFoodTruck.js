@@ -32,7 +32,7 @@ const RecommendedTrucks = () => {
                             }}
                         >Reset Selection</button>
                     </Col>
-                   {userInfo !== null ?
+                   {userInfo !== null && userInfo.category ?
                    <label>
                         <Switch
                             onChange={(setChecked)}
