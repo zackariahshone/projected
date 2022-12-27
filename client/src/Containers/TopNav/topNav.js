@@ -8,7 +8,7 @@ import {
   Nav,
 } from 'react-bootstrap'
 
-
+const token = localStorage.getItem('authToken')
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
   const userInfo = useSelector(currentUser);
@@ -37,8 +37,9 @@ const TopNav = () => {
             <Nav className="justify-content-end">
               <Nav.Link
                 onClick={() => {
-                  if (loggedInStatus) {
+                  if (loggedInStatus && token) {
                     dispatch(logout({ value: false, type: 'logout' }));
+                    localStorage.setItem('authToken',null)
                   }
                 }}
                 href="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`}

@@ -152,7 +152,6 @@ const nodeGeocoder = require('node-geocoder');
     };
     const geoCoder = nodeGeocoder(options);
     const truckData = await Truck.find().lean()
-    const addresses = []
     truckData.forEach(async (truck) =>{
       const location = await geoCoder.geocode(truck.address);
       console.log(location);

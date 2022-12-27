@@ -8,6 +8,8 @@ import {
 import { login, isLoggedIn,setUserData } from '../../appstore/Reducers/UserReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
+import authHeader from '../../userServices/authHeader'
+import localStorage from 'redux-persist/es/storage';
 const Login = () => {
 
   // may remove signIn/setSignIn 
@@ -23,15 +25,21 @@ const Login = () => {
   const getUser = () => {
     fetch('/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: 
+        { 
+          'Content-Type': 'application/json',
+          'x-access-token': authHeader(userCred).toString()
+        },
       body: JSON.stringify(userCred),
     })
       .then(response => {
         return response.json()
       })
       .then(data => {
+        console.log(data);
         dispatch(setUserData({...data}))
         setUserFound(data.token);
+        localStorage.setItem('authToken',data.authToken)
       });
   }
 
