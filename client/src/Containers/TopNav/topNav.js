@@ -64,12 +64,14 @@ const TopNav = () => {
                 to="/login"> {loggedInStatus ? `Hi ${userInfo.firstName}! Sign Out Here` : `Sign In`}
               </Nav.Link>
             </Nav>
-          </Navbar.Collapse>
               {loggedInStatus ? <CgProfile
+              title='Edit Profile'
+              label="edit profile"
                 onClick={()=>{
                   navigate('/signUp')
                 }}
               />:''}
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </Fragment>

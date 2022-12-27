@@ -5,7 +5,6 @@ import {
     Container,
     Form,
     Button,
-    Row
 } from "react-bootstrap";
 import './style.css';
 import { validator } from './signupUtils'

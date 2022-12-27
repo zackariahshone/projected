@@ -19,7 +19,6 @@ function App() {
     <Fragment>
       <TopNav />
       <Routes>
-
         {BROWSER_ROUTER_CONFIGS.map((route) => {
           const Element = route.element;
           return (
