@@ -12,12 +12,14 @@ const NewTrucks = () => {
   const foodTruckList = useSelector(truckSearchList)
 
   const newFoodTrucks = []
+  let j = foodTruckList.length-1
   foodTruckList.forEach((truck, i) => {
+    console.log(j)
     if (i < 5) {
-      newFoodTrucks.push(truck);
+      newFoodTrucks.push(foodTruckList[j]);
+      j--
     }
   })
-  console.log(5 % 3);
   // console.log(sortByDate(foodTruckList));
 
 

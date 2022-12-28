@@ -7,7 +7,7 @@ import {
     Button,
 } from "react-bootstrap";
 import './style.css';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { validator } from './signupUtils'
 import { isLoggedIn,currentUser, setUserData } from '../../appstore/Reducers/UserReducers';
@@ -32,7 +32,6 @@ const SignUp = () => {
             body:JSON.stringify(userData)
         }).then(response=>(response.json()))
         .then((data)=>{
-            console.log(data)
             dispatch(setUserData({...data}))
             localStorage.setItem('authToken', data.authToken)
             navigate("/");

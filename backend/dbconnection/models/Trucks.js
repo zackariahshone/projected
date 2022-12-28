@@ -5,6 +5,12 @@ const { Schema, model } = require('mongoose');
  name:{
   type:String
  },
+ vendorFirstName:{
+  type:String
+ },
+ vendorLastName:{
+  type:String
+ },
  description: {
     type: String,
   },
@@ -14,11 +20,17 @@ const { Schema, model } = require('mongoose');
   IMG:{
     type:String,
   },
-  dateAdded: String,
-  category:[String],
-  coordinates:
-  {
+  dateAdded:{ 
+    type:String
+  },
+  category:{
+    type:[String]
+  },
+  coordinates:{
     type:Object
+  },
+  pwd:{
+    type:String
   }
 });
 
