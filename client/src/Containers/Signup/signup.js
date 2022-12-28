@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { DisplayCategories } from "../../Components/RecommendedFoodTruck/DisplayButtonCategories";
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import {
     Container,
     Form,
     Button,
 } from "react-bootstrap";
 import './style.css';
+import { useNavigate, Link } from "react-router-dom";
+
 import { validator } from './signupUtils'
-import { isLoggedIn,currentUser } from '../../appstore/Reducers/UserReducers';
+import { isLoggedIn,currentUser, setUserData } from '../../appstore/Reducers/UserReducers';
+import localStorage from 'redux-persist/es/storage';
 
 const SignUp = () => {
-    const [userData, setUserData] = useState();
+    const [userData, setUserFormData] = useState();
     const [userCategories, setUserCategories] = useState([]);
+    const navigate = useNavigate();
     const loggedInStatus = useSelector(isLoggedIn);
     const userInfo = useSelector(currentUser);
+    const dispatch = useDispatch();
+
     const handleEdit=(userData)=>{
-        fetch('editUser',{
+        fetch('/editUser',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,9 +30,13 @@ const SignUp = () => {
                 'x-access-token':userInfo.authToken
             },
             body:JSON.stringify(userData)
-        }).then(res=>(
-            console.log(res)
-        ))
+        }).then(response=>(response.json()))
+        .then((data)=>{
+            console.log(data)
+            dispatch(setUserData({...data}))
+            localStorage.setItem('authToken', data.authToken)
+            navigate("/");
+        })
     };
     const handleRegister = (userInfo) => {
         fetch('signup', {
@@ -53,7 +63,7 @@ const SignUp = () => {
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
                             onChange={(e) => {
-                                setUserData({
+                                setUserFormData({
                                     ...userData,
                                     'email': e.target.value
                                 })
@@ -67,7 +77,7 @@ const SignUp = () => {
                     <Form.Group className="mb-3">
                         <Form.Label>First Name</Form.Label>
                         <Form.Control onChange={(e) => {
-                            setUserData({
+                            setUserFormData({
                                 ...userData,
                                 'firstName': e.target.value
                             })
@@ -76,7 +86,7 @@ const SignUp = () => {
                     <Form.Group>
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control onChange={(e) => {
-                            setUserData({
+                            setUserFormData({
                                 ...userData,
                                 'lastName': e.target.value
                             })
@@ -85,7 +95,7 @@ const SignUp = () => {
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>
                         <Form.Control onChange={(e) => {
-                            setUserData({
+                            setUserFormData({
                                 ...userData,
                                 'pwd': e.target.value
                             })
