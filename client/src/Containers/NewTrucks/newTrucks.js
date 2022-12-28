@@ -10,22 +10,35 @@ import './style.css'
 // var ctx = document.getElementById("myChart1").getContext("2d");
 const NewTrucks = () => {
   const foodTruckList = useSelector(truckSearchList)
-  console.log(foodTruckList);
+  
+  const newFoodTrucks = []
+  foodTruckList.forEach((truck,i)=>{
+    if(i<5){
+      newFoodTrucks.push(truck);
+    }
+  })
+  console.log(5%3);
+  // console.log(sortByDate(foodTruckList));
+  
+
     return (
        <Container>
+       <Container>
+          <h1>Recently Added Food Trucks!</h1>
+       </Container>
         <Row>
-        {foodTruckList.map((truck)=>{
+        {newFoodTrucks.map((truck,x)=>{
           return(
             <Fragment>
 
-            <Col xs={6} md={2} lg={2}>
+            <Col xs={6}  md={x>2?{span: 1, offset: 1}:2} lg={2}>
               <img 
                 src={truck.IMG} 
                 alt={'truckImg'}
                 />
             </Col>
             <Col
-             xs={6} md={2} lg={2}
+             xs={6}  md={2} lg={2}
             >
             <div
               class = 'truckDetails'
