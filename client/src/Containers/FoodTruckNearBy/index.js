@@ -17,18 +17,22 @@ export function CustomMap({ google }) {
         <Container>
             <Row>
 
-                <Col xs={6} md={6} >
+                <Col xs={3} md={2}>
+                            {foodTruckList.map((truck,i)=>{
+                               return <p>{truck.name}</p>
+                            })}
+                </Col>
+                <Col xs={0} md={0} >
                     <Map
                         google={google}
                         containerStyle={{
-
-                            width: "90%",
+                            width: "70%",
                             height: "90%"
                         }}
-                        style={{
-                            width: "100%",
-                            height: "100%"
-                        }}
+                        // style={{
+                        //     width: "100%",
+                        //     height: "100%"
+                        // }}
                         center={markerSet[0]}
                         initialCenter={markerSet[0]}
                         zoom={markerSet.length === 1 ? 18 : 13}
@@ -39,9 +43,6 @@ export function CustomMap({ google }) {
                         )}
 
                     </Map>
-                </Col>
-                <Col xs={12} md={6}>
-                            <img src='./pin.png' alt='just a big pin'/>
                 </Col>
             </Row>
         </Container>
