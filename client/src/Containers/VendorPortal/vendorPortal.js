@@ -47,7 +47,7 @@ export const VenderPortal = () => {
             <Row>
                 <Col sm={6}>
                     <div className="vendorImg">
-                        <center><img className="vendorImg" src={DUMMY_IMG} /></center>
+                       {trucks? <TruckDisplay trucks={trucks} />: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
                 <Col>
@@ -139,7 +139,6 @@ export const VenderPortal = () => {
             <Row>
                 {directOptions(selection)}
             </Row>
-            <TruckDisplay trucks={trucks} />
         </Container>
     )
 }
