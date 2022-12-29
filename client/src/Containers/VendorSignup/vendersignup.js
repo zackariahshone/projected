@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 const VenderSignup = () => {
     const [userData, setUserData] = useState();
+    const navigate = useNavigate();
     /**
      * useToken creds
      * asign truck to user
@@ -25,6 +27,7 @@ const VenderSignup = () => {
             //   dispatch(setUserData({ ...data }))
             //   setUserFound(data.token);
             //   localStorage.setItem('authToken', data.authToken)
+            navigate('/vendor')
             });
     }
     return (
