@@ -43,9 +43,7 @@ router.post('/editUser', async (req, res) => {
     const currentUser =  await User.findOneAndUpdate({email:userCred.email},itemsToUpdate).lean();
      // res.json({ status: 200 });
      const updatedUser = await User.findOne({email:userCred.email}).lean();
-     const token = jwt.sign({updatedUser},'124');
-     console.log(currentUser)
-    console.log(updatedUser);
+     const token = jwt.sign({...updatedUser},'124');
     res.send(
       {
         ...updatedUser,

@@ -13,7 +13,19 @@ const { Schema, model } = require('mongoose');
   pwd:{
     type:String,
   },
-  category:[String]
+  category:[String],
+  vendor:{
+    type:Boolean,
+    default:false
+  },
+  vendorCredentials:{
+    foodTruckEmail:{
+      type:String,
+    },
+    foodTruckPassword:{
+      type:String
+    }
+  }
 });
 
 const User = model('User', UserSchema);

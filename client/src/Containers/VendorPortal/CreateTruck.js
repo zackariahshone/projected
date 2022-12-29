@@ -20,7 +20,6 @@ export const CreateTruck = () => {
         <Container >
             <center>
                 <h1> Set up you first truck or another truck </h1>
-    
             </center>
             <div className='signup-container'>
                 <Form>
