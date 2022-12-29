@@ -6,6 +6,7 @@ import {
   Form
 } from 'react-bootstrap';
 import { login, isLoggedIn, setUserData } from '../../appstore/Reducers/UserReducers';
+import {setVenderCred, isVender} from '../../appstore/Reducers/VenderReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
 import authHeader from '../../userServices/authHeader'
@@ -18,6 +19,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState();
   const [emailError, setEmailError] = useState(false);
   const [pwdError, setPwdError] = useState(false);
+  const [venderData,setVenderData]=useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
@@ -36,23 +38,24 @@ const Login = () => {
         return response.json()
       })
       .then(data => {
-        console.log(data);
         dispatch(setUserData({ ...data }))
+        setVenderData(data)
         setUserFound(data.token);
         localStorage.setItem('authToken', data.authToken)
       });
-  }
+    }
 
-  const handleClick = () => {
+    const handleClick = () => {
     if (pwdError === false && emailError === false) {
       getUser()
       if (
         (loggedInStatus === false ||
           loggedInStatus === undefined) &&
-        userFound === true
-      ) {
-        dispatch(login({ value: true, type: 'login' }))
-        setLoginError(false);
+          userFound === true
+          ) {
+            dispatch(login({ value: true, type: 'login' }))
+            dispatch(setVenderCred(venderData))
+            setLoginError(false);
         navigate("/");
       }
     }
@@ -64,6 +67,7 @@ const Login = () => {
       userFound === true
     ) {
       dispatch(login({ value: true, type: 'login' }))
+      dispatch(setVenderCred(venderData))
       setLoginError(false);
       navigate("/");
     }

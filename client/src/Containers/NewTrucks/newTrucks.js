@@ -14,15 +14,11 @@ const NewTrucks = () => {
   const newFoodTrucks = []
   let j = foodTruckList.length-1
   foodTruckList.forEach((truck, i) => {
-    console.log(j)
     if (i < 5) {
       newFoodTrucks.push(foodTruckList[j]);
       j--
     }
   })
-  // console.log(sortByDate(foodTruckList));
-
-
   return (
     <Container>
       <Container>

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import './style.css';
 
 export const CreateTruck = () => {
     const [userData, setUserData] = useState();
+    const navigate = useNavigate();
     const handleRegister = (venderInfo) => {
         fetch('/api/createTruck', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'token':localStorage.getItem('authToken')
             },
             body: JSON.stringify(venderInfo),
         }).then(response => (
@@ -32,9 +35,6 @@ export const CreateTruck = () => {
                                 'name': e.target.value.trim()
                             })
                         }}
-                        onBlur={(e)=>{
-                            // console.log()
-                        }}
                          type="text" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -42,7 +42,7 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'vendorFirstName': e.target.value.trim()
+                                'venderFirstName': e.target.value.trim()
                             })
                         }} type="text" placeholder="Enter First Name" />
                     </Form.Group>
@@ -51,7 +51,7 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'vendorLastName': e.target.value.trim()
+                                'venderLastName': e.target.value.trim()
                             })
                         }} type="text" placeholder="Enter Last Name" />
                     </Form.Group>
@@ -96,6 +96,7 @@ export const CreateTruck = () => {
                     value={`Get Registered! `}
                     onClick={() => {
                         handleRegister(userData);
+                        navigate('/vender')
                     }}
                 >Get Registered!!!</Button>
             </div>

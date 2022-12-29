@@ -3,7 +3,8 @@ const Categories = require('../../dbconnection/models/Categories');
 const Truck = require('../../dbconnection/models/Trucks');
 const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truck-illustration.jpg?s=1024x1024&w=is&k=20&c=GVgNLfVIJFCwH70eMQZd5dRvNbP0F7WcixupUFJtl6g=';
 const nodeGeocoder = require('node-geocoder');
-
+const jwt = require("jsonwebtoken");
+const User = require('../../dbconnection/models/User');
 const listOfTrucks = {
   'listOfTrucks': [
     {
@@ -154,25 +155,26 @@ router.get('/api/foodtrucklists', async (req, res) => {
 });
 
 router.post('/api/createTruck', async (req, res) => {
+  //handle adding truck 
   const date = new Date();
-  console.log(req.body)
   const truckToAdd = req.body;
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
-  truckToAdd.dateAdded = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`
-  // await Truck.findOneAndDelete({name:'truckin food'})
-  const OGCategories = await Categories.find().lean();
-  
+  truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+  await Truck.create(truckToAdd)
+  //handle adding new categories
   const currentCategories = await Categories.find().lean();
-  console.log(currentCategories);
-  truckToAdd.category.forEach((cat)=>{
-    if(!currentCategories[0].categories.includes(cat.trim())){
+  truckToAdd.category.forEach((cat) => {
+    if (!currentCategories[0].categories.includes(cat.trim())) {
       currentCategories[0].categories.push(cat.trim())
     }
   })
- 
-  await Truck.create(truckToAdd)
   await Categories.updateOne({categories:currentCategories[0].categories})
-  console.log(truckToAdd);
+  // handle assigning new trucks to logged in user profile
+  const userInfo = jwt.decode(req.headers.token);
+  const currentUser = await User.find({ email: userInfo.email })
+  const trucksUpdate = currentUser[0].foodtrucks;
+  trucksUpdate.push(req.body.name);
+  await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
   res.send({ status: 200 })
 })
 
@@ -204,5 +206,5 @@ router.get('/dbClean', async (req, res) => {
 
 module.exports = router;
  /**
- * Saving algo for later use
- *  */ 
+* Saving algo for later use
+*  */ 

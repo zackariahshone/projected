@@ -1,17 +1,33 @@
-import React, { Fragment, useState } from "react";
-import { Container, Col, Row,Form,Button } from "react-bootstrap";
+import React, { Fragment, useEffect, useState } from "react";
+import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import { DUMMY_IMG } from "../../GlobalConstanst";
 import { CreateTruck } from "./CreateTruck";
 import { EditTruck } from "./EditTruck";
+import { isVender } from "../../appstore/Reducers/VenderReducers";
+import { useSelector } from "react-redux";
+import { TruckDisplay } from "../../Components/TruckDisplay/truckDisplay";
 import './style.css'
 
 export const VenderPortal = () => {
     const [selection, setSelection] = useState();
-    const [userCred, setUserCred]=useState();
+    const [userCred, setUserCred] = useState();
     const [signedin, setSignedIn] = useState(false);
-    const handleClick = ()=>{
+    const isUserVender = useSelector(isVender);
+    const [trucks, setTrucks] = useState();
+
+    const handleClick = () => {
         setSignedIn(true);
     }
+    useEffect(() => {
+        fetch('/vendortrucks', {
+            method: 'GET',
+            headers: {
+                token: localStorage.getItem('authToken')
+            }
+        }).then(data => data.json()).then(trucksData => {
+            setTrucks(trucksData);
+        })
+    },[])
     const directOptions = (selection) => {
         switch (selection) {
             case 'createTruck':
@@ -19,7 +35,7 @@ export const VenderPortal = () => {
             case 'editTruck':
                 return <EditTruck />;
             default:
-                return <h2>Sign in please and then make a selection</h2>;
+                return <h2>Create new food trucks or Edit Food Trucks</h2>;
         }
     }
     return (
@@ -35,7 +51,7 @@ export const VenderPortal = () => {
                     </div>
                 </Col>
                 <Col>
-                    {!signedin ?
+                    {!isUserVender ?
                         <Col>
                             <Form>
                                 {/* {emailError ? <p className='error'> * Not an email</p> : null} */}
@@ -51,16 +67,16 @@ export const VenderPortal = () => {
                                             })
                                             // setEmailError(false);
                                         }}
-                                        // onBlur={(e) => {
+                                    // onBlur={(e) => {
 
-                                        //     if (!String(e.target.value)
-                                        //         .toLowerCase()
-                                        //         .match(
-                                        //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                                        //         )) {
-                                        //         setEmailError(true)
-                                        //     }
-                                        // }}
+                                    //     if (!String(e.target.value)
+                                    //         .toLowerCase()
+                                    //         .match(
+                                    //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                                    //         )) {
+                                    //         setEmailError(true)
+                                    //     }
+                                    // }}
                                     />
                                 </Form.Group>
                                 {/* {pwdError ? <p className='error'>*password cannot be blank</p> : null} */}
@@ -77,11 +93,11 @@ export const VenderPortal = () => {
                                                 })
                                             // setPwdError(false);
                                         }}
-                                        // onBlur={(e) => {
-                                        //     if (e.target.value === '') {
-                                        //         setPwdError(true)
-                                        //     }
-                                        // }}
+                                    // onBlur={(e) => {
+                                    //     if (e.target.value === '') {
+                                    //         setPwdError(true)
+                                    //     }
+                                    // }}
                                     />
                                 </Form.Group>
                                 <Button
@@ -97,29 +113,33 @@ export const VenderPortal = () => {
                         </Col>
                         :
                         <div className="vendorInputForm">
-                            <ui>
-                                <li>
-                                    <button
-                                        onClick={(e) => {
-                                            setSelection("createTruck")
-                                        }}
-                                    >Create Truck</button>
-                                </li>
-                                <li>
-                                    <button
-                                        onClick={(e) => {
-                                            setSelection("editTruck")
-                                        }}
-                                    >Edit Trucks</button>
-                                </li>
-                            </ui>
+                            <Container
+                                style={{ padding: '10%' }}
+                            >
+                                <Row>
+                                    <Col>
+                                        <Button
+                                            onClick={(e) => {
+                                                setSelection("createTruck")
+                                            }}
+                                        >Create Truck</Button>
+                                    </Col>
+                                    <Col>
+                                        <Button
+                                            onClick={(e) => {
+                                                setSelection("editTruck")
+                                            }}
+                                        >Edit Trucks</Button>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </div>}
                 </Col>
             </Row>
             <Row>
                 {directOptions(selection)}
             </Row>
-
+            <TruckDisplay trucks={trucks} />
         </Container>
     )
 }

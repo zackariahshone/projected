@@ -27,16 +27,11 @@ const VenderSignup = () => {
                 return response.json()
             })
             .then(data => {
-
-                console.log(data);
                 dispatch(setVenderCred(
                     {
                         ...data,
                         isVender: true
                     }))
-                //   dispatch(setUserData({ ...data }))
-                //   setUserFound(data.token);
-                //   localStorage.setItem('authToken', data.authToken)
                 navigate('/vender')
             });
     }

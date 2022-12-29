@@ -5,7 +5,6 @@ import TruckSearch from './Containers/TruckSearch/trucksearch';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import Login from './Containers/Login/login';
 import SignUp from './Containers/Signup/signup'
-// import { VendorSignup } from './Containers/VendorSignup/vendorsignup';
 import { VenderPortal } from './Containers/VendorPortal/vendorPortal.js'
 import { ERRORPage } from './Components/Error/error'
 import VenderSignup from './Containers/VendorSignup/vendersignup';

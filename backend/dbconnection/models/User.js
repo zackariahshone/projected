@@ -25,6 +25,9 @@ const { Schema, model } = require('mongoose');
     foodTruckPassword:{
       type:String
     }
+  },
+  foodtrucks:{
+    type:Array
   }
 });
 

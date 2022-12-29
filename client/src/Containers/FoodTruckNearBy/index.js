@@ -10,8 +10,11 @@ export function CustomMap({ google }) {
     const markerSet = [];
     const foodTruckList = useSelector(truckSearchList)
     foodTruckList.forEach((truck) => {
-        const { lat, lon } = truck.coordinates;
-        markerSet.push({ lat: lat, lng: lon })
+        if(truck.coordinates){
+
+            const { lat, lon } = truck?.coordinates;
+            markerSet.push({ lat: lat, lng: lon })
+        }
     })
     return (
         <Container>
