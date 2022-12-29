@@ -14,11 +14,11 @@ const { Schema, model } = require('mongoose');
     type:String,
   },
   category:[String],
-  vendor:{
+  vender:{
     type:Boolean,
     default:false
   },
-  vendorCredentials:{
+  venderCredentials:{
     foodTruckEmail:{
       type:String,
     },

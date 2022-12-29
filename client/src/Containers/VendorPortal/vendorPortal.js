@@ -5,7 +5,7 @@ import { CreateTruck } from "./CreateTruck";
 import { EditTruck } from "./EditTruck";
 import './style.css'
 
-export const VendorPortal = () => {
+export const VenderPortal = () => {
     const [selection, setSelection] = useState();
     const [userCred, setUserCred]=useState();
     const [signedin, setSignedIn] = useState(false);

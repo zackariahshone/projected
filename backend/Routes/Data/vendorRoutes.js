@@ -9,14 +9,17 @@ const { findOne } = require('../../dbconnection/models/User');
 router.post('/registration',async (req, res) => {
  
  const key = jwt.decode(req.headers.token).email;
-//  const updatedUser = await User.findOneAndUpdate({email:key},
-//     {
-//         vendor:true,
-//         vendorCredentials:{...req.body}
-//     })
+ const updatedUser = await User.findOneAndUpdate({email:key},
+    {
+        vender:true,
+        venderCredentials:{...req.body}
+    })
 const user = await User.findOne({email:key});
-console.log(user)
-  res.json({ status: 200 });
+  res.json(
+    { 
+        status: 200,
+        venderdata:{...req.body} 
+    });
 });
 /**
  * Handle log in 

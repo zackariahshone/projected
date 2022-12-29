@@ -5,10 +5,10 @@ const { Schema, model } = require('mongoose');
  name:{
   type:String
  },
- vendorFirstName:{
+ venderFirstName:{
   type:String
  },
- vendorLastName:{
+ venderLastName:{
   type:String
  },
  description: {

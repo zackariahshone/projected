@@ -43,7 +43,7 @@ const NewTrucks = () => {
                 xs={6} md={2} lg={2}
               >
                 <div
-                  class='truckDetails'
+                  className='truckDetails'
                 >
                   <ul>
                     <li>{truck.name}</li>

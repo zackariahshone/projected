@@ -144,13 +144,13 @@ const getLatLong = async (address) => {
 }
 router.get('/api/getcategories', async (req, res) => {
   const categories = await Categories.find().lean();
-  res.send(categories[0].categories);
+  res.json(categories[0].categories);
 });
 
 
 router.get('/api/foodtrucklists', async (req, res) => {
   const truckData = await Truck.find().lean()
-  res.send(truckData)
+  res.json(truckData)
 });
 
 router.post('/api/createTruck', async (req, res) => {

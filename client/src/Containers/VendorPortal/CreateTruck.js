@@ -4,14 +4,14 @@ import './style.css';
 
 export const CreateTruck = () => {
     const [userData, setUserData] = useState();
-    const handleRegister = (vendorInfo) => {
+    const handleRegister = (venderInfo) => {
         fetch('/api/createTruck', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify(vendorInfo),
+            body: JSON.stringify(venderInfo),
         }).then(response => (
             console.log(response)
         ))

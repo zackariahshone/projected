@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, isLoggedIn, currentUser } from '../../appstore/Reducers/UserReducers';
+import { venderLogout } from '../../appstore/Reducers/VenderReducers';
+import { isVender } from '../../appstore/Reducers/VenderReducers';
 import { ROUTES } from '../../GlobalConstanst';
 import {
   Navbar,
@@ -15,28 +17,28 @@ const token = localStorage.getItem('authToken')
 const TopNav = () => {
   const loggedInStatus = useSelector(isLoggedIn);
   const userInfo = useSelector(currentUser);
+  const isUserVender = useSelector(isVender); 
   const dispatch = useDispatch();
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
-
   useEffect(() => {
 
   }, [selected])
   return (
     <Fragment>
 
-      <Navbar bg="light" expand="lg">
+      <Navbar collapseOnSelect={true} bg="light" expand="lg">
         <Container>
 
           <Navbar.Brand href="/">Projected</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse collapseOnSelect={true} id="basic-navbar-nav">
+          <Navbar.Collapse  id="basic-navbar-nav">
             <Nav className="me-auto">
               {ROUTES.map((nav, x) => {
                 /**
                  * check status of user and route in order to expose
                  */
-                if (nav.protected && !loggedInStatus) {
+                if (nav.protected && !isUserVender) {
                   return <Fragment
                     key={`${x}_fragment`}
                   />;
@@ -58,6 +60,7 @@ const TopNav = () => {
                   setSelected('login')
                   if (loggedInStatus && token) {
                     dispatch(logout({ value: false, type: 'logout' }));
+                    dispatch(venderLogout());
                     localStorage.setItem('authToken', null);
                   }
                 }}
