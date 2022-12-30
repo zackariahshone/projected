@@ -10,14 +10,7 @@ const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
     const [userLoc, setUserLoc] = useState();
     const foodTruckList = useSelector(truckSearchList)
-    GeoLoc.getCurrentPosition((loc)=>{
-        setUserLoc(
-            {
-                lat:loc.coords?.latitude,
-                lng:loc.coords?.longitude
-            }
-        )
-    })
+   
     // const getMapConfig =()=>{
         const markerSet = [];
         const nameSet = [];
@@ -28,6 +21,16 @@ export function CustomMap({ google }) {
                 nameSet.push({name:truck.name})
             }
         })
+        useEffect(()=>{
+            GeoLoc.getCurrentPosition((loc)=>{
+                setUserLoc(
+                    {
+                        lat:loc.coords?.latitude,
+                        lng:loc.coords?.longitude
+                    }
+                )
+            })
+        },[])
         // return {nameSet,markerSet}
     // }
     return (
