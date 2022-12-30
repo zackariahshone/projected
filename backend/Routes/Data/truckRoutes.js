@@ -178,6 +178,12 @@ router.post('/api/createTruck', async (req, res) => {
   res.send({ status: 200 })
 })
 
+router.delete('/api/deletetruck',async (req,res )=>{
+  console.log(req.body.id);
+  const truckId = req.body.id
+  const foundTruck = await Truck.findByIdAndDelete({_id:truckId});
+  res.json({deleted:true});  
+})
 router.get('/dbClean', async (req, res) => {
   //drop the truck collection
   //  Truck.collection.drop();

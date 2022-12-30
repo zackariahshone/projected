@@ -47,7 +47,7 @@ export const VenderPortal = () => {
             <Row>
                 <Col sm={6}>
                     <div className="vendorImg">
-                       {trucks? <TruckDisplay trucks={trucks} />: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
+                       {trucks? <TruckDisplay trucks={trucks} vendorDisplay={true} />: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
                 <Col>
