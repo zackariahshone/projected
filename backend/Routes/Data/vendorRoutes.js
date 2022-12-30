@@ -14,6 +14,7 @@ router.post('/registration',async (req, res) => {
         venderCredentials:{...req.body}
     })
 const user = await User.findOne({email:key});
+console.log(user);
   res.json(
     { 
         status: 200,
