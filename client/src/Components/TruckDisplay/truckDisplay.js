@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 const truckConfig = ['venderFirstName','venderLastName','address','dateAdded']
-export const TruckDisplay = ({ trucks, vendorDisplay }) => {
+export const TruckDisplay = ({ trucks, vendorDisplay,showDelete }) => {
     const handleDelete=(truckId)=>{
         fetch('/api/deletetruck',{
             method:'DELETE',
@@ -20,12 +20,12 @@ export const TruckDisplay = ({ trucks, vendorDisplay }) => {
                 {trucks ? trucks.map((truck) => (
                     <Col>
                                 {truck.name}
-                        <Button
+                       {showDelete? <Button
                             style={{float:'right'}}
                             onClick={()=>{
                                 handleDelete(truck._id);
                             }}
-                        >x</Button>
+                        >x</Button>:<Fragment></Fragment>}
                         <Col xs={3} md ={3}>
                              <img src={truck.IMG}/>
                         </Col>

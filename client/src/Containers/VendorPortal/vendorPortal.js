@@ -6,6 +6,7 @@ import { EditTruck } from "./EditTruck";
 import { isVender } from "../../appstore/Reducers/VenderReducers";
 import { useSelector } from "react-redux";
 import { TruckDisplay } from "../../Components/TruckDisplay/truckDisplay";
+import ReactSwitch from "react-switch";
 import './style.css'
 
 export const VenderPortal = () => {
@@ -14,7 +15,7 @@ export const VenderPortal = () => {
     const [signedin, setSignedIn] = useState(false);
     const isUserVender = useSelector(isVender);
     const [trucks, setTrucks] = useState();
-
+    const [checked, setChecked]=useState();
     const handleClick = () => {
         setSignedIn(true);
     }
@@ -45,9 +46,14 @@ export const VenderPortal = () => {
         }}>
             <center><h1>Vendor Portal</h1></center>
             <Row>
+            <p>Flip to delete trucks</p>
+            <ReactSwitch
+                 onChange={(setChecked)}
+                checked={checked}
+            />
                 <Col sm={6}>
                     <div className="vendorImg">
-                       {trucks? <TruckDisplay trucks={trucks} vendorDisplay={true} />: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
+                       {trucks? <TruckDisplay trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
                 <Col>
