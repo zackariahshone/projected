@@ -13,8 +13,6 @@ router.post('/registration',async (req, res) => {
         vender:true,
         venderCredentials:{...req.body}
     })
-const user = await User.findOne({email:key});
-console.log(user);
   res.json(
     { 
         status: 200,

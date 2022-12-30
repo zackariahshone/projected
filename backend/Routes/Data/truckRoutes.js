@@ -185,29 +185,35 @@ router.delete('/api/deletetruck',async (req,res )=>{
   res.json({deleted:true});  
 })
 router.get('/dbClean', async (req, res) => {
+  const truckData = await Truck.find({}).lean()
+  //find all users
+  // const users = await User.find({}).lean();
   //drop the truck collection
   //  Truck.collection.drop();
   //create list of trucks off of dummy data
   //  Truck.create(listOfTrucks.listOfTrucks)
-  //
-  let options = {
-    provider: 'openstreetmap'
-  };
-  const geoCoder = nodeGeocoder(options);
-  const truckData = await Truck.find().lean()
-  truckData.forEach(async (truck) => {
-    const location = await geoCoder.geocode(truck.address);
-    const truckCoord = {
-      coordinates:
-      {
-        lat: location[0]?.latitude,
-        lon: location[0]?.longitude
-      }
-    }
+  //drop the users
+  //  User.collection.drop();
+   //set geoLocation for all trucks 
+  // let options = {
+  //   provider: 'openstreetmap'
+  // };
+  // const geoCoder = nodeGeocoder(options);
+  // const truckData = await Truck.find().lean()
+  // truckData.forEach(async (truck) => {
+  //   const location = await geoCoder.geocode(truck.address);
+  //   const truckCoord = {
+  //     coordinates:
+  //     {
+  //       lat: location[0]?.latitude,
+  //       lon: location[0]?.longitude
+  //     }
+  //   }
     //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
-  })
+  // })
   // const _truckData = await Truck.find().lean()
-  res.send(truckData)
+  // res.send(users)
+
 })
 
 module.exports = router;
