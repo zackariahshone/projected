@@ -32,6 +32,7 @@
     max-width: 300px;
     /* Optional: Only If you want to center your slider in the page */
     margin: auto;
+    margin-bottom:20%;
   }
   
   .customSlider-track {

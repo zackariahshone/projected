@@ -17,7 +17,7 @@ export function CustomMap({ google }) {
     // console.log(foodTruckDistance(5, userLoc, foodTruckList))
     // const getMapConfig =()=>{
     let markerSet = [];
-    const nameSet = [];
+    let nameSet = [];
     foodTruckList.forEach((truck) => {
         if (truck.coordinates) {
             const { lat, lon } = truck?.coordinates;
@@ -25,14 +25,18 @@ export function CustomMap({ google }) {
             nameSet.push({ name: truck.name })
         }
     })
-    filteredList?.forEach((truck) => {
-        markerSet=[];
-        if (truck.coordinates) {
-            const { lat, lon } = truck?.coordinates;
-            markerSet.push({ lat: lat, lng: lon })
-            nameSet.push({ name: truck.name })
-        }
-    })
+    if(distance > 0){
+        filteredList?.forEach((truck) => {
+            markerSet=[];
+            nameSet=[]
+            if (truck.coordinates) {
+                const { lat, lon } = truck?.coordinates;
+                markerSet.push({ lat: lat, lng: lon })
+                nameSet.push({ name: truck.name })
+            }
+        })
+    }
+  
     useEffect(() => {
         GeoLoc.getCurrentPosition((loc) => {
             setUserLoc(
@@ -40,37 +44,36 @@ export function CustomMap({ google }) {
                     lat: loc.coords?.latitude,
                     lng: loc.coords?.longitude
                 }
-            )
-        })
-    }, [])
-    useEffect(()=>{
-        if(distance > 0){
+                )
+            })
+        }, [])
+        console.log(distance);
+        useEffect(()=>{
             setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
-        }
-    },[distance])
-    // return {nameSet,markerSet}
-    // }
+        },[distance])
+   
     return (
         <Container>
             <Row>
                 <Col xs={3} md={2}>
-                    {filteredList?filteredList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    }): foodTruckList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    })}
+                    <p>FoodTrucks within {distance} miles of you</p>
                     <ReactSlider
                         className="customSlider"
                         trackClassName="customSlider-track"
                         thumbClassName="customSlider-thumb"
                         markClassName="customSlider-mark"
-                        marks={20}
+                        marks={5}
                         min={0}
-                        max={100}
+                        max={10}
                         defaultValue={0}
                         value={distance}
                         onChange={(value) => setDistance(value)}
                     />
+                    {filteredList?filteredList.map((truck, i) => {
+                        return <p>{truck.name}</p>
+                    }): foodTruckList.map((truck, i) => {
+                        return <p>{truck.name}</p>
+                    })}
                 </Col>
                 <Col xs={0} md={0} >
                 

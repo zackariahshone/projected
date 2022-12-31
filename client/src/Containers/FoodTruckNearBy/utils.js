@@ -1,6 +1,10 @@
 import haversine from 'haversine-distance'
 
 export const foodTruckDistance = (userDistance, userLatLon, foodTruckList) => {
+    console.log(userDistance);
+    if(userDistance==0){
+        return foodTruckList;
+    }
     console.log(userDistance, userLatLon, foodTruckList);
     const trucksWithinDistance = [];
     const userLat = userLatLon?.lat;
