@@ -15,7 +15,7 @@ export const VenderPortal = () => {
     const [signedin, setSignedIn] = useState(false);
     const isUserVender = useSelector(isVender);
     const [trucks, setTrucks] = useState();
-    const [checked, setChecked]=useState();
+    const [checked, setChecked]=useState(false);
     const handleClick = () => {
         setSignedIn(true);
     }
@@ -51,12 +51,12 @@ export const VenderPortal = () => {
                  onChange={(setChecked)}
                 checked={checked}
             />
-                <Col sm={6}>
+                <Col xs={12} md={6}>
                     <div className="vendorImg">
-                       {trucks? <TruckDisplay trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
+                       {trucks ? <TruckDisplay trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
-                <Col>
+                <Col xs = {12} md ={6}>
                     {!isUserVender ?
                         <Col>
                             <Form>

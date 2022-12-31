@@ -49,10 +49,6 @@ export function CustomMap({ google }) {
                             width: "70%",
                             height: "90%"
                         }}
-                        // style={{
-                        //     width: "100%",
-                        //     height: "100%"
-                        // }}
                         center={markerSet[0]}
                         initialCenter={markerSet[0]}
                         zoom={markerSet.length === 1 ? 18 : 13}
@@ -61,10 +57,6 @@ export function CustomMap({ google }) {
                         {markerSet.map(
                             (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
                         )}
-                        {/* lat:GeoLoc.coords?.latitude,
-                    lng:GeoLoc.coords?.longitude */
-                            console.log(userLoc)
-                    }
                         <Marker position={userLoc} title={'you are here'}/>
                     </Map>
                 </Col>

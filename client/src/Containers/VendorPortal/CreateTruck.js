@@ -12,7 +12,7 @@ export const CreateTruck = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'token':localStorage.getItem('authToken')
+                'token': localStorage.getItem('authToken')
             },
             body: JSON.stringify(venderInfo),
         }).then(response => (
@@ -28,14 +28,14 @@ export const CreateTruck = () => {
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Food Truck Name</Form.Label>
-                        <Form.Control 
-                        onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'name': e.target.value.trim()
-                            })
-                        }}
-                         type="text" placeholder="Enter email" />
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'name': e.target.value.trim()
+                                })
+                            }}
+                            type="text" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Vender First Name</Form.Label>
@@ -90,6 +90,17 @@ export const CreateTruck = () => {
                                 'pwd': e.target.value.trim()
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Tell the Searchers about your truck!!</Form.Label>
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'description': e.target.value
+                                })
+                            }}
+                            as="textarea" rows={3} />
                     </Form.Group>
                 </Form>
                 <Button

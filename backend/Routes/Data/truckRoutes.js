@@ -24,7 +24,7 @@ const listOfTrucks = {
       "IMG": dummyImage,
       "dateAdded": "12/1/2022",
       "category": [
-        'burger'
+        'BBQ', 'chicken'
       ]
     },
     {
@@ -34,7 +34,7 @@ const listOfTrucks = {
       "IMG": dummyImage,
       "dateAdded": "12/2/2022",
       "category": [
-        'soulfood'
+        'burger','poutine','smash burger','panini'
       ]
     },
     {
@@ -129,6 +129,13 @@ const listOfTrucks = {
     }
   ]
 }
+const rmvWhiteSpace = (array)=>{
+  const cleanArray = []
+  array.forEach((el)=>{
+    cleanArray.push(el.trim())
+  })
+  return cleanArray
+}
 const getLatLong = async (address) => {
   let options = {
     provider: 'openstreetmap'
@@ -158,13 +165,15 @@ router.post('/api/createTruck', async (req, res) => {
   //handle adding truck 
   const date = new Date();
   const truckToAdd = req.body;
+  truckToAdd.category = rmvWhiteSpace(req.body.category)
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   await Truck.create(truckToAdd)
   //handle adding new categories
   const currentCategories = await Categories.find().lean();
   truckToAdd.category.forEach((cat) => {
-    if (!currentCategories[0].categories.includes(cat.trim())) {
+    if (!currentCategories[0].categories.includes(cat.trim()) &&
+      cat.trim().length !== 0) {
       currentCategories[0].categories.push(cat.trim())
     }
   })
@@ -178,11 +187,10 @@ router.post('/api/createTruck', async (req, res) => {
   res.send({ status: 200 })
 })
 
-router.delete('/api/deletetruck',async (req,res )=>{
-  console.log(req.body.id);
+router.delete('/api/deletetruck', async (req, res) => {
   const truckId = req.body.id
-  const foundTruck = await Truck.findByIdAndDelete({_id:truckId});
-  res.json({deleted:true});  
+  await Truck.findByIdAndDelete({ _id: truckId });
+  res.json({ deleted: true });
 })
 
 /**
@@ -191,6 +199,9 @@ router.delete('/api/deletetruck',async (req,res )=>{
  * to clean what ever you need
  */
 router.get('/dbClean', async (req, res) => {
+  // await Categories.updateOne({categories:[]})
+  // const cats = await Categories.find().lean()
+
   const truckData = await Truck.find({}).lean()
   //find all users
   // const users = await User.find({}).lean();
@@ -200,7 +211,7 @@ router.get('/dbClean', async (req, res) => {
   //  Truck.create(listOfTrucks.listOfTrucks)
   //drop the users
   //  User.collection.drop();
-   //set geoLocation for all trucks 
+  //set geoLocation for all trucks 
   // let options = {
   //   provider: 'openstreetmap'
   // };
@@ -215,10 +226,10 @@ router.get('/dbClean', async (req, res) => {
   //       lon: location[0]?.longitude
   //     }
   //   }
-    //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
+  //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
   // })
   // const _truckData = await Truck.find().lean()
-  // res.send(users)
+  res.send(truckData)
 
 })
 

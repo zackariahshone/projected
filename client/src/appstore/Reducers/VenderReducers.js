@@ -10,7 +10,6 @@ export const venderSlice = createSlice({
     initialState,
     reducers: {
         setVenderCred: (state,action)=>{
-            console.log(action);
             state.isVender = action.payload.vender;
             state.truckCredintials = action.payload.venderdata;
         },

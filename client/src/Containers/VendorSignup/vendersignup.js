@@ -27,7 +27,6 @@ const VenderSignup = () => {
                 return response.json()
             })
             .then(data => {
-                    console.log(data);
                 dispatch(setVenderCred(
                     {
                         ...data,

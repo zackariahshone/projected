@@ -38,7 +38,6 @@ const Login = () => {
         return response.json()
       })
       .then(data => {
-        console.log(data);
         dispatch(setUserData({ ...data }))
         setVenderData(data)
         setUserFound(data.token);
