@@ -4,17 +4,18 @@ import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
+import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import './style.css'
 // const ckey = require('ckey')
+const GeoLoc = navigator.geolocation;
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
-    const [userLoc, setUserLoc] = useState();
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
     const [distance, setDistance] = useState(0);
-    // console.log(foodTruckDistance(5, userLoc, foodTruckList))
-    // const getMapConfig =()=>{
+    const currentLoc = useSelector(userLocation);
+  
     let markerSet = [];
     let nameSet = [];
     foodTruckList.forEach((truck) => {
@@ -35,21 +36,8 @@ export function CustomMap({ google }) {
             }
         })
     }
-    
     useEffect(() => {
-        const GeoLoc = navigator.geolocation;
-        GeoLoc.getCurrentPosition((loc) => {
-            setUserLoc(
-                {
-                    lat: loc.coords?.latitude,
-                    lng: loc.coords?.longitude
-                }
-            )
-        })
-    })
-    console.log(distance);
-    useEffect(() => {
-        setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
+        setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
     }, [distance])
 
     return (
@@ -91,7 +79,7 @@ export function CustomMap({ google }) {
                         {markerSet.map(
                             (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
                         )}
-                        <Marker position={userLoc} title={'you are here'} />
+                        <Marker position={currentLoc} title={'you are here'} />
                     </Map> : <></>}
                 </Col>
             </Row>
