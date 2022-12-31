@@ -7,12 +7,11 @@ import { foodTruckDistance } from './utils';
 import ReactSlider from "react-slider";
 import './style.css'
 // const ckey = require('ckey')
-const GeoLoc = navigator.geolocation;
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
     const [userLoc, setUserLoc] = useState();
     const foodTruckList = useSelector(truckSearchList);
-    const[filteredList, setFilteredList]= useState();
+    const [filteredList, setFilteredList] = useState();
     const [distance, setDistance] = useState(0);
     // console.log(foodTruckDistance(5, userLoc, foodTruckList))
     // const getMapConfig =()=>{
@@ -25,10 +24,10 @@ export function CustomMap({ google }) {
             nameSet.push({ name: truck.name })
         }
     })
-    if(distance > 0){
+    if (distance > 0) {
         filteredList?.forEach((truck) => {
-            markerSet=[];
-            nameSet=[]
+            markerSet = [];
+            nameSet = []
             if (truck.coordinates) {
                 const { lat, lon } = truck?.coordinates;
                 markerSet.push({ lat: lat, lng: lon })
@@ -36,22 +35,23 @@ export function CustomMap({ google }) {
             }
         })
     }
-  
+    
     useEffect(() => {
+        const GeoLoc = navigator.geolocation;
         GeoLoc.getCurrentPosition((loc) => {
             setUserLoc(
                 {
                     lat: loc.coords?.latitude,
                     lng: loc.coords?.longitude
                 }
-                )
-            })
-        }, [])
-        console.log(distance);
-        useEffect(()=>{
-            setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
-        },[distance])
-   
+            )
+        })
+    }, [])
+    console.log(distance);
+    useEffect(() => {
+        setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
+    }, [distance])
+
     return (
         <Container>
             <Row>
@@ -69,15 +69,15 @@ export function CustomMap({ google }) {
                         value={distance}
                         onChange={(value) => setDistance(value)}
                     />
-                    {filteredList?filteredList.map((truck, i) => {
+                    {filteredList ? filteredList.map((truck, i) => {
                         return <p>{truck.name}</p>
-                    }): foodTruckList.map((truck, i) => {
+                    }) : foodTruckList.map((truck, i) => {
                         return <p>{truck.name}</p>
                     })}
                 </Col>
                 <Col xs={0} md={0} >
-                
-                    {markerSet?<Map
+
+                    {markerSet ? <Map
                         google={google}
                         containerStyle={{
                             width: "70%",
@@ -92,7 +92,7 @@ export function CustomMap({ google }) {
                             (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
                         )}
                         <Marker position={userLoc} title={'you are here'} />
-                    </Map>:<></>}
+                    </Map> : <></>}
                 </Col>
             </Row>
         </Container>
