@@ -46,7 +46,7 @@ export function CustomMap({ google }) {
                 }
             )
         })
-    }, [])
+    })
     console.log(distance);
     useEffect(() => {
         setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
