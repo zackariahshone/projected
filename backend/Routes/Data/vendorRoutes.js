@@ -7,7 +7,9 @@ const jwt = require("jsonwebtoken");
  * Handle Sign up
  */
 router.post('/registration',async (req, res) => {
+    console.log(jwt.decode(req.headers.token));
  const key = jwt.decode(req.headers.token).email;
+ 
  await User.findOneAndUpdate({email:key},
     {
         vender:true,
@@ -20,10 +22,14 @@ router.post('/registration',async (req, res) => {
     });
 });
 router.get('/vendortrucks',async(req,res)=>{
-    const userInfo = jwt.decode(req.headers.token);
-    const currentUser = await User.find({email:userInfo.email})
-    const aggrigateTrucks = await Truck.find({ 'name': { $in: currentUser[0].foodtrucks } });
-    res.json(aggrigateTrucks);
+    try {    
+        const userInfo = jwt.decode(req.headers.token);
+        const currentUser = await User.find({email:userInfo.email})
+        const aggrigateTrucks = await Truck.find({ 'name': { $in: currentUser[0].foodtrucks } });
+        res.json(aggrigateTrucks);
+    } catch (error) {
+        
+    }
 })
 
 module.exports = router;

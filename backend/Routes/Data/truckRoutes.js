@@ -202,7 +202,7 @@ router.get('/dbClean', async (req, res) => {
   // await Categories.updateOne({categories:[]})
   // const cats = await Categories.find().lean()
 
-  const truckData = await Truck.find({}).lean()
+  // const truckData = await Truck.find({}).lean()
   //find all users
   // const users = await User.find({}).lean();
   //drop the truck collection
@@ -229,7 +229,7 @@ router.get('/dbClean', async (req, res) => {
   //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
   // })
   // const _truckData = await Truck.find().lean()
-  res.send(truckData)
+  // res.send(truckData)
 
 })
 
