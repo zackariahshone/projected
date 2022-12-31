@@ -12,12 +12,21 @@ const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
     const [userLoc, setUserLoc] = useState();
     const foodTruckList = useSelector(truckSearchList);
+    const[filteredList, setFilteredList]= useState();
     const [distance, setDistance] = useState(0);
-    console.log(foodTruckDistance(5, userLoc, foodTruckList))
+    // console.log(foodTruckDistance(5, userLoc, foodTruckList))
     // const getMapConfig =()=>{
-    const markerSet = [];
+    let markerSet = [];
     const nameSet = [];
     foodTruckList.forEach((truck) => {
+        if (truck.coordinates) {
+            const { lat, lon } = truck?.coordinates;
+            markerSet.push({ lat: lat, lng: lon })
+            nameSet.push({ name: truck.name })
+        }
+    })
+    filteredList?.forEach((truck) => {
+        markerSet=[];
         if (truck.coordinates) {
             const { lat, lon } = truck?.coordinates;
             markerSet.push({ lat: lat, lng: lon })
@@ -35,15 +44,19 @@ export function CustomMap({ google }) {
         })
     }, [])
     useEffect(()=>{
-
-    },[])
+        if(distance > 0){
+            setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
+        }
+    },[distance])
     // return {nameSet,markerSet}
     // }
     return (
         <Container>
             <Row>
                 <Col xs={3} md={2}>
-                    {foodTruckList.map((truck, i) => {
+                    {filteredList?filteredList.map((truck, i) => {
+                        return <p>{truck.name}</p>
+                    }): foodTruckList.map((truck, i) => {
                         return <p>{truck.name}</p>
                     })}
                     <ReactSlider
@@ -60,7 +73,8 @@ export function CustomMap({ google }) {
                     />
                 </Col>
                 <Col xs={0} md={0} >
-                    <Map
+                
+                    {markerSet?<Map
                         google={google}
                         containerStyle={{
                             width: "70%",
@@ -75,7 +89,7 @@ export function CustomMap({ google }) {
                             (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
                         )}
                         <Marker position={userLoc} title={'you are here'} />
-                    </Map>
+                    </Map>:<></>}
                 </Col>
             </Row>
         </Container>
