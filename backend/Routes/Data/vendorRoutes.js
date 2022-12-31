@@ -22,17 +22,8 @@ router.post('/registration',async (req, res) => {
 router.get('/vendortrucks',async(req,res)=>{
     const userInfo = jwt.decode(req.headers.token);
     const currentUser = await User.find({email:userInfo.email})
-    
-    const aggrigateTrucks = []
-    currentUser[0].foodtrucks.forEach(async (truck,i)=>{
-        const foundTruck = await Truck.find({name:truck})
-        if(foundTruck.length == 1){
-            aggrigateTrucks.push(foundTruck[0])
-        }
-        if(i===currentUser[0].foodtrucks.length - 1){
-           res.json(aggrigateTrucks);
-        }
-    })
+    const aggrigateTrucks = await Truck.find({ 'name': { $in: currentUser[0].foodtrucks } });
+    res.json(aggrigateTrucks);
 })
 
 module.exports = router;
