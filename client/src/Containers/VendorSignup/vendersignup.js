@@ -31,7 +31,7 @@ const VenderSignup = () => {
                 dispatch(setVenderCred(
                     {
                         ...data,
-                        isVender: true
+                        vender: true
                     }))
                 navigate('/vender')
             });

@@ -184,6 +184,12 @@ router.delete('/api/deletetruck',async (req,res )=>{
   const foundTruck = await Truck.findByIdAndDelete({_id:truckId});
   res.json({deleted:true});  
 })
+
+/**
+ * just dirty util 
+ * uncoment lines that you need the run /dbClean 
+ * to clean what ever you need
+ */
 router.get('/dbClean', async (req, res) => {
   const truckData = await Truck.find({}).lean()
   //find all users
