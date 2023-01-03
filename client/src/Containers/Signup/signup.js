@@ -8,9 +8,8 @@ import {
 } from "react-bootstrap";
 import './style.css';
 import { useNavigate } from "react-router-dom";
-
 import { validator } from './signupUtils'
-import { isLoggedIn,currentUser, setUserData } from '../../appstore/Reducers/UserReducers';
+import { isLoggedIn,currentUser, setUserData,login } from '../../appstore/Reducers/UserReducers';
 import localStorage from 'redux-persist/es/storage';
 
 const SignUp = () => {
@@ -45,9 +44,11 @@ const SignUp = () => {
                 'Accept': 'application/json',
             },
             body: JSON.stringify(userInfo),
-        }).then(response => {
+        }).then(response =>response.json()).then((userData)=>{
+            dispatch(setUserData({ ...userInfo }))
+            dispatch(login({ value: true, type: 'login' }))
             navigate("/")
-    })
+        })
     }
     return (
         <Container >

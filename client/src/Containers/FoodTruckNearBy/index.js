@@ -7,8 +7,8 @@ import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import './style.css'
-// const ckey = require('ckey')
-const GeoLoc = navigator.geolocation;
+import truckIcon from './truckIcon.png'
+
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
@@ -25,26 +25,31 @@ export function CustomMap({ google }) {
             nameSet.push({ name: truck.name })
         }
     })
-    if (distance > 0) {
-        filteredList?.forEach((truck) => {
-            markerSet = [];
-            nameSet = []
-            if (truck.coordinates) {
-                const { lat, lon } = truck?.coordinates;
-                markerSet.push({ lat: lat, lng: lon })
-                nameSet.push({ name: truck.name })
-            }
-        })
-    }
     useEffect(() => {
-        setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
+        // if(foodTruckList){
+            setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
+            if (distance > 0) {
+                filteredList?.forEach((truck) => {
+                    markerSet = [];
+                    nameSet = []
+                    if (truck.coordinates) {
+                        const { lat, lon } = truck?.coordinates;
+                        markerSet.push({ lat: lat, lng: lon })
+                        nameSet.push({ name: truck.name })
+                    }
+                })
+            }
+        // }
     }, [distance])
-
+    console.log(markerSet);
+    console.log(nameSet);
+    console.log(filteredList);
     return (
         <Container>
-            <Row>
-                <Col xs={3} md={2}>
-                    <p>FoodTrucks within {distance} miles of you</p>
+        <Row>
+
+                <Col xs={3} >
+                   {distance === 0 ? <p> Move lider to ilter trucks </p> : <p>Food trucks within {distance} miles of you</p>}
                     <ReactSlider
                         className="customSlider"
                         trackClassName="customSlider-track"
@@ -52,17 +57,22 @@ export function CustomMap({ google }) {
                         markClassName="customSlider-mark"
                         marks={5}
                         min={0}
-                        max={10}
+                        max={20}
                         defaultValue={0}
                         value={distance}
                         onChange={(value) => setDistance(value)}
                     />
+                </Col>
+            </Row>
+            <Row>
+            <Col xs={12} md={3}>
+
                     {filteredList ? filteredList.map((truck, i) => {
                         return <p>{truck.name}</p>
                     }) : foodTruckList.map((truck, i) => {
                         return <p>{truck.name}</p>
                     })}
-                </Col>
+            </Col>
                 <Col xs={0} md={0} >
 
                     {markerSet ? <Map
@@ -77,9 +87,19 @@ export function CustomMap({ google }) {
                         disableDefaultUI={true}
                     >
                         {markerSet.map(
-                            (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
+                            (coords, i) => <Marker
+                                 icon={{
+                                    url:truckIcon,
+                                    anchor:new google.maps.Point(17,46),
+                                    scaledSize: new google.maps.Size(50,50)
+                                 }}
+                                position={coords} 
+                                title={`${nameSet[i].name}`} />
                         )}
-                        <Marker position={currentLoc} title={'you are here'} />
+                        <Marker
+                        // icon = {{url:'RiMapPinUserFill'}} 
+                        position={currentLoc} 
+                        title={'you are here'} />
                     </Map> : <></>}
                 </Col>
             </Row>

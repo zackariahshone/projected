@@ -22,17 +22,13 @@
     margin-bottom: 2%;
     display: inline;
 }
-.mapPin{
-    height: 9px;
-    width: 9px;
-}
 
 .customSlider {
     /* max width of your slider */
     max-width: 300px;
     /* Optional: Only If you want to center your slider in the page */
     margin: auto;
-    margin-bottom:20%;
+    margin-bottom:35%;
   }
   
   .customSlider-track {

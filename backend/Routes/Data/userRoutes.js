@@ -6,9 +6,11 @@ const UTILS = require('./utils');
  * Handle Sign up
  */
 router.post('/signup', (req, res) => {
-  User.create(req.body)
+ const createdUser = User.create(req.body)
   req.session.signinSuccess = true;
-  res.json({ status: 200 });
+  res.json({ 
+    newUser:createdUser,
+    status: 200 });
 });
 /**
  * Handle log in 
