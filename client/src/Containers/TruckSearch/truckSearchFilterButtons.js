@@ -4,9 +4,7 @@ import './style.css';
 
 const TruckSearchFilterButtons = () => {
 
-    const handleClick=(e)=>{
-        console.log(e.target.value);
-    }
+  
     return (
         <Fragment>
             <button className='filterButton' >Search By Title</button>

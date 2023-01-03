@@ -5,8 +5,9 @@ import TruckSearch from './Containers/TruckSearch/trucksearch';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import Login from './Containers/Login/login';
 import SignUp from './Containers/Signup/signup'
-import { VendorPortal } from './Containers/VendorPortal/vendorPortal.js'
+import { VenderPortal } from './Containers/VendorPortal/vendorPortal.js'
 import { ERRORPage } from './Components/Error/error'
+import VenderSignup from './Containers/VendorSignup/vendersignup';
 
 
 export const colorArray = ['#80B0A4', '#D04F2C', '#D9AC36', '#431E15', '#428F5A', '#D6742B'];
@@ -30,8 +31,8 @@ export const ROUTES = [
         link: "recommendedtrucks"
     },
     {
-        name: 'Vendor Portal',
-        link: 'vendor',
+        name: 'Vender Portal',
+        link: 'vender',
         protected: true
 
     }
@@ -72,9 +73,14 @@ export const BROWSER_ROUTER_CONFIGS =
             element: SignUp
         },
         {
-            path: 'vendor',
-            element: VendorPortal,
+            path: 'vender',
+            element: VenderPortal,
             protected: true
 
+        },
+        {
+            path:'vender/register',
+            element:VenderSignup,
+            // protected:true,
         }
     ]

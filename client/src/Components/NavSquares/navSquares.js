@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ Fragment }from 'react';
 import { useSelector } from 'react-redux';
 import {
     Col,
@@ -8,12 +8,11 @@ import {
 } from 'react-bootstrap';
 import './style.css';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
-import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
-
+import { isVender } from '../../appstore/Reducers/VenderReducers';
 const NavSquares = () => {
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
-    const loggedInStatus = useSelector(isLoggedIn);
+    const isUserVender = useSelector(isVender);
 
     return (
         <Container
@@ -21,8 +20,10 @@ const NavSquares = () => {
         >
             <Row>
                 {ROUTES.map((route, x) => {
-                    if (route.protected && !loggedInStatus) {
-                        return;
+                    if (route.protected && !isUserVender) {
+                        return<Fragment
+                            key={`${x}_squareFrag`}
+                        />;
                     }
                     if (x > 0) {
                         colorIndex++;

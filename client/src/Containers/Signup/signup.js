@@ -8,8 +8,7 @@ import {
     Row
 } from "react-bootstrap";
 import './style.css';
-import { validator } from './signupUtils'
-import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
+import {validator} from './signupUtils'
 
 const SignUp = () => {
     const [errorHandle, setErrorhandle] = useState();
@@ -42,18 +41,18 @@ const SignUp = () => {
                     <Form.Group className="mb-3">
                         {/* {emailError ? <text className="error">Please enter a valid email</text>} */}
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                            onChange={(e) => {
-                                setUserData({
-                                    ...userData,
-                                    'email': e.target.value
-                                })
-
-                            }}
-                            onBlur={(e) => {
-                                validator(e.target.value, 'email')
-                            }}
-                            type="email" placeholder="Enter email" />
+                        <Form.Control 
+                        onChange={(e) => {
+                            setUserData({
+                                ...userData,
+                                'email': e.target.value
+                            })
+                            
+                        }}
+                        onBlur={(e)=>{
+                            console.log(validator(e.target.value,'email'))
+                        }}
+                         type="email" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>First Name</Form.Label>

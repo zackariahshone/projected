@@ -16,3 +16,12 @@
     /* text-size-adjust: auto; */
     font-size:small
 }
+
+.recTruckActive {
+    transform: scale(0.88);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 1px 2px 22px 1px rgba(0, 0, 0, 0.967);
+    /* Lowering the shadow */
+}
+
+

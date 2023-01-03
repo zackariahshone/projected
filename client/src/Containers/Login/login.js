@@ -6,6 +6,7 @@ import {
   Form
 } from 'react-bootstrap';
 import { login, isLoggedIn, setUserData } from '../../appstore/Reducers/UserReducers';
+import {setVenderCred, isVender} from '../../appstore/Reducers/VenderReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
 import authHeader from '../../userServices/authHeader'
@@ -18,6 +19,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState();
   const [emailError, setEmailError] = useState(false);
   const [pwdError, setPwdError] = useState(false);
+  const [venderData,setVenderData]=useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
@@ -25,45 +27,47 @@ const Login = () => {
   const getUser = () => {
     fetch('/login', {
       method: 'POST',
-      headers: 
-        { 
-          'Content-Type': 'application/json',
-          'x-access-token': authHeader(userCred).toString()
-        },
+      headers:
+      {
+        'Content-Type': 'application/json',
+        'x-access-token': authHeader(userCred).toString()
+      },
       body: JSON.stringify(userCred),
     })
       .then(response => {
         return response.json()
       })
       .then(data => {
-        console.log(data);
-        dispatch(setUserData({...data}))
+        dispatch(setUserData({ ...data }))
+        setVenderData(data)
         setUserFound(data.token);
-        localStorage.setItem('authToken',data.authToken)
+        localStorage.setItem('authToken', data.authToken)
       });
-  }
+    }
 
-  const handleClick = () => {
+    const handleClick = () => {
     if (pwdError === false && emailError === false) {
       getUser()
       if (
-       ( loggedInStatus === false || 
-        loggedInStatus === undefined) &&
-        userFound === true
-      ) {
-        dispatch(login({ value: true, type: 'login' }))
-        setLoginError(false);
+        (loggedInStatus === false ||
+          loggedInStatus === undefined) &&
+          userFound === true
+          ) {
+            dispatch(login({ value: true, type: 'login' }))
+            dispatch(setVenderCred(venderData))
+            setLoginError(false);
         navigate("/");
       }
     }
   }
   useEffect(() => {
     if (
-     ( loggedInStatus === false || 
-       loggedInStatus === undefined) &&
-       userFound === true
+      (loggedInStatus === false ||
+        loggedInStatus === undefined) &&
+      userFound === true
     ) {
       dispatch(login({ value: true, type: 'login' }))
+      dispatch(setVenderCred(venderData))
       setLoginError(false);
       navigate("/");
     }
@@ -90,18 +94,18 @@ const Login = () => {
                 setEmailError(false);
               }}
               onBlur={(e) => {
-                
+
                 if (!String(e.target.value)
-                      .toLowerCase()
-                      .match(
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                  .toLowerCase()
+                  .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                   )) {
                   setEmailError(true)
                 }
               }}
             />
           </Form.Group>
-          {pwdError ? <p className='error'>*password cannot be blank</p>:null}
+          {pwdError ? <p className='error'>*password cannot be blank</p> : null}
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -113,12 +117,10 @@ const Login = () => {
                     ...userCred,
                     password: e.target.value
                   })
-                  setPwdError(false);
+                setPwdError(false);
               }}
               onBlur={(e) => {
                 if (e.target.value === '') {
-
-
                   setPwdError(true)
                 }
               }}
@@ -128,13 +130,11 @@ const Login = () => {
             variant="primary"
             onClick={() => {
               handleClick();
-
             }}
           >
             Submit
           </Button>
           <Link to="/signup">
-
             <Button
               className="signUp signUp-button"
               onClick={() => {

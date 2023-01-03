@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import './style.css';
 
 export const CreateTruck = () => {
     const [userData, setUserData] = useState();
-    const handleRegister = (userInfo) => {
-        fetch('createTruck', {
+    const navigate = useNavigate();
+    const handleRegister = (venderInfo) => {
+        fetch('/api/createTruck', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'token': localStorage.getItem('authToken')
             },
-            body: JSON.stringify(userInfo),
+            body: JSON.stringify(venderInfo),
         }).then(response => (
             console.log(response)
         ))
@@ -20,32 +23,26 @@ export const CreateTruck = () => {
         <Container >
             <center>
                 <h1> Set up you first truck or another truck </h1>
-    
             </center>
             <div className='signup-container'>
-
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Food Truck Name</Form.Label>
-                        <Form.Control 
-                        onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'email': e.target.value
-                            })
-                            
-                        }}
-                        onBlur={(e)=>{
-                            // console.log()
-                        }}
-                         type="text" placeholder="Enter email" />
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'name': e.target.value.trim()
+                                })
+                            }}
+                            type="text" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Vender First Name</Form.Label>
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'firstName': e.target.value
+                                'venderFirstName': e.target.value.trim()
                             })
                         }} type="text" placeholder="Enter First Name" />
                     </Form.Group>
@@ -54,7 +51,7 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'lastName': e.target.value
+                                'venderLastName': e.target.value.trim()
                             })
                         }} type="text" placeholder="Enter Last Name" />
                     </Form.Group>
@@ -63,7 +60,7 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'pwd': e.target.value
+                                'address': e.target.value.trim()
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
                     </Form.Group>
@@ -72,7 +69,7 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'pwd': e.target.value
+                                'category': e.target.value.split(',')
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
                     </Form.Group>
@@ -81,15 +78,36 @@ export const CreateTruck = () => {
                         <Form.Control onChange={(e) => {
                             setUserData({
                                 ...userData,
-                                'pwd': e.target.value
+                                'IMG': e.target.value.trim()
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password for your Food truck account</Form.Label>
+                        <Form.Control onChange={(e) => {
+                            setUserData({
+                                ...userData,
+                                'pwd': e.target.value.trim()
+                            })
+                        }} type="text" placeholder="Address can change daily if needed" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Tell the Searchers about your truck!!</Form.Label>
+                        <Form.Control
+                            onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'description': e.target.value
+                                })
+                            }}
+                            as="textarea" rows={3} />
                     </Form.Group>
                 </Form>
                 <Button
                     value={`Get Registered! `}
                     onClick={() => {
                         handleRegister(userData);
+                        navigate('/vender')
                     }}
                 >Get Registered!!!</Button>
             </div>

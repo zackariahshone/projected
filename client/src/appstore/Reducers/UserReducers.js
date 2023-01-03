@@ -12,8 +12,7 @@ export const userSlice = createSlice({
     },
     logout: (state,action) => {
         state.isLoggedIn = action.payload.value
-        state.userData = {}
-    
+        state.userData = null;
     },
     setUserData:(state,action)=>{
         state.userData = action.payload

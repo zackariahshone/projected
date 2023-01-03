@@ -6,13 +6,14 @@ import { currentUser } from '../../appstore/Reducers/UserReducers';
 import DisplayTrucks from './DisplayTruck';
 import {DisplayCategories} from './DisplayButtonCategories';
 import './style.css';
+
 const RecommendedTrucks = () => {
     const [userCategories, setUserCategories] = useState([]);
     const [checked, setChecked] = useState();
     const userInfo = useSelector(currentUser);
 
     useEffect(()=>{
-        if(checked && userInfo.category){
+        if(checked){
             setUserCategories(userInfo.category)
         }
     });
@@ -31,18 +32,21 @@ const RecommendedTrucks = () => {
                             }}
                         >Reset Selection</button>
                     </Col>
-                    <label>
+                   {userInfo !== null && userInfo?.category ?
+                   <label>
                         <Switch
                             onChange={(setChecked)}
                             checked={checked}
                         />
-                    </label>
+                    </label>:<></>
+                   
+                   } 
                 </Row>
                 <Row>
                     
                 </Row>
             </div>
-            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked?userInfo.category :userCategories} />
+            <DisplayCategories setUserCategories={setUserCategories} userCategories = {checked ? userInfo.category :userCategories} />
             <DisplayTrucks categories={userCategories} />
         </Container>
     );
