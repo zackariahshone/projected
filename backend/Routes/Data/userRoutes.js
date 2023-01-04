@@ -5,11 +5,12 @@ const UTILS = require('./utils');
 /**
  * Handle Sign up
  */
-router.post('/signup', (req, res) => {
- const createdUser = User.create(req.body)
+router.post('/signup', async (req, res) => {
+ const createdUser = await User.create(req.body)
+ console.log(createdUser);
   req.session.signinSuccess = true;
   res.json({ 
-    newUser:createdUser,
+    ...createdUser,
     status: 200 });
 });
 /**

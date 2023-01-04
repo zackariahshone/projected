@@ -45,6 +45,9 @@ const SignUp = () => {
             },
             body: JSON.stringify(userInfo),
         }).then(response =>response.json()).then((userData)=>{
+            console.log('==========respones from signup userData then userInfo=====');
+            console.log(userData);
+            console.log(userInfo);
             dispatch(setUserData({ ...userInfo }))
             dispatch(login({ value: true, type: 'login' }))
             navigate("/")
