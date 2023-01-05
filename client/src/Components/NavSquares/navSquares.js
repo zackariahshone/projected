@@ -16,9 +16,13 @@ const NavSquares = () => {
 
     return (
         <Container
-            style={{ marginTop: '10%' }}
+            // style={{ marginTop: '10%' }}
         >
-            <Row>
+            <div 
+                
+            >
+
+            <Row>   
                 {ROUTES.map((route, x) => {
                     if (route.protected && !isUserVender) {
                         return<Fragment
@@ -33,8 +37,9 @@ const NavSquares = () => {
                     textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
                     return (<Col key={`col_${x}`} xs={12} md={6} lg={3} xl={3}>
                         <div key={`square_${x}`}
-                            className={`navSquare ${route.link}`}
-                            style={{ backgroundColor: `${colorArray[colorIndex]}` }}
+                            // style={{}}
+                            className={`navSquare ${route.link} mobileMargin`}
+                            style={{marginTop:'15%', backgroundColor: `${colorArray[colorIndex]}` }}
                         >
                             <Nav.Link key={`square_link_${x}`}
                                 href={route.link}
@@ -49,6 +54,7 @@ const NavSquares = () => {
                     )
                 })}
             </Row>
+            </div>
         </Container>
     )
 }

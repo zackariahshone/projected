@@ -1,9 +1,6 @@
-/* body{
-  background:#000000 !important;
-} */
-
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -31,12 +28,26 @@
 .App-link {
   color: #61dafb;
 }
-
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 992px) {
+  .hide{
+    display: none;
+  }
+  .show{
+    display: block;
   }
 }

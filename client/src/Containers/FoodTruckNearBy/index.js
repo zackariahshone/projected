@@ -48,8 +48,8 @@ export function CustomMap({ google }) {
         <Container>
         <Row>
 
-                <Col xs={3} >
-                   {distance === 0 ? <p> Move lider to ilter trucks </p> : <p>Food trucks within {distance} miles of you</p>}
+                <Col xs={12} >
+                  <center> {distance === 0 ? <p> Move slider to filter trucks </p> : <p>Food trucks within {distance} miles of you</p>} </center>
                     <ReactSlider
                         className="customSlider"
                         trackClassName="customSlider-track"
@@ -65,7 +65,7 @@ export function CustomMap({ google }) {
                 </Col>
             </Row>
             <Row>
-            <Col xs={12} md={3}>
+            <Col className={'truckNames'} xs={12} md={3}>
 
                     {filteredList ? filteredList.map((truck, i) => {
                         return <p>{truck.name}</p>
@@ -74,9 +74,9 @@ export function CustomMap({ google }) {
                     })}
             </Col>
                 <Col xs={0} md={0} >
-
                     {markerSet ? <Map
                         google={google}
+                        className={'mapContainer'}
                         containerStyle={{
                             width: "70%",
                             height: "90%"

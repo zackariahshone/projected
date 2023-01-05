@@ -28,7 +28,7 @@
     max-width: 300px;
     /* Optional: Only If you want to center your slider in the page */
     margin: auto;
-    margin-bottom:35%;
+    margin-bottom:10%;
   }
   
   .customSlider-track {
@@ -66,3 +66,16 @@
     height: 8px;
     background-color: var(--mark-color);
   }
+
+  @media screen and (max-width: 992px) {
+    .active {
+        width: 40%;
+        padding-left: 3% !important;
+    }
+    .hide{
+        display: none;
+    }
+    .mapContainer{
+      margin-left: 10%;
+    }
+}

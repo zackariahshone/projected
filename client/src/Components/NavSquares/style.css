@@ -29,3 +29,17 @@
     border-radius: 10px;
     /* height: 100%; */
 }
+
+/* mobileMargin */
+
+@media screen and (max-width: 992px) {
+    .hide{
+      display: none;
+    }
+    .show{
+      display: block;
+    }
+    .mobileMargin{
+        margin-left: 3%;
+    }
+  }
