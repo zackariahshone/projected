@@ -51,12 +51,6 @@ console.log(isMobile);
       {isMobile?
       <Sidenav/>:
       <TopNav/>}
-      {/* <Row> */}
-        {/* <Col> */}
-        {/* </Col> */}
-        {/* <Col> */}
-
-
       <Routes>
         {BROWSER_ROUTER_CONFIGS.map((route, i) => {
           if (route.protected && !isUserVendor) {
