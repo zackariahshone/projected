@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
  */
 router.post('/registration',async (req, res) => {
     console.log(jwt.decode(req.headers.token));
- const key = jwt.decode(req.headers.token).email;
+    const key = jwt.decode(req.headers.token)?.email;
  
  await User.findOneAndUpdate({email:key},
     {
