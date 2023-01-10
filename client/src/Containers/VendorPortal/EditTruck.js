@@ -122,7 +122,7 @@ export const EditTruck = ({selectedTruck})=>{
                     onClick={() => {
                         setUserData({
                             ...userData,
-                            'truckId':truckSelected._id
+                            'truckId':truckSelected._id,
                         })
                         handleEdit(userData);
                         // navigate('/vender')

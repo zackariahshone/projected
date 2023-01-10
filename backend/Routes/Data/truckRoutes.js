@@ -207,9 +207,9 @@ router.delete('/api/deletetruck', async (req, res) => {
 })
 router.post('/api/editTruck',async(req,res)=>{
   await Truck.findOneAndUpdate({ _id: req.body.truckId }, UTILS.rmvEmpty(req.body)).lean();
-  
-  console.log(req.headers);
-  console.log(req.body)
+  const currentUser = jwt.decode(req.headers.token)
+  const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:req.body.name})
+  console.log(user);
 })
 /**
  * just dirty util 
