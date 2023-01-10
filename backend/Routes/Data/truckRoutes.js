@@ -5,6 +5,7 @@ const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truc
 const nodeGeocoder = require('node-geocoder');
 const jwt = require("jsonwebtoken");
 const User = require('../../dbconnection/models/User');
+const UTILS = require('./utils');
 const listOfTrucks = {
   'listOfTrucks': [
     {
@@ -200,13 +201,16 @@ router.delete('/api/deletetruck', async (req, res) => {
       truckCategories.add(cat);
     });
   })
-  
-  // console.log([...catSet]);
   const filterdCategories = currentCategories[0].categories.filter((category)=>[...truckCategories].includes(category));
   await Categories.updateOne({categories:filterdCategories})
   res.json({ deleted: true });
 })
-
+router.post('/api/editTruck',async(req,res)=>{
+  await Truck.findOneAndUpdate({ _id: req.body.truckId }, UTILS.rmvEmpty(req.body)).lean();
+  
+  console.log(req.headers);
+  console.log(req.body)
+})
 /**
  * just dirty util 
  * uncoment lines that you need the run /dbClean 
