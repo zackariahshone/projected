@@ -9,14 +9,22 @@
 .show{
     display: block;
 }
-
+.hideDesktop{
+    display: none;
+}
+.showDesktop{
+    display:block;
+}
 @media screen and (max-width: 992px) {
     .active {
         width: 40%;
         padding-left: 3% !important;
     }
     .hide{
-        display: none;
+        display: none !important;
+    }
+    .showMobile{
+        display: block;
     }
     .truckNames{
         margin-left:5%;

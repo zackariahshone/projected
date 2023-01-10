@@ -48,9 +48,7 @@ console.log(isMobile);
   }, []);
   return (
     <Fragment>
-      {isMobile?
-      <Sidenav/>:
-      <TopNav/>}
+    
       <Routes>
         {BROWSER_ROUTER_CONFIGS.map((route, i) => {
           if (route.protected && !isUserVendor) {

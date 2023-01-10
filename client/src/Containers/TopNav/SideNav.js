@@ -2,7 +2,8 @@
 import React,{useState} from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ROUTES } from '../../GlobalConstanst';
-import styles from "./sidenav.module.css"
+import './style.css';
+import styles from "./sidenav.module.css";
 
 export default function Sidenav() {
     const [open, setopen] = useState(false)
@@ -10,10 +11,11 @@ export default function Sidenav() {
         setopen(!open)
     }
   return (
-    <div className={open?styles.sidenav:styles.sidenavClosed}>
+    <div>
         <button className={styles.menuBtn} onClick={toggleOpen}>
             {open? '<<' : '>>'}
         </button>
+    <div className={`hideDesktop showMobile ${open?styles.sidenav:styles.sidenavClosed}`}>
         <NavLink className={styles.sideitem} to={'/'} as={Link}>{open ? 'Projected':''}</NavLink>
         {ROUTES.map(item =>{
             return <NavLink key={item.id} className={styles.sideitem} to={item.link}>
@@ -26,5 +28,6 @@ export default function Sidenav() {
             as={Link}
         > {open ?'Login':''} </NavLink>
     </div>
+            </div>
   )
 }
