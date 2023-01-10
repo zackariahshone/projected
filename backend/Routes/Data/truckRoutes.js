@@ -188,8 +188,22 @@ router.post('/api/createTruck', async (req, res) => {
 })
 
 router.delete('/api/deletetruck', async (req, res) => {
+  //delete truck as requested
   const truckId = req.body.id
   await Truck.findByIdAndDelete({ _id: truckId });
+  //clean up categories when truck is removed and categorie no longer matches a truck. 
+  const currentCategories = await Categories.find().lean()
+  const truckData = await Truck.find({}).lean()
+  const truckCategories = new Set();
+  truckData.forEach(truck=>{
+    truck.category.forEach((cat)=>{
+      truckCategories.add(cat);
+    });
+  })
+  
+  // console.log([...catSet]);
+  const filterdCategories = currentCategories[0].categories.filter((category)=>[...truckCategories].includes(category));
+  await Categories.updateOne({categories:filterdCategories})
   res.json({ deleted: true });
 })
 
@@ -198,11 +212,9 @@ router.delete('/api/deletetruck', async (req, res) => {
  * uncoment lines that you need the run /dbClean 
  * to clean what ever you need
  */
-router.get('/dbClean', async (req, res) => {
+// router.get('/dbClean', async (req, res) => {
   // await Categories.updateOne({categories:[]})
-  // const cats = await Categories.find().lean()
 
-  // const truckData = await Truck.find({}).lean()
   //find all users
   // const users = await User.find({}).lean();
   //drop the truck collection
@@ -229,11 +241,12 @@ router.get('/dbClean', async (req, res) => {
   //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
   // })
   // const _truckData = await Truck.find().lean()
-  // res.send(truckData)
+  // res.send(cats)
 
-})
+// })
 
 module.exports = router;
  /**
 * Saving algo for later use
 *  */ 
+
