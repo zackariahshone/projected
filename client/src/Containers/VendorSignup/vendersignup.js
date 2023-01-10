@@ -69,7 +69,7 @@ const VenderSignup = () => {
                                 onBlur={(e) => {
                                     // console.log()
                                 }}
-                                type="text" placeholder="Enter email" />
+                                type="password" placeholder="Enter password" />
                         </Form.Group>
                     </Form>
                 </Col>
