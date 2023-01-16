@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
-  "engines": {"node": "14"},
   "dependencies": {
     "@brainhubeu/react-carousel": "^2.0.4",
     "@reduxjs/toolkit": "^1.7.1",
