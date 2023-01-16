@@ -146,8 +146,8 @@ const getLatLong = async (address) => {
 
   return (
     {
-      lat: location[0]?.latitude,
-      lon: location[0]?.longitude
+      lat: location[0].latitude,
+      lon: location[0].longitude
     }
   )
 }
