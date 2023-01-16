@@ -73,12 +73,12 @@ export function CustomMap({ google }) {
                         return <p>{truck.name}</p>
                     })}
             </Col>
-                <Col xs={0} md={0} >
+                <Col xs={0} md={6} >
                     {markerSet ? <Map
                         google={google}
                         className={'mapContainer'}
                         containerStyle={{
-                            width: "70%",
+                            width: "50%",
                             height: "90%"
                         }}
                         center={markerSet[0]}

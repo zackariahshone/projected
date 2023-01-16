@@ -1,36 +1,35 @@
-const { isInteger } = require('lodash');
-const { Schema, model } = require('mongoose');
-
- const FoodTruckSchema = new Schema({
- name:{
-  type:String
- },
- venderFirstName:{
-  type:String
- },
- venderLastName:{
-  type:String
- },
- description: {
+const { isInteger, uniqueId } = require('lodash');
+const { Schema, model, Mongoose } = require('mongoose');
+const FoodTruckSchema = new Schema({
+  name: {
+    type: String
+  },
+  venderFirstName: {
+    type: String
+  },
+  venderLastName: {
+    type: String
+  },
+  description: {
     type: String,
   },
-  address:{
+  address: {
     type: String,
   },
-  IMG:{
-    type:String,
+  IMG: {
+    type: String,
   },
-  dateAdded:{ 
-    type:String
+  dateAdded: {
+    type: String
   },
-  category:{
-    type:[String]
+  category: {
+    type: [String]
   },
-  coordinates:{
-    type:Object
+  coordinates: {
+    type: Object
   },
-  pwd:{
-    type:String
+  pwd: {
+    type: String
   }
 });
 

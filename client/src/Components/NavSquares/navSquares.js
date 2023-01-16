@@ -38,7 +38,7 @@ const NavSquares = () => {
                     return (<Col key={`col_${x}`} xs={12} md={6} lg={3} xl={3}>
                         <div key={`square_${x}`}
                             // style={{}}
-                            className={`navSquare ${route.link} mobileMargin`}
+                            className={`navSquare ${route.link}`}
                             style={{marginTop:'15%', backgroundColor: `${colorArray[colorIndex]}` }}
                         >
                             <Nav.Link key={`square_link_${x}`}

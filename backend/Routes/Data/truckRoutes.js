@@ -166,24 +166,26 @@ router.post('/api/createTruck', async (req, res) => {
   //handle adding truck 
   const date = new Date();
   const truckToAdd = req.body;
-  truckToAdd.category = rmvWhiteSpace(req.body.category)
+  truckToAdd.category = req.body.category? rmvWhiteSpace(req.body?.category):'';
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-  await Truck.create(truckToAdd)
+  const addedTruck = await Truck.create(truckToAdd);
   //handle adding new categories
   const currentCategories = await Categories.find().lean();
-  truckToAdd.category.forEach((cat) => {
-    if (!currentCategories[0].categories.includes(cat.trim()) &&
+  if(truckToAdd.category){
+    truckToAdd.category.forEach((cat) => {
+      if (!currentCategories[0].categories.includes(cat.trim()) &&
       cat.trim().length !== 0) {
-      currentCategories[0].categories.push(cat.trim())
-    }
-  })
+        currentCategories[0].categories.push(cat.trim())
+      }
+    })
+  }
   await Categories.updateOne({categories:currentCategories[0].categories})
   // handle assigning new trucks to logged in user profile
   const userInfo = jwt.decode(req.headers.token);
   const currentUser = await User.find({ email: userInfo.email })
   const trucksUpdate = currentUser[0].foodtrucks;
-  trucksUpdate.push(req.body.name);
+  trucksUpdate.push(addedTruck._id);
   await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
   res.send({ status: 200 })
 })
@@ -206,10 +208,10 @@ router.delete('/api/deletetruck', async (req, res) => {
   res.json({ deleted: true });
 })
 router.post('/api/editTruck',async(req,res)=>{
-  await Truck.findOneAndUpdate({ _id: req.body.truckId }, UTILS.rmvEmpty(req.body)).lean();
+  console.log(req.headers.truckid);
+  const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
   const currentUser = jwt.decode(req.headers.token)
-  const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:req.body.name})
-  console.log(user);
+  const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:updatedTruck._id})
 })
 /**
  * just dirty util 

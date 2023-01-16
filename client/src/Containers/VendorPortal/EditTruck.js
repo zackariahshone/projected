@@ -1,26 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-import { DUMMY_IMG } from "../../GlobalConstanst";
-import { CreateTruck } from "./CreateTruck";
-import { isVender } from "../../appstore/Reducers/VenderReducers";
-import { useSelector } from "react-redux";
-import { TruckDisplay } from "../../Components/TruckDisplay/truckDisplay";
-import ReactSwitch from "react-switch";
+import { useSelector } from 'react-redux';
+import { truckToEdit } from "../../appstore/Reducers/VenderPortal";
 import { useNavigate } from "react-router-dom";
 import './style.css'
 export const EditTruck = ({selectedTruck})=>{
     const [userData, setUserData] = useState();
-    const [truckSelected, setTruckSelected] = useState(selectedTruck);
+    const truckBeingEdited = useSelector(truckToEdit);
     const navigate = useNavigate();
     const handleEdit = (venderInfo) => {
-        console.log(venderInfo);
         fetch('/api/editTruck', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'token': localStorage.getItem('authToken'),
-                'truckId':truckSelected._id
+                'truckId':truckBeingEdited._id
             },
             body: JSON.stringify(venderInfo),
         }).then(response => (
@@ -122,7 +117,6 @@ export const EditTruck = ({selectedTruck})=>{
                     onClick={() => {
                         setUserData({
                             ...userData,
-                            'truckId':truckSelected._id,
                         })
                         handleEdit(userData);
                         // navigate('/vender')

@@ -4,7 +4,7 @@ import { DUMMY_IMG } from "../../GlobalConstanst";
 import { CreateTruck } from "./CreateTruck";
 import { EditTruck } from "./EditTruck";
 import { isVender } from "../../appstore/Reducers/VenderReducers";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { TruckDisplay } from "../../Components/TruckDisplay/truckDisplay";
 import ReactSwitch from "react-switch";
 import './style.css'
@@ -16,7 +16,6 @@ export const VenderPortal = () => {
     const isUserVender = useSelector(isVender);
     const [trucks, setTrucks] = useState([]);
     const [checked, setChecked]=useState(false);
-    const [truckToEdit, setTruckToEdit] = useState()
     const handleClick = () => {
         setSignedIn(true);
     }
@@ -36,7 +35,7 @@ export const VenderPortal = () => {
             case 'createTruck':
                 return <CreateTruck />;
             case 'editTruck':
-                return <EditTruck selectedTruck = {truckToEdit} />;
+                return <EditTruck />;
             default:
                 return <h2>Create new food trucks or Edit Food Trucks</h2>;
         }
@@ -55,7 +54,7 @@ export const VenderPortal = () => {
             />
                 <Col xs={12} md={6}>
                     <div className="vendorImg">
-                       {trucks.length > 0 ? <TruckDisplay setTruck = {setTruckToEdit}  trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
+                       {trucks.length > 0 ? <TruckDisplay  trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
                 <Col xs = {12} md ={6}>

@@ -18,8 +18,7 @@ export const venderSlice = createSlice({
         venderLogout: (state,action)=>{
             state.isVender = false;
             state.truckCredintials = {};
-        }
-
+        },
     }
 })
 
