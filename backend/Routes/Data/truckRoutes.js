@@ -166,7 +166,7 @@ router.post('/api/createTruck', async (req, res) => {
   //handle adding truck 
   const date = new Date();
   const truckToAdd = req.body;
-  truckToAdd.category = req.body.category? rmvWhiteSpace(req.body?.category):'';
+  truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category):'';
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   const addedTruck = await Truck.create(truckToAdd);
