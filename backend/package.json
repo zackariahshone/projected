@@ -5,8 +5,8 @@
   "main": "server.js",
   "allowedhosts": "all",
   "engines": {
-    "npm": "6.14.13",
-    "node": "14.17.2"
+    "node" : ">=18.0.0",
+    "npm" : ">=8.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
