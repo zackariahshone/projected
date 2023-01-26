@@ -68,7 +68,7 @@ export function CustomMap({ google }) {
             </Row>
             <Row>
             <Col className={'truckNames'} xs={12} md={3}>
-                  <div className='foodTruckList'>
+                  <div className=' scroll foodTruckList'>
                     {filteredList ? <TruckListDisplay trucks = {filteredList}/> : <TruckListDisplay trucks = {foodTruckList}/>}
                   </div>
             </Col>

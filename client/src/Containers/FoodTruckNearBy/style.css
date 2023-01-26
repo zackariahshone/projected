@@ -1,5 +1,19 @@
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  
+}
+ 
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 10px 0 15px #D9AC36;
+}
+ 
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #80B0A4;
+  outline: 1px solid #428F5A;
+}
+
 :root {
-    --main-color: rgb(104, 117, 217);
+    --main-color: #80B0A4;
     --main-color-hover: rgb(104, 117, 217, 0.2);
     --track-color: #ddd;
     --mark-color: #aaaaaa;
