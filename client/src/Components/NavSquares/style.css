@@ -1,3 +1,6 @@
+.heroImg{
+
+}
 .navSquare{
     border-style: solid;
     border-color: black;
@@ -5,14 +8,14 @@
     border-width: 1px;
     /* height: 200px; */
     text-decoration: none;
-    height:92%;
+    height:50%;
     width: 100%;
     margin-bottom: 10%;
     background-color: black;
 }
 .squareText{
     text-decoration: none;
-    margin: 34%;
+    margin: auto;
 }
 
 .checkweather{
@@ -29,7 +32,19 @@
     border-radius: 10px;
     /* height: 100%; */
 }
+.circle {
+  margin:auto;
+  background: rgb(86, 189, 223);
+  border-radius: 50%;
+  width: 60vh;
+  height: 40vh;
+}
+.heroImg{
+  border-radius: 15%;
+  margin-top: 10%;
+  margin-left: 10%;
 
+}
 /* mobileMargin */
 
 @media screen and (max-width: 992px) {

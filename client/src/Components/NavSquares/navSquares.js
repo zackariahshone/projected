@@ -7,6 +7,7 @@ import {
     Nav
 } from 'react-bootstrap';
 import './style.css';
+import HeroImg from './HeroImg';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
 import { isVender } from '../../appstore/Reducers/VenderReducers';
 const NavSquares = () => {
@@ -15,12 +16,13 @@ const NavSquares = () => {
     const isUserVender = useSelector(isVender);
 
     return (
-        <Container
-            // style={{ marginTop: '10%' }}
-        >
-            <div 
-                
-            >
+        <Container>
+        <div className='circle'>
+        <div>
+        <HeroImg/>
+        </div>
+        </div>
+            <div >
 
             <Row>   
                 {ROUTES.map((route, x) => {
