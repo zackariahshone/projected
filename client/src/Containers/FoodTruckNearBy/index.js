@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
+import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import './style.css'
-// const ckey = require('ckey')
-const GeoLoc = navigator.geolocation;
-const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
+import truckIcon from './truckIcon.png'
+
+// const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
+const googleKey =  'AIzaSyBeVD6oESOY60Vzb4LWTWHfzwXfVQxM-Ik';
 export function CustomMap({ google }) {
-    const [userLoc, setUserLoc] = useState();
     const foodTruckList = useSelector(truckSearchList);
-    const[filteredList, setFilteredList]= useState();
+    const [filteredList, setFilteredList] = useState();
     const [distance, setDistance] = useState(0);
-    // console.log(foodTruckDistance(5, userLoc, foodTruckList))
-    // const getMapConfig =()=>{
+    const currentLoc = useSelector(userLocation);
+  
     let markerSet = [];
-    const nameSet = [];
+    let nameSet = [];
     foodTruckList.forEach((truck) => {
         if (truck.coordinates) {
             const { lat, lon } = truck?.coordinates;
@@ -25,60 +27,58 @@ export function CustomMap({ google }) {
             nameSet.push({ name: truck.name })
         }
     })
-    filteredList?.forEach((truck) => {
-        markerSet=[];
-        if (truck.coordinates) {
-            const { lat, lon } = truck?.coordinates;
-            markerSet.push({ lat: lat, lng: lon })
-            nameSet.push({ name: truck.name })
-        }
-    })
     useEffect(() => {
-        GeoLoc.getCurrentPosition((loc) => {
-            setUserLoc(
-                {
-                    lat: loc.coords?.latitude,
-                    lng: loc.coords?.longitude
-                }
-            )
-        })
-    }, [])
-    useEffect(()=>{
-        if(distance > 0){
-            setFilteredList(foodTruckDistance(distance, userLoc, foodTruckList))
-        }
-    },[distance])
-    // return {nameSet,markerSet}
-    // }
+        // if(foodTruckList){
+            setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
+            if (distance > 0) {
+                filteredList?.forEach((truck) => {
+                    markerSet = [];
+                    nameSet = []
+                    if (truck.coordinates) {
+                        const { lat, lon } = truck?.coordinates;
+                        markerSet.push({ lat: lat, lng: lon })
+                        nameSet.push({ name: truck.name })
+                    }
+                })
+            }
+        // }
+    }, [distance])
+    console.log(markerSet);
+    console.log(nameSet);
+    console.log(filteredList);
     return (
         <Container>
-            <Row>
-                <Col xs={3} md={2}>
-                    {filteredList?filteredList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    }): foodTruckList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    })}
+        <Row>
+
+                <Col xs={12} >
+                  <center> {distance === 0 ? <p> Move slider to filter trucks </p> : <p>Food trucks within {distance} miles of you</p>} </center>
                     <ReactSlider
                         className="customSlider"
                         trackClassName="customSlider-track"
                         thumbClassName="customSlider-thumb"
                         markClassName="customSlider-mark"
-                        marks={20}
+                        marks={5}
                         min={0}
-                        max={100}
+                        max={20}
                         defaultValue={0}
                         value={distance}
                         onChange={(value) => setDistance(value)}
                     />
                 </Col>
-                <Col xs={0} md={0} >
-                
-                    {markerSet?<Map
+            </Row>
+            <Row>
+            <Col className={'truckNames'} xs={12} md={3}>
+                  <div className=' scroll foodTruckList'>
+                    {filteredList ? <TruckListDisplay trucks = {filteredList}/> : <TruckListDisplay trucks = {foodTruckList}/>}
+                  </div>
+            </Col>
+                <Col xs={0} md={6} >
+                    {markerSet ? <Map
                         google={google}
+                        className={'mapContainer'}
                         containerStyle={{
-                            width: "70%",
-                            height: "90%"
+                            width: "50%",
+                            height: "65vh"
                         }}
                         center={markerSet[0]}
                         initialCenter={markerSet[0]}
@@ -86,10 +86,20 @@ export function CustomMap({ google }) {
                         disableDefaultUI={true}
                     >
                         {markerSet.map(
-                            (coords, i) => <Marker position={coords} title={`${nameSet[i].name}`} />
+                            (coords, i) => <Marker
+                                 icon={{
+                                    url:truckIcon,
+                                    anchor:new google.maps.Point(17,46),
+                                    scaledSize: new google.maps.Size(50,50)
+                                 }}
+                                position={coords} 
+                                title={`${nameSet[i].name}`} />
                         )}
-                        <Marker position={userLoc} title={'you are here'} />
-                    </Map>:<></>}
+                        <Marker
+                        // icon = {{url:'RiMapPinUserFill'}} 
+                        position={currentLoc} 
+                        title={'you are here'} />
+                    </Map> : <></>}
                 </Col>
             </Row>
         </Container>

@@ -7,6 +7,7 @@ import {
     Nav
 } from 'react-bootstrap';
 import './style.css';
+import HeroImg from './HeroImg';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
 import { isVender } from '../../appstore/Reducers/VenderReducers';
 const NavSquares = () => {
@@ -15,10 +16,15 @@ const NavSquares = () => {
     const isUserVender = useSelector(isVender);
 
     return (
-        <Container
-            style={{ marginTop: '10%' }}
-        >
-            <Row>
+        <Container>
+        <div className='circle'>
+        <div>
+        <HeroImg/>
+        </div>
+        </div>
+            <div >
+
+            <Row>   
                 {ROUTES.map((route, x) => {
                     if (route.protected && !isUserVender) {
                         return<Fragment
@@ -33,8 +39,9 @@ const NavSquares = () => {
                     textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
                     return (<Col key={`col_${x}`} xs={12} md={6} lg={3} xl={3}>
                         <div key={`square_${x}`}
+                            // style={{}}
                             className={`navSquare ${route.link}`}
-                            style={{ backgroundColor: `${colorArray[colorIndex]}` }}
+                            style={{marginTop:'15%', backgroundColor: `${colorArray[colorIndex]}` }}
                         >
                             <Nav.Link key={`square_link_${x}`}
                                 href={route.link}
@@ -49,6 +56,7 @@ const NavSquares = () => {
                     )
                 })}
             </Row>
+            </div>
         </Container>
     )
 }

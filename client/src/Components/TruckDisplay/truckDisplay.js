@@ -1,7 +1,11 @@
 import React, { Fragment } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setTruckToEdit } from "../../appstore/Reducers/VenderPortal";
 const truckConfig = ['venderFirstName', 'venderLastName', 'address', 'dateAdded']
-export const TruckDisplay = ({ trucks, vendorDisplay, showDelete }) => {
+export const TruckDisplay = ({  trucks, vendorDisplay, showDelete }) => {
+    const dispatch = useDispatch();
+
     const handleDelete = (truckId) => {
         fetch('/api/deletetruck', {
             method: 'DELETE',
@@ -14,12 +18,17 @@ export const TruckDisplay = ({ trucks, vendorDisplay, showDelete }) => {
             console.log(data);
         })
     }
+
     return (
         <Container>
             <Row>
                     {/* <Col xs={6} md={6}> */}
                 {trucks ? trucks.map((truck) => (
-                    <Col xs={12} md ={6}>
+                    <Col 
+                        onClick={()=>{
+                            dispatch(setTruckToEdit(truck))
+                        }}
+                    xs={12} md ={6}>
                         {truck.name}
                         {showDelete ? <Button
                             style={{ float: 'right' }}

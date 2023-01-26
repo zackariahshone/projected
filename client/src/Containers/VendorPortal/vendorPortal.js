@@ -4,7 +4,7 @@ import { DUMMY_IMG } from "../../GlobalConstanst";
 import { CreateTruck } from "./CreateTruck";
 import { EditTruck } from "./EditTruck";
 import { isVender } from "../../appstore/Reducers/VenderReducers";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { TruckDisplay } from "../../Components/TruckDisplay/truckDisplay";
 import ReactSwitch from "react-switch";
 import './style.css'
@@ -14,7 +14,7 @@ export const VenderPortal = () => {
     const [userCred, setUserCred] = useState();
     const [signedin, setSignedIn] = useState(false);
     const isUserVender = useSelector(isVender);
-    const [trucks, setTrucks] = useState();
+    const [trucks, setTrucks] = useState([]);
     const [checked, setChecked]=useState(false);
     const handleClick = () => {
         setSignedIn(true);
@@ -28,6 +28,7 @@ export const VenderPortal = () => {
         }).then(data => data.json()).then(trucksData => {
             setTrucks(trucksData);
         })
+
     },[])
     const directOptions = (selection) => {
         switch (selection) {
@@ -53,7 +54,7 @@ export const VenderPortal = () => {
             />
                 <Col xs={12} md={6}>
                     <div className="vendorImg">
-                       {trucks ? <TruckDisplay trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
+                       {trucks.length > 0 ? <TruckDisplay  trucks={trucks} vendorDisplay={true} showDelete={checked}/>: <center><img className="vendorImg" src={DUMMY_IMG} /></center>}
                     </div>
                 </Col>
                 <Col xs = {12} md ={6}>
@@ -71,18 +72,7 @@ export const VenderPortal = () => {
                                                 ...userCred,
                                                 email: e.target.value
                                             })
-                                            // setEmailError(false);
                                         }}
-                                    // onBlur={(e) => {
-
-                                    //     if (!String(e.target.value)
-                                    //         .toLowerCase()
-                                    //         .match(
-                                    //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                                    //         )) {
-                                    //         setEmailError(true)
-                                    //     }
-                                    // }}
                                     />
                                 </Form.Group>
                                 {/* {pwdError ? <p className='error'>*password cannot be blank</p> : null} */}

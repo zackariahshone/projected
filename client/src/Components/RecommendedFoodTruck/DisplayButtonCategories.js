@@ -10,7 +10,6 @@ export const DisplayCategories =({setUserCategories,userCategories})=>{
     let colorIndex = 0;
     let textIndex = colorArray.length-1;
      return (
-
          Object.values(categories).map((category, i) => {
              if(i>0){
          colorIndex++;

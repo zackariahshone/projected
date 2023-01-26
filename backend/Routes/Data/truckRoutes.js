@@ -5,6 +5,7 @@ const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truc
 const nodeGeocoder = require('node-geocoder');
 const jwt = require("jsonwebtoken");
 const User = require('../../dbconnection/models/User');
+const UTILS = require('./utils');
 const listOfTrucks = {
   'listOfTrucks': [
     {
@@ -145,8 +146,8 @@ const getLatLong = async (address) => {
 
   return (
     {
-      lat: location[0]?.latitude,
-      lon: location[0]?.longitude
+      lat: location[0].latitude,
+      lon: location[0].longitude
     }
   )
 }
@@ -165,44 +166,61 @@ router.post('/api/createTruck', async (req, res) => {
   //handle adding truck 
   const date = new Date();
   const truckToAdd = req.body;
-  truckToAdd.category = rmvWhiteSpace(req.body.category)
+  truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category):'';
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-  await Truck.create(truckToAdd)
+  const addedTruck = await Truck.create(truckToAdd);
   //handle adding new categories
   const currentCategories = await Categories.find().lean();
-  truckToAdd.category.forEach((cat) => {
-    if (!currentCategories[0].categories.includes(cat.trim()) &&
+  if(truckToAdd.category){
+    truckToAdd.category.forEach((cat) => {
+      if (!currentCategories[0].categories.includes(cat.trim()) &&
       cat.trim().length !== 0) {
-      currentCategories[0].categories.push(cat.trim())
-    }
-  })
+        currentCategories[0].categories.push(cat.trim())
+      }
+    })
+  }
   await Categories.updateOne({categories:currentCategories[0].categories})
   // handle assigning new trucks to logged in user profile
   const userInfo = jwt.decode(req.headers.token);
   const currentUser = await User.find({ email: userInfo.email })
   const trucksUpdate = currentUser[0].foodtrucks;
-  trucksUpdate.push(req.body.name);
+  trucksUpdate.push(addedTruck._id);
   await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
   res.send({ status: 200 })
 })
 
 router.delete('/api/deletetruck', async (req, res) => {
+  //delete truck as requested
   const truckId = req.body.id
   await Truck.findByIdAndDelete({ _id: truckId });
+  //clean up categories when truck is removed and categorie no longer matches a truck. 
+  const currentCategories = await Categories.find().lean()
+  const truckData = await Truck.find({}).lean()
+  const truckCategories = new Set();
+  truckData.forEach(truck=>{
+    truck.category.forEach((cat)=>{
+      truckCategories.add(cat);
+    });
+  })
+  const filterdCategories = currentCategories[0].categories.filter((category)=>[...truckCategories].includes(category));
+  await Categories.updateOne({categories:filterdCategories})
   res.json({ deleted: true });
 })
-
+router.post('/api/editTruck',async(req,res)=>{
+  console.log(req.headers.truckid);
+  const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
+  const currentUser = jwt.decode(req.headers.token)
+  const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:updatedTruck._id})
+})
 /**
  * just dirty util 
  * uncoment lines that you need the run /dbClean 
  * to clean what ever you need
  */
-router.get('/dbClean', async (req, res) => {
+// router.get('/dbClean', async (req, res) => {
   // await Categories.updateOne({categories:[]})
-  // const cats = await Categories.find().lean()
 
-  // const truckData = await Truck.find({}).lean()
   //find all users
   // const users = await User.find({}).lean();
   //drop the truck collection
@@ -229,11 +247,12 @@ router.get('/dbClean', async (req, res) => {
   //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
   // })
   // const _truckData = await Truck.find().lean()
-  // res.send(truckData)
+  // res.send(cats)
 
-})
+// })
 
 module.exports = router;
  /**
 * Saving algo for later use
 *  */ 
+

@@ -10,6 +10,7 @@ import {
   Container,
   Nav,
 } from 'react-bootstrap'
+// import Sidenav from './SideNav';
 import { CgProfile } from 'react-icons/cg';
 
 import './style.css';
@@ -26,7 +27,6 @@ const TopNav = () => {
   }, [selected])
   return (
     <Fragment>
-
       <Navbar collapseOnSelect={true} bg="light" expand="lg">
         <Container>
 
@@ -35,9 +35,6 @@ const TopNav = () => {
           <Navbar.Collapse  id="basic-navbar-nav">
             <Nav className="me-auto">
               {ROUTES.map((nav, x) => {
-                /**
-                 * check status of user and route in order to expose
-                 */
                 if (nav.protected && !isUserVender) {
                   return <Fragment
                     key={`${x}_fragment`}
@@ -80,7 +77,9 @@ const TopNav = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      {/* <Sidenav/> */}
     </Fragment>
+    
   )
 }
 

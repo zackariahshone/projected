@@ -6,10 +6,27 @@
     border-radius: 25px;
     /* padding-left: 3% !important;     */
 }
-
+.show{
+    display: block;
+}
+.hideDesktop{
+    display: none;
+}
+.showDesktop{
+    display:block;
+}
 @media screen and (max-width: 992px) {
-   .active{
-    width:40%;
-    padding-left:3% !important;
-   }
-  }
+    .active {
+        width: 40%;
+        padding-left: 3% !important;
+    }
+    .hide{
+        display: none !important;
+    }
+    .showMobile{
+        display: block;
+    }
+    .truckNames{
+        margin-left:5%;
+    }
+}

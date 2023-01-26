@@ -1,5 +1,19 @@
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  
+}
+ 
+.scroll::-webkit-scrollbar-track {
+  box-shadow: inset 10px 0 15px #D9AC36;
+}
+ 
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #80B0A4;
+  outline: 1px solid #428F5A;
+}
+
 :root {
-    --main-color: rgb(104, 117, 217);
+    --main-color: #80B0A4;
     --main-color-hover: rgb(104, 117, 217, 0.2);
     --track-color: #ddd;
     --mark-color: #aaaaaa;
@@ -22,16 +36,13 @@
     margin-bottom: 2%;
     display: inline;
 }
-.mapPin{
-    height: 9px;
-    width: 9px;
-}
 
 .customSlider {
     /* max width of your slider */
     max-width: 300px;
     /* Optional: Only If you want to center your slider in the page */
     margin: auto;
+    margin-bottom:10%;
   }
   
   .customSlider-track {
@@ -69,3 +80,23 @@
     height: 8px;
     background-color: var(--mark-color);
   }
+  .mapContainer{
+    width:100%;
+  }
+  .foodTruckList{
+    height: 65vh;
+    overflow:scroll;
+    overflow-x:hidden ;
+  }
+  @media screen and (max-width: 992px) {
+    .active {
+        width: 40%;
+        padding-left: 3% !important;
+    }
+    .hide{
+        display: none;
+    }
+    .mapContainer{
+      margin-left: 10%;
+    }
+}

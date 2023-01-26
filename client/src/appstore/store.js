@@ -1,6 +1,7 @@
 import UserState from './Reducers/UserReducers';
 import truckSearchState from './Reducers/TruckSearch';
 import VenderReducers from './Reducers/VenderReducers';
+import VenderPortalReducers from './Reducers/VenderPortal';
 import { configureStore } from '@reduxjs/toolkit'
 // import {storageSession} from 'reduxjs-toolkit-persist/lib/storage/session'
 import storage from 'redux-persist/lib/storage';
@@ -11,7 +12,8 @@ import { combineReducers } from 'redux';
 const rootReducer = combineReducers({
   userState: UserState,
   truckSearchState: truckSearchState,
-  venderState:VenderReducers
+  venderState:VenderReducers,
+  venderPortalState:VenderPortalReducers
 })
 
 const persistConfig = {

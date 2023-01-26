@@ -8,7 +8,10 @@ import {
     Row
 } from "react-bootstrap";
 import './style.css';
-import {validator} from './signupUtils'
+import { useNavigate } from "react-router-dom";
+import { validator } from './signupUtils'
+import { isLoggedIn,currentUser, setUserData,login } from '../../appstore/Reducers/UserReducers';
+import localStorage from 'redux-persist/es/storage';
 
 const SignUp = () => {
     const [errorHandle, setErrorhandle] = useState();
@@ -24,9 +27,14 @@ const SignUp = () => {
                 'Accept': 'application/json',
             },
             body: JSON.stringify(userInfo),
-        }).then(response => (
-            console.log(response)
-        ))
+        }).then(response =>response.json()).then((userData)=>{
+            console.log('==========respones from signup userData then userInfo=====');
+            console.log(userData);
+            console.log(userInfo);
+            dispatch(setUserData({ ...userInfo }))
+            dispatch(login({ value: true, type: 'login' }))
+            navigate("/")
+        })
     }
     // Object.keys(errorHandle)
     return (
