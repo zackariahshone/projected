@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
@@ -67,12 +68,9 @@ export function CustomMap({ google }) {
             </Row>
             <Row>
             <Col className={'truckNames'} xs={12} md={3}>
-
-                    {filteredList ? filteredList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    }) : foodTruckList.map((truck, i) => {
-                        return <p>{truck.name}</p>
-                    })}
+                  <div className='foodTruckList'>
+                    {filteredList ? <TruckListDisplay trucks = {filteredList}/> : <TruckListDisplay trucks = {foodTruckList}/>}
+                  </div>
             </Col>
                 <Col xs={0} md={6} >
                     {markerSet ? <Map
@@ -80,7 +78,7 @@ export function CustomMap({ google }) {
                         className={'mapContainer'}
                         containerStyle={{
                             width: "50%",
-                            height: "90%"
+                            height: "65vh"
                         }}
                         center={markerSet[0]}
                         initialCenter={markerSet[0]}
