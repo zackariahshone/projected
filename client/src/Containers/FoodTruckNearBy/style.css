@@ -96,7 +96,7 @@
     .hide{
         display: none;
     }
-    .mapContainer{
-      margin-left: 10%;
+    .foodTruckList{
+      display: none;
     }
 }

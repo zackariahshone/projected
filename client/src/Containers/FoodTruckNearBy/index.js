@@ -7,8 +7,9 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
+import truckIcon from './truckIcon.png';
+import SideScroll from './sideScroll';
 import './style.css'
-import truckIcon from './truckIcon.png'
 
 // const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 const googleKey =  'AIzaSyBeVD6oESOY60Vzb4LWTWHfzwXfVQxM-Ik';
@@ -67,12 +68,12 @@ export function CustomMap({ google }) {
                 </Col>
             </Row>
             <Row>
-            <Col className={'truckNames'} xs={12} md={3}>
-                  <div className=' scroll foodTruckList'>
+            <Col className={'truckNames'} xs={0} md={3}>
+                  <div className='scroll foodTruckList'>
                     {filteredList ? <TruckListDisplay trucks = {filteredList}/> : <TruckListDisplay trucks = {foodTruckList}/>}
                   </div>
             </Col>
-                <Col xs={0} md={6} >
+                <Col xs={12} md={6} >
                     {markerSet ? <Map
                         google={google}
                         className={'mapContainer'}
