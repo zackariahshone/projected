@@ -19,7 +19,14 @@
     --mark-color: #aaaaaa;
   }
 
-
+  .main_div {
+    text-align:center;
+    position: relative;
+    left: 100px;
+    height: 200px;
+    width: 500px;
+    background-color: green;
+}
 .forcastBox{
     text-align: left;
     /* border-radius: 2px; */
@@ -88,6 +95,38 @@
     overflow:scroll;
     overflow-x:hidden ;
   }
+  .horizontal-scrollable > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+  
+.horizontal-scrollable > .row > .col-xs-4 {
+  float: none;
+}
+/* Decorations */
+
+.col-xs-4 {
+  color: white;
+  font-size: 24px;
+  padding-bottom: 20px;
+  padding-top: 18px;
+  display: inline-block;
+  
+  width: 25%;
+  
+}
+  
+.col-xs-4:nth-child(2n+1) {
+    background: green;
+}
+  
+.col-xs-4:nth-child(2n+2) {
+    background: black;
+}
+.stickToBottom{
+  position: absolute;
+  bottom: 0px;
+}
   @media screen and (max-width: 992px) {
     .active {
         width: 40%;

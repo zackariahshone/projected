@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,Fragment } from 'react';
 import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import truckIcon from './truckIcon.png';
-import SideScroll from './sideScroll';
+import {SideScroll} from './sideScroll';
 import './style.css'
 
 // const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
@@ -48,6 +48,8 @@ export function CustomMap({ google }) {
     console.log(nameSet);
     console.log(filteredList);
     return (
+        <Fragment className = "main_div">
+
         <Container>
         <Row>
 
@@ -103,7 +105,13 @@ export function CustomMap({ google }) {
                     </Map> : <></>}
                 </Col>
             </Row>
+            <Row>
+                    <SideScroll className='stickToBottom'/>
+            </Row>
         </Container>
+        <Container>
+        </Container>
+        </Fragment>
     )
 };
 
