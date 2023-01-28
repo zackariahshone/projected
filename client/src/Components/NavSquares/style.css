@@ -1,6 +1,4 @@
-.heroImg{
 
-}
 .navSquare{
     border-style: solid;
     border-color: black;
@@ -16,6 +14,8 @@
 .squareText{
     text-decoration: none;
     margin: auto;
+    font-size: x-large;
+    font-weight: bolder;
 }
 
 .checkweather{
@@ -33,18 +33,13 @@
     /* height: 100%; */
 }
 .circle {
-  margin:auto;
-  background: rgb(86, 189, 223);
-  border-radius: 50%;
-  width: 60vh;
-  height: 40vh;
+background-image: url(./foodTruckWIndow.jpg);
+background-size:cover;
+background-repeat: no-repeat;
+height: 100vh;
+/* width:100vw; */
 }
-.heroImg{
-  border-radius: 15%;
-  margin-top: 10%;
-  margin-left: 10%;
 
-}
 /* mobileMargin */
 
 @media screen and (max-width: 992px) {

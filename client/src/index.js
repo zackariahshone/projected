@@ -11,7 +11,6 @@ import Sidenav from './Containers/TopNav/SideNav';
 import TopNav from './Containers/TopNav/topNav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PersistGate } from 'redux-persist/integration/react'
-
 // create an event listener
 console.log(window.innerWidth)
 ReactDOM.render(
@@ -19,8 +18,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
-      {/* <Sidenav />  */}
-      <TopNav/>
+         <TopNav/>
           <App />
         </Router>
       </PersistGate>

@@ -15,6 +15,7 @@ import { Row, Col } from 'react-bootstrap';
 
 
 function App() {
+
   const isUserVendor = useSelector(isVender);
   const GeoLoc = navigator.geolocation;
   const dispatch = useDispatch();

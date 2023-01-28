@@ -16,14 +16,11 @@ const NavSquares = () => {
     const isUserVender = useSelector(isVender);
 
     return (
-        <Container>
         <div className='circle'>
-        <div>
-        <HeroImg/>
-        </div>
-        </div>
+      
             <div >
 
+         <Container>
             <Row>   
                 {ROUTES.map((route, x) => {
                     if (route.protected && !isUserVender) {
@@ -56,8 +53,9 @@ const NavSquares = () => {
                     )
                 })}
             </Row>
+             </Container>
             </div>
-        </Container>
+        </div>
     )
 }
 

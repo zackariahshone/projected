@@ -25,9 +25,13 @@ const TopNav = () => {
   useEffect(() => {
 
   }, [selected])
+  console.log(window.location.pathname);
+
   return (
+
     <Fragment>
-      <Navbar collapseOnSelect={true} bg="light" expand="lg">
+      {window.location.pathname === '/'?<></>:
+      <Navbar collapseOnSelect bg="light" expand="lg">
         <Container>
 
           <Navbar.Brand href="/">Projected</Navbar.Brand>
@@ -77,6 +81,7 @@ const TopNav = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      }
       {/* <Sidenav/> */}
     </Fragment>
     
