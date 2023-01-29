@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -18,6 +18,7 @@ import MobileNav from './mobileNav';
 
 const NavSquares = () => {
     const navigate = useNavigate();
+    const [guest, setGuest] = useState();
     const loggedInStatus = useSelector(isLoggedIn);
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
@@ -25,7 +26,7 @@ const NavSquares = () => {
     console.log(loggedInStatus);
     return (
         <div className='circle'>
-            {loggedInStatus != true ?
+            {loggedInStatus != true && guest !== true ?
                 <div className='loginSignUp'>
                     <div>
                         <h1>Find your new favorite <br /> food truck <b>now</b>.</h1>
@@ -46,6 +47,15 @@ const NavSquares = () => {
                                     }} 
                                     className='createAccountButton logInbuttons' variant='outline-dark'> Create an Account</Button>
                                 </Col>
+                            </Row>
+                            <Row>
+                            <Col>
+                                <p
+                                    onClick={()=>{
+                                        setGuest(true);
+                                    }}
+                                >Continue as guest</p>
+                            </Col>
                             </Row>
                         </Container>
 
