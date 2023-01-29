@@ -4,11 +4,11 @@
     border-color: black;
     border-radius: 10px;
     border-width: 1px;
-    /* height: 200px; */
+    height: auto;
     text-decoration: none;
-    height:50%;
+    /* height:50%; */
     width: 100%;
-    margin-bottom: 10%;
+
     background-color: black;
 }
 .squareText{
@@ -39,7 +39,39 @@ background-repeat: no-repeat;
 height: 100vh;
 /* width:100vw; */
 }
-
+h1{
+  font-size:60px !important;
+  font-weight: lighter !important;
+}
+.homeNav{
+  width: 55%;
+  position:absolute;
+  right: 10%;
+}
+.homeNavMobile{
+  display: none;
+}
+.loginSignUp{
+  padding-top:25%;
+  padding-right: 10%;
+  padding-left: 50%;
+  text-align: right;
+  
+}
+.logInbuttons{
+  /* margin-right: 10%; */
+  width: 40%
+}
+.loginButton{
+  /* margin-left:1%; */
+}
+.createAccountButton{
+  margin-left:10%
+}
+.buttonContainer{
+  margin-top:10% !important;
+  margin-left:18% !important;
+}
 /* mobileMargin */
 
 @media screen and (max-width: 992px) {
@@ -47,6 +79,13 @@ height: 100vh;
       display: none;
     }
     .show{
+      display: block;
+    }
+    .homeNav{
+      display: none;
+      /* right: 20px; */
+    }
+    .homeNavMobile{
       display: block;
     }
   }

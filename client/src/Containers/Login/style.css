@@ -1,8 +1,10 @@
 .loginContainer{
-    margin-top:10%;
-    margin-left: auto;
-    margin-right: auto;
-    width:50%;
+    /* margin-top:10%; */
+    padding-top: 40%;
+    padding-left:10%;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    width:60%;
 }
 
 .signUp-button{

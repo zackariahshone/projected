@@ -1,60 +1,70 @@
-import React ,{ Fragment }from 'react';
+import React, { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
     Col,
     Row,
     Container,
-    Nav
+    Nav,
+    Button
 } from 'react-bootstrap';
+import Login from '../../Containers/Login/login';
+import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
 import './style.css';
-import HeroImg from './HeroImg';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
 import { isVender } from '../../appstore/Reducers/VenderReducers';
+import HomeNav from './homeNav';
+import MobileNav from './mobileNav';
+
 const NavSquares = () => {
+    const navigate = useNavigate();
+    const loggedInStatus = useSelector(isLoggedIn);
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
-
+    console.log(loggedInStatus);
     return (
         <div className='circle'>
-      
-            <div >
+            {loggedInStatus != true ?
+                <div className='loginSignUp'>
+                    <div>
+                        <h1>Find your new favorite <br /> food truck <b>now</b>.</h1>
+                        <Container className='buttonContainer'>
+                            <Row>
+                                <Col xs={10}>
 
-         <Container>
-            <Row>   
-                {ROUTES.map((route, x) => {
-                    if (route.protected && !isUserVender) {
-                        return<Fragment
-                            key={`${x}_squareFrag`}
-                        />;
-                    }
-                    if (x > 0) {
-                        colorIndex++;
-                        textIndex--;
-                    }
-                    colorIndex = colorArray.length === colorIndex ? 0 : colorIndex;
-                    textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
-                    return (<Col key={`col_${x}`} xs={12} md={6} lg={3} xl={3}>
-                        <div key={`square_${x}`}
-                            // style={{}}
-                            className={`navSquare ${route.link}`}
-                            style={{marginTop:'15%', backgroundColor: `${colorArray[colorIndex]}` }}
-                        >
-                            <Nav.Link key={`square_link_${x}`}
-                                href={route.link}
-                                style={{ textDecoration: 'none', 'color': `${colorArray[textIndex]}` }}
-                            >
-                                <div key={`square_info_${x}`} className="squareText">
-                                    {route.name}
-                                </div>
-                            </Nav.Link>
-                        </div>
-                    </Col>
-                    )
-                })}
-            </Row>
-             </Container>
-            </div>
+                                    <Button 
+                                    onClick={()=>{
+                                        navigate('/login');
+                                    }}
+                                    className='loginButton logInbuttons' variant='light'>
+                                            Login
+                                    </Button>
+                                    <Button 
+                                    onClick={()=>{
+                                        navigate('/signup')
+                                    }} 
+                                    className='createAccountButton logInbuttons' variant='outline-dark'> Create an Account</Button>
+                                </Col>
+                            </Row>
+                        </Container>
+
+                    </div>
+                </div> :
+                <>
+                    <MobileNav />
+                    <div className='homeNav' >
+                        <Row style={{ paddingTop: '15%' }}>
+                            <Col xs={6}>
+                            </Col>
+                            <Col>
+                                <HomeNav />
+                            </Col>
+                        </Row>
+                    </div>
+                </>
+
+            }
         </div>
     )
 }
