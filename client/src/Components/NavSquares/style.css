@@ -1,6 +1,3 @@
-.body{
-  background-color: yellow !important;
-}
 .navSquare {
   border-style: solid;
   border-color: black;
@@ -10,7 +7,6 @@
   text-decoration: none;
   /* height:50%; */
   width: 100%;
-
   background-color: black;
 }
 
@@ -22,7 +18,7 @@
 }
 
 .circle {
-  background-color: rgb(233, 190, 0) !important;
+  background-color: #ecbe3f !important;
   background-image: url(./foodTruckWIndow.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -89,27 +85,46 @@ h1 {
 
   .homeNavMobile {
     display: block;
+    text-align: right;
+    background-color:rgba(172, 127, 6, 0.2) !important;
+    padding-top: 10%;
+    padding-bottom:10%;
+    border-radius: 10%;
+    /* opacity:0.6; */
   }
-
   .circle {
     background-image: url(./foodTruckWIndow.jpg);
     background-size:contain;
     background-repeat: no-repeat;
+    background-position: bottom;
     /* height: 100vh; */
     /* position: absolute; */
     /* bottom: 0px; */
   }
+  .navSquare{
+    opacity: 1;
+  }
   .buttonContainer {
     margin-top: 1% !important;
-    margin-left: 18% !important;
+    margin-left: 5% !important;
+    padding-right:5% !important;
+  }
+  br {
+    display: none;
   }
   .loginSignUp{
-    padding-top: 50%;
-    padding-right:15%;
-    padding-left: 25%;
+    padding-top: 0;
+    /* padding-right:20%; */
+    padding-left: 0;
+    width:100%;
     text-align: right;
     position: absolute; 
-    bottom: 0px;
+    top: 10%;
+  }
+  h1 {
+    width:100%;
+    font-size: 50px !important;
+    font-weight: lighter !important;
   }
   /* .homeMessage{} */
 }

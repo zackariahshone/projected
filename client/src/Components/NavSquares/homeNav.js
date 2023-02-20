@@ -16,7 +16,9 @@ const HomeNav = () => {
 
     return (
        
-         <Container >
+         <Container>
+          <div className='homeNavContainer'>
+
             <Row>   
                 {ROUTES.map((route, x) => {
                     if (route.protected && !isUserVender) {
@@ -49,6 +51,7 @@ const HomeNav = () => {
                     )
                 })}
             </Row>
+          </div>
              </Container>
     )
 }

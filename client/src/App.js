@@ -19,22 +19,12 @@ function App() {
   const isUserVendor = useSelector(isVender);
   const GeoLoc = navigator.geolocation;
   const dispatch = useDispatch();
-  const [isMobile, setIsMobile] = useState(false)
  
 //choose the screen size 
-const handleResize = () => {
-  if (window.innerWidth < 992) {
-      setIsMobile(true)
-  } else {
-      setIsMobile(false)
-  }
-}
+
 
 // create an event listener
-useEffect(() => {
-  window.addEventListener("resize", handleResize)
-})
-console.log(isMobile);
+
   useEffect(() => {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
     getData('api/getcategories', 'GET', {}, setCategories, {});
@@ -49,14 +39,12 @@ console.log(isMobile);
   }, []);
   return (
     <Fragment>
-    
       <Routes>
         {BROWSER_ROUTER_CONFIGS.map((route, i) => {
           if (route.protected && !isUserVendor) {
             return (<Fragment key={`${i}_frag`} />)
           }
           const Element = route.element;
-
           return (
             <Route
               key={`${route}_${i}`}
@@ -66,8 +54,6 @@ console.log(isMobile);
           )
         })}
       </Routes>
-        {/* </Col> */}
-      {/* </Row> */}
     </Fragment>
 
   );

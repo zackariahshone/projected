@@ -34,7 +34,9 @@ const TopNav = () => {
       <Navbar collapseOnSelect bg="light" expand="lg">
         <Container>
 
-          <Navbar.Brand href="/">Projected</Navbar.Brand>
+          <Navbar.Brand 
+            className="brandLogo"
+          href="/"><span>Cluster</span> Truck</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse  id="basic-navbar-nav">
             <Nav className="me-auto">

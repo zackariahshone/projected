@@ -27,11 +27,11 @@ const NavSquares = () => {
         <div className='circle'>
             {loggedInStatus != true && guest !== true ?
                 <div className='loginSignUp'>
-                    <div>
+                    <div style = {{width:"100%"}}>
                         <h1>Find your new favorite <br /> food truck <b>now</b>.</h1>
                         <Container className='buttonContainer'>
                             <Row>
-                                <Col xs={10}>
+                                <Col xs={12}>
 
                                     <Button 
                                     onClick={()=>{
@@ -48,7 +48,7 @@ const NavSquares = () => {
                                 </Col>
                             </Row>
                             <Row>
-                            <Col>
+                            <Col xsx={12}>
                                 <p
                                     onClick={()=>{
                                         setGuest(true);
