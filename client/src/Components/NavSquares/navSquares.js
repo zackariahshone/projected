@@ -10,12 +10,11 @@ import {
 } from 'react-bootstrap';
 import Login from '../../Containers/Login/login';
 import { isLoggedIn } from '../../appstore/Reducers/UserReducers';
-import './style.css';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
 import { isVender } from '../../appstore/Reducers/VenderReducers';
 import HomeNav from './homeNav';
 import MobileNav from './mobileNav';
-
+import './style.css';
 const NavSquares = () => {
     const navigate = useNavigate();
     const [guest, setGuest] = useState();
