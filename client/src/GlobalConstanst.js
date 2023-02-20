@@ -36,6 +36,7 @@ export const ROUTES = [
         protected: true
 
     }
+   
 ];
 
 export const BROWSER_ROUTER_CONFIGS =
