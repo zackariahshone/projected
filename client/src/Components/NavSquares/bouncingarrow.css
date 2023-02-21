@@ -1,7 +1,8 @@
 
-p { 
+.arrow p { 
     color: rgb(15, 15, 15); 
     text-decoration: none;
+    font-size: 100px;
 }
 
 
@@ -10,9 +11,12 @@ p {
     /* margin-bottom:-20%; */
     /* margin: 8% 0; */
     /* position: absolute; */
-    /* bottome:0; */
+    position: absolute;
+    right:43%;
+    bottom:0;
+
     font-size: 50px; 
-    padding-bottom: 50%;
+    /* padding-bottom: 50%; */
 
   }
   .bounce {
@@ -30,5 +34,11 @@ p {
     }
     60% {
       transform: translateY(-20px);
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .arrow{
+        bottom: -50%;
+        right:40%;
     }
   }

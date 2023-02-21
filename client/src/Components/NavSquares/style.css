@@ -42,11 +42,10 @@ h1 {
 }
 
 .loginSignUp {
-  padding-top: 25%;
+  padding-top: 15%;
   padding-right: 10%;
   padding-left: 50%;
   text-align: right;
-
 }
 
 .logInbuttons {
@@ -69,7 +68,7 @@ h1 {
 }
 .homeComponent{
   height:100vh;
-  padding-bottom:15%;
+  /* padding-bottom:15%; */
 }
 /* mobileMargin */
 
