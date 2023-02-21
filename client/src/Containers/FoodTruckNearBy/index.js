@@ -10,6 +10,7 @@ import ReactSlider from "react-slider";
 import './style.css'
 import truckIcon from './truckIcon.png'
 
+
 const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);

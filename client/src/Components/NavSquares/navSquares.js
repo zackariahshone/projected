@@ -24,6 +24,7 @@ const NavSquares = () => {
     const [direct, setDirect] = useState();
     const loggedInStatus = useSelector(isLoggedIn);
 
+    
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
@@ -40,6 +41,7 @@ const NavSquares = () => {
         }
     }
     
+
     return (
         <div className='circle'>
             <div className='homeComponent'>

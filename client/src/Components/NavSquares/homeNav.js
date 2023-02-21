@@ -13,6 +13,7 @@ const HomeNav = () => {
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
+ 
 
     return (
        

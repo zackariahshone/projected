@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = require('../../dbconnection/models/User');
 const UTILS = require('./utils');
 
+
 const listOfTrucks = {
   'listOfTrucks': [
     {

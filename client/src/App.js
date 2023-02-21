@@ -17,6 +17,7 @@ function App() {
   const GeoLoc = navigator.geolocation;
   const dispatch = useDispatch();
  
+  
   useEffect(() => {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
     getData('api/getcategories', 'GET', {}, setCategories, {});

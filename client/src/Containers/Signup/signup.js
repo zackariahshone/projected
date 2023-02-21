@@ -12,6 +12,7 @@ import { validator } from './signupUtils'
 import { isLoggedIn,currentUser, setUserData,login } from '../../appstore/Reducers/UserReducers';
 import localStorage from 'redux-persist/es/storage';
 
+
 const SignUp = () => {
     const [userData, setUserFormData] = useState();
     const [userCategories, setUserCategories] = useState([]);

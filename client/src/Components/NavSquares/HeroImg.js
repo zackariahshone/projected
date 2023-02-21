@@ -15,6 +15,7 @@ const HeroImg = () => {
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
 
+    
     return (
         <Container>
             <div className='heroImg'>
