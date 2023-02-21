@@ -64,6 +64,13 @@ h1 {
   margin-left: 18% !important;
 }
 
+.handleSignin{
+  height:100vh;
+}
+.homeComponent{
+  height:90vh;
+  padding-bottom:15%;
+}
 /* mobileMargin */
 
 @media screen and (max-width: 992px) {

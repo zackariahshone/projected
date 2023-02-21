@@ -18,6 +18,7 @@ const MobileNav = () => {
        
      
         <Container className='homeNavMobile'>
+        <>cluster truck</>
         <Row>
             {ROUTES.map((route, x) => {
                 if (route.protected && !isUserVender) {
