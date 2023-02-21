@@ -1,15 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom'
 import { BROWSER_ROUTER_CONFIGS } from './GlobalConstanst';
-import TopNav from './Containers/TopNav/topNav';
 import { loadReducer, setCategories } from './appstore/Reducers/TruckSearch';
 import { isVender } from './appstore/Reducers/VenderReducers';
 import { setLocation } from './appstore/Reducers/UserReducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { getData } from './genUtils/requests';
 import './App.css';
-import Sidenav from './Containers/TopNav/SideNav';
-import { Row, Col } from 'react-bootstrap';
 
 
 
@@ -20,11 +17,6 @@ function App() {
   const GeoLoc = navigator.geolocation;
   const dispatch = useDispatch();
  
-//choose the screen size 
-
-
-// create an event listener
-
   useEffect(() => {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
     getData('api/getcategories', 'GET', {}, setCategories, {});
