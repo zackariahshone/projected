@@ -1,4 +1,5 @@
 // import {store} from './appstore/store';
+// import * as dotenv from 'dotenv'
 import { persistor, store } from './appstore/store';
 import { Provider } from 'react-redux'
 import React from 'react';
