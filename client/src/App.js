@@ -20,7 +20,10 @@ function App() {
   
   useEffect(() => {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
+    
     getData('api/getcategories', 'GET', {}, setCategories, {});
+    
+    
     GeoLoc.getCurrentPosition((loc) => {
       dispatch(setLocation(
         {
