@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { truckToEdit } from "../../appstore/Reducers/VenderPortal";
 import { useNavigate } from "react-router-dom";
 import './style.css'
-export const EditTruck = ({selectedTruck})=>{
+export const EditTruck = ()=>{
+    
     const [userData, setUserData] = useState();
     const truckBeingEdited = useSelector(truckToEdit);
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const EditTruck = ({selectedTruck})=>{
                 <h1> Food Truck Editor </h1>
                 <h4>Select a truck to start editing</h4>
             </center>
-            { selectedTruck ? 
+            { truckBeingEdited ? 
             
             <div className='signup-container'>
                 <Form>
@@ -42,7 +43,7 @@ export const EditTruck = ({selectedTruck})=>{
                                     'name': e.target.value.trim()
                                 })
                             }}
-                            type="text" placeholder={selectedTruck.name} />
+                            type="text" placeholder={truckBeingEdited.name} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Vender First Name</Form.Label>
@@ -51,7 +52,7 @@ export const EditTruck = ({selectedTruck})=>{
                                 ...userData,
                                 'venderFirstName': e.target.value.trim()
                             })
-                        }} type="text" placeholder={selectedTruck.venderFirstName} />
+                        }} type="text" placeholder={truckBeingEdited.venderFirstName} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Vender Last Name</Form.Label>
@@ -60,7 +61,7 @@ export const EditTruck = ({selectedTruck})=>{
                                 ...userData,
                                 'venderLastName': e.target.value.trim()
                             })
-                        }} type="text" placeholder={selectedTruck.venderLastName} />
+                        }} type="text" placeholder={truckBeingEdited.venderLastName} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Food Truck Address</Form.Label>
@@ -69,7 +70,7 @@ export const EditTruck = ({selectedTruck})=>{
                                 ...userData,
                                 'address': e.target.value.trim()
                             })
-                        }} type="text" placeholder={selectedTruck.address} />
+                        }} type="text" placeholder={truckBeingEdited.address} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>What flavors or food you have to offer</Form.Label>
@@ -78,7 +79,7 @@ export const EditTruck = ({selectedTruck})=>{
                                 ...userData,
                                 'category': e.target.value.split(',')
                             })
-                        }} type="text" placeholder={selectedTruck.category} />
+                        }} type="text" placeholder={truckBeingEdited.category} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Food truck image</Form.Label>
@@ -87,10 +88,10 @@ export const EditTruck = ({selectedTruck})=>{
                                 ...userData,
                                 'IMG': e.target.value.trim()
                             })
-                        }} type="text" placeholder={selectedTruck.IMG} />
+                        }} type="text" placeholder={truckBeingEdited.IMG} />
                     </Form.Group>
                     <label> Image Preview </label>
-                     <img src={selectedTruck.IMG} alt='vendor image'/>
+                     <img src={truckBeingEdited.IMG} alt='vendor image'/>
                     <Form.Group className="mb-3">
                         <Form.Label>Password for your Food truck account</Form.Label>
                         <Form.Control onChange={(e) => {

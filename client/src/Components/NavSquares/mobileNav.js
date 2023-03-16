@@ -5,6 +5,8 @@ import {
     Row,
     Container,
     Nav
+
+    
 } from 'react-bootstrap';
 import './style.css';
 import { colorArray, ROUTES } from '../../GlobalConstanst';
@@ -18,6 +20,7 @@ const MobileNav = () => {
        
      
         <Container className='homeNavMobile'>
+        <>cluster truck</>
         <Row>
             {ROUTES.map((route, x) => {
                 if (route.protected && !isUserVender) {
@@ -32,7 +35,8 @@ const MobileNav = () => {
                 colorIndex = colorArray.length === colorIndex ? 0 : colorIndex;
                 textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
                 return (<Col key={`col_${x}`} xs={12}>
-                    <div key={`square_${x}`}
+                    <div 
+                    key={`square_${x}`}
                         // style={{}}
                         className={`navSquare ${route.link}`}
                         style={{ marginTop: '15%', backgroundColor: `${colorArray[colorIndex]}` }}

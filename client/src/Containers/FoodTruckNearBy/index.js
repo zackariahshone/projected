@@ -10,8 +10,10 @@ import ReactSlider from "react-slider";
 import './style.css'
 import truckIcon from './truckIcon.png'
 
-// const googleKey = process.env.REACT_APP_GOOGLE_MAPS_API;
-const googleKey =  'AIzaSyBeVD6oESOY60Vzb4LWTWHfzwXfVQxM-Ik';
+
+const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
+// const GOOGLE_KEY = 'AIzaSyBTFMucVzXh_M89AV3bPS0H9dM9Wy0Y';
+
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
@@ -107,5 +109,5 @@ export function CustomMap({ google }) {
 };
 
 export default GoogleApiWrapper({
-    apiKey: googleKey
+    apiKey: GOOGLE_KEY
 })(CustomMap);

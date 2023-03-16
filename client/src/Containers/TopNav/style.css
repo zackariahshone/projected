@@ -6,6 +6,8 @@
     border-radius: 25px;
     /* padding-left: 3% !important;     */
 }
+
+
 .show{
     display: block;
 }
@@ -17,6 +19,14 @@
 }
 .be-light {
     background: transparent !important;
+  }
+  .brandLogo{
+    font-size: 25px !important;
+    font-weight: bold;
+}
+.brandLogo span{
+    font-weight: 100 ;
+    color: rgb(235, 182, 11) !important;
   }
 @media screen and (max-width: 992px) {
     .active {

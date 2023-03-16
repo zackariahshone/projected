@@ -1,0 +1,40 @@
+
+.arrow p { 
+    color: rgb(15, 15, 15); 
+    text-decoration: none;
+    font-size: 100px;
+}
+
+
+
+.arrow {
+    text-align: center;
+    position: absolute;
+    right:43%;
+    bottom:0;
+    font-size: 50px; 
+
+  }
+  .bounce {
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    10%, 10%, 50%, 60%, 90% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-20px);
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .arrow{
+        bottom: -50%;
+        right:40%;
+    }
+  }

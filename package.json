@@ -33,12 +33,16 @@
     "startsky": "concurrently \"cd backend && npm run start\" \"cd client && npm start\"",
     "start": "node backend/server.js",
     "develop": "concurrently \"cd backend && npm run watch\" \"cd client && npm start\"",
-    "install": "cd backend && npm i && cd ../client && npm i --legacy-peer-deps",
+    "install": "cd backend && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "type": "modules"
+    "type": "modules",
+    "create-env": "printenv > .env"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  }
 }
