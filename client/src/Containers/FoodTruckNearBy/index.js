@@ -22,13 +22,16 @@ export function CustomMap({ google }) {
   
     let markerSet = [];
     let nameSet = [];
-    foodTruckList.forEach((truck) => {
+    
+if(foodTruckList){
+    foodTruckList?.forEach((truck) => {
         if (truck.coordinates) {
             const { lat, lon } = truck?.coordinates;
             markerSet.push({ lat: lat, lng: lon })
             nameSet.push({ name: truck.name })
         }
     })
+}
     useEffect(() => {
         // if(foodTruckList){
             setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
