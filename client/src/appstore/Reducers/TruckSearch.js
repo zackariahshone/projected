@@ -9,9 +9,11 @@ export const truckSearchSlice = createSlice({
     initialState,
     reducers: {
         loadReducer: (state,action)=>{
+            console.log(`is this hit?`);
             state.listOfTrucks = action.payload.data;
         },
         setCategories:(state, action)=>{
+            console.log(`is this hit?`);
             state.truckCategories= action.payload.data
         }
     }

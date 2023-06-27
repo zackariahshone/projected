@@ -22,9 +22,7 @@ const TopNav = () => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
-  useEffect(() => {
 
-  }, [selected])
   console.log(window.location.pathname);
 
   return (

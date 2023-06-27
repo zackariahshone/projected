@@ -11,6 +11,8 @@ import './style.css'
 import truckIcon from './truckIcon.png'
 
 
+
+
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
 // const GOOGLE_KEY = 'AIzaSyBTFMucVzXh_M89AV3bPS0H9dM9Wy0Y';
 
@@ -19,19 +21,19 @@ export function CustomMap({ google }) {
     const [filteredList, setFilteredList] = useState();
     const [distance, setDistance] = useState(0);
     const currentLoc = useSelector(userLocation);
-  
+    
     let markerSet = [];
     let nameSet = [];
     
-if(foodTruckList){
-    foodTruckList?.forEach((truck) => {
-        if (truck.coordinates) {
-            const { lat, lon } = truck?.coordinates;
+    // if(foodTruckList){
+        foodTruckList?.forEach((truck) => {
+            if (truck.coordinates) {
+                const { lat, lon } = truck?.coordinates;
             markerSet.push({ lat: lat, lng: lon })
             nameSet.push({ name: truck.name })
         }
     })
-}
+// }
     useEffect(() => {
         // if(foodTruckList){
             setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
