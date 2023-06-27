@@ -1,33 +1,42 @@
 import React, { Fragment } from "react";
-import { Row, Col, Container} from "react-bootstrap";
-
+import { Row, Col, Container } from "react-bootstrap";
+import "./style.css";
 
 
 export const TruckListDisplay = ({ trucks }) => {
     return (
         <Container>
-            <Row>
-                {/* <Col xs={6} md={6}> */}
+                
                 {trucks ? trucks.map((truck) => (
+                    <>
+            <Row >
+
                     <Col
-                        xs={12}>
-                        {truck.name}
-                        {/* <Row>
-                            <Col xs={4}> */}
-                            
+                        xs={3}
+                        >
                                 <img src={truck.IMG} 
                                 alt={'truck image'}
-                                    // onError={()=>{<div>not an image</div>}}
-
-                                    />
-                                <br/>
-                                
-                            {/* </Col>
-                        </Row> */}
+                                />
                     </Col>
-                )) : 'trucks empty'}
-                {/* </Col> */}
+                    <Col className ={'displayTruckDetails scroll'} >
+                    {console.log(truck)}
+                        {truck.name}
+                        <ul>
+                            <li>{truck?.address}</li>
+                            <li>{truck?.description}</li>
+                        </ul>
+                        
+                    </Col>
+                        {/* <Row>
+                            <Col xs={4}> */}
+
+                    < br />
+
+                    {/* </Col>
+                        </Row> */}
             </Row>
+                    </>
+                )) : 'trucks empty'}
         </Container>
     )
 }

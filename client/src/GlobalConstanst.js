@@ -1,5 +1,5 @@
 import NavSquares from './Components/NavSquares/navSquares';
-import FoodTruckNearBy from './Containers/FoodTruckNearBy';
+import HomeList from './Containers/HomeList.js';
 import NewTrucks from './Containers/NewTrucks/newTrucks';
 import TruckSearch from './Containers/TruckSearch/trucksearch';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
@@ -51,7 +51,7 @@ export const BROWSER_ROUTER_CONFIGS =
         },
         {
             path: 'foodtrucksnearby',
-            element: FoodTruckNearBy
+            element: HomeList
         },
         {
             path: 'newfoodtrucks',
@@ -85,3 +85,5 @@ export const BROWSER_ROUTER_CONFIGS =
             // protected:true,
         }
     ]
+
+    export const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
