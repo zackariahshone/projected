@@ -64,6 +64,12 @@ export function CustomMap({ google }) {
         <Row>
            <Col>{SearchFilterButtons.map((filter)=><button className = {'PrimaryFilterButtons'}>{filter}</button>)}</Col>
         </Row>
+
+
+
+
+
+        
         </Container>
         <Container>
         {/* <Row>

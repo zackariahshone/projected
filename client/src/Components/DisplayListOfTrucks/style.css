@@ -24,3 +24,10 @@
     border-radius: 10px;
     margin-left:-1%;
 }
+
+@media screen and (max-width: 992px) {
+    .singleTruckImg{
+        width: 100%;
+        margin-top: 15%;
+    }
+}
