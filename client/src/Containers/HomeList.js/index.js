@@ -3,6 +3,7 @@ import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayLi
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
+import TruckSearchFilterButtons from '../TruckSearch/truckSearchFilterButtons';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
@@ -18,6 +19,8 @@ export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
     const [distance, setDistance] = useState(0);
+    const [mainSearch, setMainSearch] = useState('')
+    const [truckList, setTruckList] = useState(foodTruckList);
     const currentLoc = useSelector(userLocation);
   
     let markerSet = [];
@@ -29,34 +32,44 @@ export function CustomMap({ google }) {
             nameSet.push({ name: truck.name })
         }
     })
+
     useEffect(() => {
-        // if(foodTruckList){
-            setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
-            if (distance > 0) {
-                filteredList?.forEach((truck) => {
-                    markerSet = [];
-                    nameSet = []
-                    if (truck.coordinates) {
-                        const { lat, lon } = truck?.coordinates;
-                        markerSet.push({ lat: lat, lng: lon })
-                        nameSet.push({ name: truck.name })
-                    }
-                })
-            }
-        // }
-    }, [distance])
+        const result = foodTruckList?.filter(truck => truck.name.toLowerCase().includes(mainSearch.toLowerCase()));
+        mainSearch !== '' ? setFilteredList(result) : setFilteredList(foodTruckList);
+    }, [mainSearch])
+    // useEffect(() => {
+    //     // if(foodTruckList){
+    //         setFilteredList(foodTruckDistance(distance, currentLoc, foodTruckList))
+    //         if (distance > 0) {
+    //             filteredList?.forEach((truck) => {
+    //                 markerSet = [];
+    //                 nameSet = []
+    //                 if (truck.coordinates) {
+    //                     const { lat, lon } = truck?.coordinates;
+    //                     markerSet.push({ lat: lat, lng: lon })
+    //                     nameSet.push({ name: truck.name })
+    //                 }
+    //             })
+    //         }
+    //     // }
+    // }, [distance])
     console.log(markerSet);
     console.log(nameSet);
     console.log(filteredList);
     return (
         <>
-
         <Container style = {{
                             marginBottom: "2%",
                             marginRight:"3%"
                         }}>
         <Row>
-           <Col xs={4}><input className = 'truckSearchBar'></input></Col><Col xs = {3}><button>GO!</button></Col>
+           <Col xs={4}>
+                <input 
+                    className = 'truckSearchBar'
+                    onChange={(e) => {
+                    setMainSearch(e.target.value)
+                }}
+                    ></input></Col><Col xs = {3}><button>GO!</button></Col>
         </Row>
         <Row>
            <Col><button className = 'edit'>Edit Filters</button>  {dummyFilters.map((filter)=><button className = {'filterButtons'}>{filter}</button>)}</Col>
@@ -69,7 +82,7 @@ export function CustomMap({ google }) {
 
 
 
-        
+
         </Container>
         <Container>
         {/* <Row>
