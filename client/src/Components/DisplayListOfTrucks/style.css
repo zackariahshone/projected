@@ -9,3 +9,16 @@
     height: 100px !important;
     overflow: auto;
 }
+
+.singleTruck{
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    margin-bottom: 1px;
+}
+.singleTruckImg{
+    width:40%;
+    margin:2%;
+    border-radius: 10px;
+    margin-left:-1%;
+}

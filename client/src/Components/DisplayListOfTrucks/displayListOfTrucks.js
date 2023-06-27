@@ -9,12 +9,12 @@ export const TruckListDisplay = ({ trucks }) => {
                 
                 {trucks ? trucks.map((truck) => (
                     <>
-            <Row >
+            <Row className='singleTruck' >
 
                     <Col
                         xs={3}
                         >
-                                <img src={truck.IMG} 
+                                <img className="singleTruckImg" src={truck.IMG} 
                                 alt={'truck image'}
                                 />
                     </Col>
