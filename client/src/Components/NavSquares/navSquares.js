@@ -67,7 +67,6 @@ const NavSquares = () => {
 
                                         <Button
                                             onClick={() => {
-                                                handleClick();
                                                 setDirect('login');
                                                 
                                             }}
@@ -76,7 +75,6 @@ const NavSquares = () => {
                                         </Button>
                                         <Button
                                             onClick={() => {
-                                                handleClick();
                                                 setDirect('signup')
                                             }}
                                             className='createAccountButton logInbuttons' variant='outline-dark'> Create an Account</Button>
@@ -96,7 +94,7 @@ const NavSquares = () => {
                         </div>
         {
             direct === 'signup' || direct === 'login' ?
-                <div className="arrow bounce">
+                <div onClick={handleClick} className="arrow bounce">
                     <p className="fa fa-arrow-down fa-2x" href="#"> ↓ </p>
                 </div> : ''
         }

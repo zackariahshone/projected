@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, isLoggedIn, currentUser } from '../../appstore/Reducers/UserReducers';
 import { venderLogout } from '../../appstore/Reducers/VenderReducers';
@@ -20,10 +20,11 @@ const TopNav = () => {
   const userInfo = useSelector(currentUser);
   const isUserVender = useSelector(isVender); 
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(window.location.pathname.replace('/',''));
   const navigate = useNavigate();
 
-  console.log(window.location.pathname);
+  console.log(window.location.pathname.replace('/',''));
+  
 
   return (
 
