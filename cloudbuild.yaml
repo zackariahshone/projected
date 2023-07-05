@@ -9,5 +9,5 @@ steps:
     - 'MONGO_CONNECTION=${_MONGO_CONNECTION}'
     - 'REACT_APP_GOOGLE_MAPS_API=${_GOOGLE_MAP_API_KEY}'
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy"]
-timeout: "1600s"
+  args: ['-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy']
+timeout: '1600s'

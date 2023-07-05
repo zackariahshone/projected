@@ -154,14 +154,24 @@ const getLatLong = async (address) => {
   )
 }
 router.get('/api/getcategories', async (req, res) => {
-  const categories = await Categories.find().lean();
-  res.json(categories[0].categories);
+  try {
+    const categories = await Categories.find().lean();
+    res.json(categories[0].categories);
+    
+  } catch (error) {
+    req.json({status:error})
+  }
 });
 
 
 router.get('/api/foodtrucklists', async (req, res) => {
-  const truckData = await Truck.find().lean()
-  res.json(truckData)
+  try {
+    const truckData = await Truck.find().lean()
+    res.json(truckData)
+    
+  } catch (error) {
+    res.send({status:error});
+  }
 });
 
 router.post('/api/createTruck', async (req, res) => {

@@ -10,6 +10,7 @@ import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import './style.css'
 import truckIcon from './truckIcon.png'
+// import { Filterbar } from './filterbar';
 // import SearchFilterButtons from '../../GlobalConstanst'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
@@ -72,7 +73,11 @@ export function CustomMap({ google }) {
                     ></input></Col><Col xs = {3}><button>GO!</button></Col>
         </Row>
         <Row>
-           <Col><button className = 'edit'>Edit Filters</button>  {dummyFilters.map((filter)=><button className = {'filterButtons'}>{filter}</button>)}</Col>
+           <Col>
+                <button className = 'edit'>Edit Filters</button>  
+                    {dummyFilters.map((filter)=><button className = {'filterButtons'}>
+                        {filter}</button>)}
+            </Col>
         </Row>
         <Row>
            <Col>{SearchFilterButtons.map((filter)=><button className = {'PrimaryFilterButtons'}>{filter}</button>)}</Col>

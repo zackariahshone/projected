@@ -14,6 +14,7 @@ export const getData = (route, method, body, action, type) => {
     } else {
         fetch(route, {
             method: method,
+            mode: "cors",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -24,13 +25,4 @@ export const getData = (route, method, body, action, type) => {
     }
 }
 
-export const getweatherData = async () => {
-    fetch('/getweather', {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    })
-}
 

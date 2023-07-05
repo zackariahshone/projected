@@ -69,7 +69,8 @@ const NavSquares = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col xsx={12}>
+                                    <Col id={'guest'} xs={12}>
+                                
                                         <p
                                             onClick={() => {
                                                 setGuest(true);

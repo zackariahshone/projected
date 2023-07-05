@@ -31,6 +31,7 @@ router.get('/vendortrucks',async(req,res)=>{
         // const aggrigateTrucks = await Truck.find().lean();
         res.json(aggrigateTrucks);
     } catch (error) {
+        req.json({'error':error})
         console.log(error);
     }
 })
