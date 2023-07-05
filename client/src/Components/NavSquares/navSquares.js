@@ -1,4 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { 
+    Fragment, 
+    useState, 
+    useEffect, 
+    useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -18,6 +22,7 @@ import HomeNav from './homeNav';
 import MobileNav from './mobileNav';
 import './style.css';
 import './bouncingarrow.css';
+
 const NavSquares = () => {
     const navigate = useNavigate();
     const [guest, setGuest] = useState();
@@ -29,6 +34,12 @@ const NavSquares = () => {
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
     useEffect(() => { }, [direct])
+
+    const ref = useRef(null);
+
+    const handleClick = () => {
+      ref.current?.scrollIntoView({behavior: 'smooth'});
+    };
     const directLoginSignUp = (value) => {
         console.log(value);
         switch (value) {
@@ -56,20 +67,23 @@ const NavSquares = () => {
 
                                         <Button
                                             onClick={() => {
+                                                handleClick();
                                                 setDirect('login');
+                                                
                                             }}
                                             className='loginButton logInbuttons' variant='light'>
                                             Login
                                         </Button>
                                         <Button
                                             onClick={() => {
+                                                handleClick();
                                                 setDirect('signup')
                                             }}
                                             className='createAccountButton logInbuttons' variant='outline-dark'> Create an Account</Button>
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col xsx={12}>
+                                    <Col id={'guest'} xs={12}>
                                         <p
                                             onClick={() => {
                                                 setGuest(true);
@@ -104,9 +118,10 @@ const NavSquares = () => {
             </div>
             {
                 direct === 'signup' || direct === 'login' ?
-                    <Fragment>
+                    <Fragment >
 
                         <div
+                            ref={ref}
                             className='handleSignin'
                         >
                             {directLoginSignUp(direct)}
