@@ -32,19 +32,10 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         <h4>Centered Modal</h4>
-        {/* {currentFilters.map((filtertype, i) => (
-          <>
-            <Button> {filtertype.toUpperCase()} </Button>
-            {i + 1 == currentFilters.length ? '' : <b>&#8226;</b>}
-          </>
-        ))} */}
         {Object.keys(filterObj).map((filterType, i) => {
           return(
-
           <>
-            {/* <Button> {filterType.toUpperCase()} </Button> */}
-            {/* {i + 1 == Object.keys(filterObj).length ? '' : <b>&#8226;</b>} */}
-
+      
             <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 {filterType}
@@ -54,8 +45,7 @@ function MyVerticallyCenteredModal(props) {
                 {filterObj[filterType].map(filter=>(
                 <Dropdown.Item href="#/action-1">{filter}</Dropdown.Item>
               ))}
-                {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+               
               </Dropdown.Menu>
             </Dropdown>
 
