@@ -9,6 +9,7 @@ import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import './style.css'
+import {FilterModal} from '../../Components/FiltersModal/index'
 import truckIcon from './truckIcon.png'
 // import { Filterbar } from './filterbar';
 // import SearchFilterButtons from '../../GlobalConstanst'
@@ -64,6 +65,7 @@ export function CustomMap({ google }) {
                             marginRight:"3%"
                         }}>
         <Row>
+                        
            <Col xs={4}>
                 <input 
                     className = 'truckSearchBar'
@@ -74,7 +76,13 @@ export function CustomMap({ google }) {
         </Row>
         <Row>
            <Col>
-                <button className = 'edit'>Edit Filters</button>  
+                {/* <button 
+                    className = 'edit'
+                    onClick={()=>{
+
+                    }}
+                    >Edit Filters</button>   */}
+                    <FilterModal/>
                     {dummyFilters.map((filter)=><button className = {'filterButtons'}>
                         {filter}</button>)}
             </Col>
