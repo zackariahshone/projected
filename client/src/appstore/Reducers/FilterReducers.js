@@ -1,25 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    
-}
+const initialState = {}
 
 export const truckSearchFilterSlice = createSlice({
-    name:'TruckSearchFilters',
+    name:'truckSearchFilterSlice',
     initialState,
     reducers: {
         setFilters:(state, action)=>{
-            state.selectedFilters= action.payload.data
+            console.log(action);
+            const currentFilters = state.SearchFilterState;
+            const newFilters = action.payload
+            state.SearchFilterState = { ...currentFilters,...newFilters}
         },
         removeFilters:(state,action)=>{
-            state.selectedFilters
+            // state.selectedFilters
         },
         getFilters:(state,action)=>{
-            state.selectedFilters
+            // state.selectedFilters
         }
     }
 })
 
-export const {setFilters,getFilters,removeFilters } = truckSearchSlice.actions;
+export const { setFilters,getFilters,removeFilters } = truckSearchFilterSlice.actions;
 export const truckSearchList = (state) => state.searchFilterState.selectedFilters;
 export default truckSearchFilterSlice.reducer
