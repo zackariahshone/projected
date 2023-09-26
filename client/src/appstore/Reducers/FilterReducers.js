@@ -7,30 +7,23 @@ export const truckSearchFilterSlice = createSlice({
     initialState,
     reducers: {
         setFilters: (state, action) => {
-            const newFilters = action.payload
+            
             const currnetFilters = current(state).SearchFilterState;
+            
+            const newFilters = action.payload
 
-            const filterkey = Object.keys(newFilters)[0]
-            const filterValue = Object.values(newFilters)
-            // console.log(...currnetFilters[filterkey])
-            console.log(newFilters);
+            const incomingfilterkey = Object.keys(newFilters)[0]
+            const incomingfilterValue = Object.values(newFilters)
+
             if(currnetFilters !== undefined && 
-                currnetFilters[filterkey] !== undefined &&  
-                currnetFilters[filterkey] !== null){
-                    
-                    console.log(currnetFilters[filterkey]);
-                
-                filterValue.push(...currnetFilters[filterkey]);
+                currnetFilters[incomingfilterkey] !== undefined &&  
+                currnetFilters[incomingfilterkey] !== null){
+                                    
+                    incomingfilterValue.push(...currnetFilters[incomingfilterkey]);
             
             }   
-            console.log(filterValue);
-            const filterSet = [...new Set(filterValue)]
-            console.log(filterSet);
-            // if (Object.keys(currnetFilters).indexOf(filterkey) !== -1) {
-                state.SearchFilterState = { ...currnetFilters, [filterkey]: filterSet} 
-            // } else {
-                // state.SearchFilterState = { [filterkey]: filterSet }
-            // }
+            const filterSet = [...new Set(incomingfilterValue)]
+                state.SearchFilterState = { ...currnetFilters, [incomingfilterkey]: filterSet} 
         },
         removeFilters: (state, action) => {
             // state.selectedFilters
