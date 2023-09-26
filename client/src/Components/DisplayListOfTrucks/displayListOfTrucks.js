@@ -19,7 +19,6 @@ export const TruckListDisplay = ({ trucks }) => {
                                 />
                     </Col>
                     <Col className ={'displayTruckDetails scroll'} >
-                    {console.log(truck)}
                         {truck.name}
                         <ul>
                             <li>{truck?.address}</li>

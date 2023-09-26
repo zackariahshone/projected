@@ -7,7 +7,6 @@ const UTILS = require('./utils');
  */
 router.post('/signup', async (req, res) => {
  const createdUser = await User.create(req.body)
- console.log(createdUser);
   req.session.signinSuccess = true;
   res.json({ 
     ...createdUser,

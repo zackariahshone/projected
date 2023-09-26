@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
 import { Container, Row, Col } from 'react-bootstrap'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import TruckSearchFilterButtons from '../TruckSearch/truckSearchFilterButtons';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
-import './style.css'
-import {FilterModal} from '../../Components/FiltersModal/index'
+import { FilterModal } from '../../Components/FiltersModal/index'
 import truckIcon from './truckIcon.png'
+import { truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
+import { setFilters, getFilters, removeFilters } from '../../appstore/Reducers/FilterReducers';
+import './style.css'
 // import { Filterbar } from './filterbar';
 // import SearchFilterButtons from '../../GlobalConstanst'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
@@ -24,7 +27,20 @@ export function CustomMap({ google }) {
     const [mainSearch, setMainSearch] = useState('')
     const [truckList, setTruckList] = useState(foodTruckList);
     const currentLoc = useSelector(userLocation);
-  
+    const dispatch = useDispatch();
+
+    const truckSearchFilterList = useSelector(truckSearchFilters);
+
+    console.log(truckSearchFilterList);
+
+    // const smooshFilters = ()=>{
+    //     const flattenFilters = [];
+    //     Object.keys(truckSearchFilterList).forEach(filterKey=>{
+    //        flattenFilters.push(...truckSearchFilterList[filterKey])
+    //     })
+    //     return flattenFilters;
+    // }
+
     let markerSet = [];
     let nameSet = [];
     foodTruckList.forEach((truck) => {
@@ -55,50 +71,62 @@ export function CustomMap({ google }) {
     //         }
     //     // }
     // }, [distance])
-    console.log(markerSet);
-    console.log(nameSet);
-    console.log(filteredList);
+
     return (
         <>
-        <Container style = {{
-                            marginBottom: "2%",
-                            marginRight:"3%"
-                        }}>
-        <Row>
-                        
-           <Col xs={4}>
-                <input 
-                    className = 'truckSearchBar'
-                    onChange={(e) => {
-                    setMainSearch(e.target.value)
-                }}
-                    ></input></Col><Col xs = {3}><button>GO!</button></Col>
-        </Row>
-        <Row>
-           <Col>
-                {/* <button 
+            <Container style={{
+                marginBottom: "2%",
+                marginRight: "3%"
+            }}>
+                <Row>
+
+                    <Col xs={4}>
+                        <input
+                            className='truckSearchBar'
+                            onChange={(e) => {
+                                setMainSearch(e.target.value)
+                            }}
+                        ></input></Col><Col xs={3}><button>GO!</button></Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {/* <button 
                     className = 'edit'
                     onClick={()=>{
 
                     }}
                     >Edit Filters</button>   */}
-                    <FilterModal/>
-                    {dummyFilters.map((filter)=><button className = {'filterButtons'}>
-                        {filter}</button>)}
-            </Col>
-        </Row>
-        <Row>
-           <Col>{SearchFilterButtons.map((filter)=><button className = {'PrimaryFilterButtons'}>{filter}</button>)}</Col>
-        </Row>
+                        <FilterModal />
+                        { }
+                        { truckSearchFilterList !== null && truckSearchFilterList !== undefined ? Object.keys(truckSearchFilterList)?.map(filterKey => (
+                            (
+                                <>
+                                <text>{filterKey}:</text>
+
+                            {truckSearchFilterList[filterKey]?.map(filterItme =>(
+                                <>
+                                    <button  className={'filterButtons'}>{filterItme}</button>
+                                </>
+                            ))}
+                                </>
+                            )
+                        )) : ""}
+                        {/* {dummyFilters.map((filter) => <button className={'filterButtons'}>
+                            {filter}</button>)} */}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>{SearchFilterButtons.map((filter) => <button className={'PrimaryFilterButtons'}>{filter}</button>)}</Col>
+                </Row>
 
 
 
 
 
 
-        </Container>
-        <Container>
-        {/* <Row>
+            </Container>
+            <Container>
+                {/* <Row>
                 <Col xs={12} >
                   <center> {distance === 0 ? <p> Move slider to filter trucks </p> : <p>Food trucks within {distance} miles of you</p>} </center>
                     <ReactSlider
@@ -115,13 +143,13 @@ export function CustomMap({ google }) {
                     />
                 </Col>
             </Row> */}
-            <Row>
-            {/* <Col className={'truckNames'}> */}
-                  <div className=' scroll foodTruckList'>
-                    {filteredList ? <TruckListDisplay trucks = {filteredList}/> : <TruckListDisplay trucks = {foodTruckList}/>}
-                  </div>
-            {/* </Col> */}
-                {/* <Col xs={0} md={6} >
+                <Row>
+                    {/* <Col className={'truckNames'}> */}
+                    <div className=' scroll foodTruckList'>
+                        {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
+                    </div>
+                    {/* </Col> */}
+                    {/* <Col xs={0} md={6} >
                     {markerSet ? <Map
                         google={google}
                         className={'mapContainer'}
@@ -150,8 +178,8 @@ export function CustomMap({ google }) {
                         title={'you are here'} />
                     </Map> : <></>}
                 </Col> */}
-            </Row>
-        </Container>
+                </Row>
+            </Container>
         </>
     )
 };

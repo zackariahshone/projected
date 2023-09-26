@@ -30,7 +30,6 @@ const NavSquares = () => {
     const isUserVender = useSelector(isVender);
     useEffect(() => { }, [direct])
     const directLoginSignUp = (value) => {
-        console.log(value);
         switch (value) {
             case 'signup':
                 return (<SignUp />)

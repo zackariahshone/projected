@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
  * Handle Sign up
  */
 router.post('/registration',async (req, res) => {
-    console.log(jwt.decode(req.headers.token));
     const key = jwt.decode(req.headers.token).email;
  
  await User.findOneAndUpdate({email:key},
@@ -32,7 +31,6 @@ router.get('/vendortrucks',async(req,res)=>{
         res.json(aggrigateTrucks);
     } catch (error) {
         req.json({'error':error})
-        console.log(error);
     }
 })
 

@@ -220,7 +220,6 @@ router.delete('/api/deletetruck', async (req, res) => {
   res.json({ deleted: true });
 })
 router.post('/api/editTruck',async(req,res)=>{
-  console.log(req.headers.truckid);
   const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
   const currentUser = jwt.decode(req.headers.token)
   const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:updatedTruck._id})

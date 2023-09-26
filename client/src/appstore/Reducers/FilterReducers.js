@@ -29,11 +29,11 @@ export const truckSearchFilterSlice = createSlice({
             // state.selectedFilters
         },
         getFilters: (state, action) => {
-            // state.selectedFilters
+            const currnetFilters = current(state).SearchFilterState;
         }
     }
 })
 
 export const { setFilters, getFilters, removeFilters } = truckSearchFilterSlice.actions;
-export const truckSearchFilters = (state) => state?.SearchFilterState;
+export const truckSearchFilters = (state) => state.truckSearchFilterState?.SearchFilterState;
 export default truckSearchFilterSlice.reducer

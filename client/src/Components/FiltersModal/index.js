@@ -21,8 +21,7 @@ const filterObj = {
 
 function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
-  const currentFilters = useSelector(truckSearchFilters);
-  console.log(currentFilters)
+  // const currentFilters = useSelector(truckSearchFilters);
   return (
     <Modal
       {...props}
