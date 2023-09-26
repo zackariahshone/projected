@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import { setFilters,getFilters,removeFilters } from '../../appstore/Reducers/FilterReducers';
 import { truckCategories } from '../../appstore/Reducers/TruckSearch';
 
@@ -20,7 +21,8 @@ const filterObj = {
 
 function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
-
+  const currentFilters = useSelector(truckSearchFilters);
+  console.log(currentFilters)
   return (
     <Modal
       {...props}
