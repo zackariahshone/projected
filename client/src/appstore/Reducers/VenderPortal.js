@@ -8,7 +8,6 @@ export const venderPortalSlice = createSlice({
     initialState,
     reducers: {
         setTruckToEdit: (state,action)=>{
-          console.log(action);
             state.truckBeingEdited = action.payload;
         },
     }

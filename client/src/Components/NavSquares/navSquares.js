@@ -30,7 +30,6 @@ const NavSquares = () => {
     const isUserVender = useSelector(isVender);
     useEffect(() => { }, [direct])
     const directLoginSignUp = (value) => {
-        console.log(value);
         switch (value) {
             case 'signup':
                 return (<SignUp />)
@@ -69,7 +68,8 @@ const NavSquares = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col xsx={12}>
+                                    <Col id={'guest'} xs={12}>
+                                
                                         <p
                                             onClick={() => {
                                                 setGuest(true);

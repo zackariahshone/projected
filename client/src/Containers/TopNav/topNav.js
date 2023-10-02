@@ -25,7 +25,6 @@ const TopNav = () => {
   useEffect(() => {
 
   }, [selected])
-  console.log(window.location.pathname);
 
   return (
 

@@ -23,7 +23,6 @@ const FoodTruckSearch = () => {
 
     return (
         <Container>
-
             <input
                 className='searchInput'
                 onChange={(e) => {
