@@ -7,6 +7,7 @@ import { setFilters,getFilters,removeFilters } from '../../appstore/Reducers/Fil
 import { truckCategories } from '../../appstore/Reducers/TruckSearch';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { Row } from 'react-bootstrap';
 
 const currentFilters = ['distance', 'diect restrictions', 'categories', ' ratings']
 
@@ -31,17 +32,14 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Edit Filters 
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
         {Object.keys(filterObj).map((filterType, i) => {
           return(
-          <>
-      
             <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle id="dropdown-basic">
                 {filterType}
               </Dropdown.Toggle>
 
@@ -57,13 +55,12 @@ function MyVerticallyCenteredModal(props) {
               </Dropdown.Menu>
             </Dropdown>
 
-          </>
           )
         })}
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-        <Button onClick={props.onHide}>Save</Button>
+        <Button onClick={()=> dispatch(removeFilters())}>Clear Filters</Button>
       </Modal.Footer>
     </Modal>
   );
