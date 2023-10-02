@@ -23,9 +23,6 @@ const TopNav = () => {
   const [selected, setSelected] = useState(window.location.pathname.replace('/',''));
   const navigate = useNavigate();
 
-  console.log(window.location.pathname.replace('/',''));
-  
-
   return (
 
     

@@ -12,7 +12,6 @@ import TopNav from './Containers/TopNav/topNav';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { PersistGate } from 'redux-persist/integration/react'
 // create an event listener
-console.log(window.innerWidth)
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,5 +1,5 @@
 import NavSquares from './Components/NavSquares/navSquares';
-import FoodTruckNearBy from './Containers/FoodTruckNearBy';
+import HomeList from './Containers/HomeList.js';
 import NewTrucks from './Containers/NewTrucks/newTrucks';
 import TruckSearch from './Containers/TruckSearch/trucksearch';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
@@ -15,8 +15,8 @@ export const DUMMY_IMG = 'https://media.istockphoto.com/id/1301655857/vector/foo
 
 export const ROUTES = [
     {
-        name: 'Closest Food-Trucks',
-        link: "foodtrucksnearby",
+        name: 'Home List',
+        link: "homelist",
     },
     {
         name: 'New Food-Trucks',
@@ -50,8 +50,8 @@ export const BROWSER_ROUTER_CONFIGS =
             element: NavSquares
         },
         {
-            path: 'foodtrucksnearby',
-            element: FoodTruckNearBy
+            path: 'homelist',
+            element: HomeList
         },
         {
             path: 'newfoodtrucks',
@@ -85,3 +85,5 @@ export const BROWSER_ROUTER_CONFIGS =
             // protected:true,
         }
     ]
+
+    export const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];

@@ -41,7 +41,6 @@ const NavSquares = () => {
       ref.current?.scrollIntoView({behavior: 'smooth'});
     };
     const directLoginSignUp = (value) => {
-        console.log(value);
         switch (value) {
             case 'signup':
                 return (<SignUp />)
@@ -82,6 +81,7 @@ const NavSquares = () => {
                                 </Row>
                                 <Row>
                                     <Col id={'guest'} xs={12}>
+                                
                                         <p
                                             onClick={() => {
                                                 setGuest(true);
