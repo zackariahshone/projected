@@ -11,7 +11,7 @@ import { userLocation } from '../../appstore/Reducers/UserReducers'
 import ReactSlider from "react-slider";
 import { FilterModal } from '../../Components/FiltersModal/index'
 import truckIcon from './truckIcon.png'
-import { setFilters, getFilters, removeFilters,removeFilter,truckSearchFilters} from '../../appstore/Reducers/FilterReducers';
+import { setFilters, getFilters, removeFilters, removeFilter, truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import './style.css'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
@@ -68,9 +68,9 @@ export function CustomMap({ google }) {
                                     {truckSearchFilterList[filterKey]?.map(filterItem => (
                                         <>
                                             <text className={'filterButtons'}>{filterItem}
-                                                <span onClick={()=>{
-                                                    console.log({[filterKey]:filterItem})
-                                                    dispatch(removeFilter({[filterKey]:filterItem}))
+                                                <span onClick={() => {
+                                                    console.log({ [filterKey]: filterItem })
+                                                    dispatch(removeFilter({ [filterKey]: filterItem }))
                                                 }} className='delete'>x</span>
                                             </text>
                                         </>
@@ -84,45 +84,61 @@ export function CustomMap({ google }) {
                     <Col>{SearchFilterButtons.map((filter) => <button className={'PrimaryFilterButtons'}>{filter}</button>)}</Col>
                 </Row>
             </Container>
-            <Container>
-                <Row>
-                    {/* <Col className={'truckNames'}> */}
-                    <div className=' scroll foodTruckList'>
-                        {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
-                    </div>
-                    {/* below is commented out google maps code */}
-                    {/* </Col> */}
-                    {/* <Col xs={0} md={6} >
-                    {markerSet ? <Map
-                        google={google}
-                        className={'mapContainer'}
-                        containerStyle={{
-                            width: "50%",
-                            height: "65vh"
+            
+                <div
+                    style={{
+                        position: "absolute",
+                        zIndex: 0,
+                        width: "100%", // or you can use width: '100vw'
+                        height: "75%", // or you can use height: '100vh'
+                        overflow:"hidden"
+                    }}
+                >
+                   {markerSet ? <Map
+                            google={google}
+                            className={'mapContainer'}
+                            containerStyle={{
+                                // width: "50%",
+                                // height: "65vh"
+                            }}
+                            center={markerSet[0]}
+                            initialCenter={markerSet[0]}
+                            zoom={markerSet.length === 1 ? 18 : 13}
+                            disableDefaultUI={true}
+                        >
+                            {markerSet.map(
+                                (coords, i) => <Marker
+                                    icon={{
+                                        url: truckIcon,
+                                        anchor: new google.maps.Point(17, 46),
+                                        scaledSize: new google.maps.Size(50, 50)
+                                    }}
+                                    position={coords}
+                                    title={`${nameSet[i].name}`} />
+                            )}
+                            <Marker
+                                // icon = {{url:'RiMapPinUserFill'}} 
+                                position={currentLoc}
+                                title={'you are here'} />
+                        </Map> : <></>}
+                    <div
+                        style={{
+                            zIndex: 1,
+                            position: "absolute",
+                            top: 10,
+                            left: 10,
+                            backgroundColor: "white", // you can use any color value
+                            width: "10%", // or you can use width: any_number
+                            height: "80%" // or you can use height: any_number
                         }}
-                        center={markerSet[0]}
-                        initialCenter={markerSet[0]}
-                        zoom={markerSet.length === 1 ? 18 : 13}
-                        disableDefaultUI={true}
                     >
-                        {markerSet.map(
-                            (coords, i) => <Marker
-                                 icon={{
-                                    url:truckIcon,
-                                    anchor:new google.maps.Point(17,46),
-                                    scaledSize: new google.maps.Size(50,50)
-                                 }}
-                                position={coords} 
-                                title={`${nameSet[i].name}`} />
-                        )}
-                        <Marker
-                        // icon = {{url:'RiMapPinUserFill'}} 
-                        position={currentLoc} 
-                        title={'you are here'} />
-                    </Map> : <></>}
-                </Col> */}
-                </Row>
-            </Container>
+                       {/* side display */}
+                       <div className=' scroll foodTruckList'>
+                            {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
+                        </div>
+                    </div>
+                </div>
+
         </>
     )
 };
