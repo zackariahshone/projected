@@ -28,8 +28,6 @@ export const TruckListDisplay = ({ trucks }) => {
                         <Row>
                             <Col>Reviews: 4.5/5</Col>
                         </Row>
-                        
-                        
                     </Col>
                     < br />
             </Row>
