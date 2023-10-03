@@ -14,8 +14,8 @@ import truckIcon from './truckIcon.png'
 import { setFilters, getFilters, removeFilters, removeFilter, truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import './style.css'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
-const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
-// const GOOGLE_KEY = 'AIzaSyBTFMucVzXh_M89AV3bPS0H9dM9Wy0Y';
+// const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
+const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
