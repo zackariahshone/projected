@@ -126,9 +126,9 @@ export function CustomMap({ google }) {
                             position: "absolute",
                             top: 40,
                             left: 50,
-                            backgroundColor: "white", // you can use any color value
+                            backgroundColor: "black", // you can use any color value
                             width: "30%", // or you can use width: any_number
-                            height: "80%" // or you can use height: any_number
+                            height: "auto" // or you can use height: any_number
                         }}
                     >
                        {/* side display */}

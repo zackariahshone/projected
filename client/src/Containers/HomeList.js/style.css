@@ -89,7 +89,8 @@
 }
 
 .foodTruckList {
-  height: 65vh;
+  height: auto;
+  max-height: 65vh;
   overflow: scroll;
   overflow-x: hidden;
 }
