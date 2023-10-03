@@ -12,17 +12,17 @@ export const TruckListDisplay = ({ trucks }) => {
                     <>
             <Row className='singleTruck' >
 
-                    {/* <Col
-                        xs={3}
-                        > */}
+                    <Col
+                          xs={12}  sm ={12} md ={4}
+                        >
                                 <img className="singleTruckImg" src={truck.IMG} 
                                 alt={'truck image'}
                                 />
-                    {/* </Col> */}
+                    </Col>
                     <Col className ={'displayTruckDetails scroll'} >
                         <b>{truck.name}</b>
                         <Row>
-                            <Col xs={2}>open</Col>
+                            <Col xs={12}>open</Col>
                             <Col>{truck?.address}</Col>
                         </Row>
                         <Row>
