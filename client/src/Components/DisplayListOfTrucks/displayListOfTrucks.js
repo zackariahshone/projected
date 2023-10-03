@@ -12,28 +12,26 @@ export const TruckListDisplay = ({ trucks }) => {
                     <>
             <Row className='singleTruck' >
 
-                    <Col
+                    {/* <Col
                         xs={3}
-                        >
+                        > */}
                                 <img className="singleTruckImg" src={truck.IMG} 
                                 alt={'truck image'}
                                 />
-                    </Col>
+                    {/* </Col> */}
                     <Col className ={'displayTruckDetails scroll'} >
-                        {truck.name}
-                        <ul>
-                            <li>{truck?.address}</li>
-                            <li>{truck?.description}</li>
-                        </ul>
+                        <b>{truck.name}</b>
+                        <Row>
+                            <Col xs={2}>open</Col>
+                            <Col>{truck?.address}</Col>
+                        </Row>
+                        <Row>
+                            <Col>Reviews: 4.5/5</Col>
+                        </Row>
+                        
                         
                     </Col>
-                        {/* <Row>
-                            <Col xs={4}> */}
-
                     < br />
-
-                    {/* </Col>
-                        </Row> */}
             </Row>
                     </>
                 )) : 'trucks empty'}
