@@ -3,22 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Button,
-  Form
+  Form,
+  Col,
+  Row
 } from 'react-bootstrap';
 import { login, isLoggedIn, setUserData } from '../../appstore/Reducers/UserReducers';
-import {setVenderCred, isVender} from '../../appstore/Reducers/VenderReducers';
+import { setVenderCred, isVender } from '../../appstore/Reducers/VenderReducers';
 import './style.css';
 import { useNavigate, Link } from "react-router-dom";
 import authHeader from '../../userServices/authHeader'
 import localStorage from 'redux-persist/es/storage';
-const Login = () => {
+const Login = ({ scrollUp }) => {
   // may remove signIn/setSignIn 
   const [userCred, setUserCred] = useState();
   const [userFound, setUserFound] = useState();
   const [loginError, setLoginError] = useState();
   const [emailError, setEmailError] = useState(false);
   const [pwdError, setPwdError] = useState(false);
-  const [venderData,setVenderData]=useState();
+  const [venderData, setVenderData] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInStatus = useSelector(isLoggedIn);
@@ -42,20 +44,20 @@ const Login = () => {
         setUserFound(data.token);
         localStorage.setItem('authToken', data.authToken)
       });
-    }
+  }
 
-    const handleClick = () => {
+  const handleClick = () => {
     if (pwdError === false && emailError === false) {
       getUser()
       if (
         (loggedInStatus === false ||
           loggedInStatus === undefined) &&
-          userFound === true
-          ) {
-            dispatch(login({ value: true, type: 'login' }))
-            dispatch(setVenderCred(venderData))
-            setLoginError(false);
-        navigate("/");
+        userFound === true
+      ) {
+        dispatch(login({ value: true, type: 'login' }))
+        dispatch(setVenderCred(venderData))
+        setLoginError(false);
+        // scrollUp("toTop");
       }
     }
   }
@@ -68,7 +70,7 @@ const Login = () => {
       dispatch(login({ value: true, type: 'login' }))
       dispatch(setVenderCred(venderData))
       setLoginError(false);
-      navigate("/");
+      scrollUp("toTop");
     }
     if (userFound === false) {
       setLoginError(true);
@@ -125,22 +127,30 @@ const Login = () => {
               }}
             />
           </Form.Group>
-          <Button
-            variant="primary"
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            Submit
-          </Button>
-          <Link to="/signup">
-            <Button
-              className="signUp signUp-button"
-              onClick={() => {
-                navigate('/signup')
-              }}
-            >Sign Up Please </Button>
-          </Link>
+          <Row>
+            <Col>
+
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleClick();
+                }}
+              >
+                Submit
+              </Button>
+            </Col>
+            <Col>
+
+              <Link to="/signup">
+                <Button
+                  className="signUp signUp-button"
+                  onClick={() => {
+                    navigate('/signup')
+                  }}
+                >Sign Up Please </Button>
+              </Link>
+            </Col>
+          </Row>
         </Form>
       </div>
     </Container>
