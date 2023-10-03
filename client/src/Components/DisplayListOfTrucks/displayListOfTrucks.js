@@ -5,8 +5,9 @@ import "./style.css";
 
 export const TruckListDisplay = ({ trucks }) => {
     return (
-        <Container>
-                
+        // <Container>
+                <>
+
                 {trucks ? trucks.map((truck) => (
                     <>
             <Row className='singleTruck' >
@@ -36,6 +37,7 @@ export const TruckListDisplay = ({ trucks }) => {
             </Row>
                     </>
                 )) : 'trucks empty'}
-        </Container>
+                </>
+        // </Container>
     )
 }
