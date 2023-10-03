@@ -24,14 +24,14 @@ function App() {
     getData('api/getcategories', 'GET', {}, setCategories, {});
     
     
-    // GeoLoc.getCurrentPosition((loc) => {
-    //   dispatch(setLocation(
-    //     {
-    //       lat: loc.coords?.latitude,
-    //       lng: loc.coords?.longitude
-    //     }
-    //   ))
-    // })
+    GeoLoc.getCurrentPosition((loc) => {
+      dispatch(setLocation(
+        {
+          lat: loc.coords?.latitude,
+          lng: loc.coords?.longitude
+        }
+      ))
+    })
   }, []);
   return (
     <Fragment>
