@@ -91,12 +91,11 @@ export function CustomMap({ google }) {
                         zIndex: 0,
                         width: "100%", // or you can use width: '100vw'
                         height: "75%", // or you can use height: '100vh'
-                        overflow:"hidden"
                     }}
                 >
                    {markerSet ? <Map
                             google={google}
-                            className={'mapContainer'}
+                            // className={'mapContainer'}
                             containerStyle={{
                                 // width: "50%",
                                 // height: "65vh"
@@ -125,10 +124,10 @@ export function CustomMap({ google }) {
                         style={{
                             zIndex: 1,
                             position: "absolute",
-                            top: 10,
-                            left: 10,
+                            top: 40,
+                            left: 50,
                             backgroundColor: "white", // you can use any color value
-                            width: "10%", // or you can use width: any_number
+                            width: "30%", // or you can use width: any_number
                             height: "80%" // or you can use height: any_number
                         }}
                     >
