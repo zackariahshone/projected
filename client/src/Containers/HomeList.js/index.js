@@ -126,13 +126,13 @@ export function CustomMap({ google }) {
                             position: "absolute",
                             top: 40,
                             left: 50,
-                            backgroundColor: "black", // you can use any color value
+                            backgroundColor: "white", // you can use any color value
                             width: "30%", // or you can use width: any_number
                             height: "auto" // or you can use height: any_number
                         }}
                     >
                        {/* side display */}
-                       <div className=' scroll foodTruckList'>
+                       <div className='scroll foodTruckList'>
                             {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
                         </div>
                     </div>
