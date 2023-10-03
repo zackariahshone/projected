@@ -33,28 +33,33 @@ const NavSquares = () => {
     let colorIndex = 0;
     let textIndex = colorArray.length - 1;
     const isUserVender = useSelector(isVender);
-    useEffect(() => { }, [direct])
 
     const ref = useRef(null);
-
-    const handleClick = () => {
-      ref.current?.scrollIntoView({behavior: 'smooth'});
-    };
+    const upperRef = useRef(null);
+    // const handleScrollUp = () => {
+    //   upperRef.current?.scrollIntoView({behavior: 'smooth'});
+    // };
     const directLoginSignUp = (value) => {
         switch (value) {
             case 'signup':
                 return (<SignUp />)
                 case 'login':
-                    return <Login />
+                    return <Login scrollUp={setDirect}/>
             default:
                 break;
         }
     }
-    
+    useEffect(()=>{
+        if(direct == 'toTop'){
+            upperRef.current?.scrollIntoView({behavior:'smooth'});
+        }else if(direct != 'toTop'){
+            ref.current?.scrollIntoView({behavior:'smooth'})
+        }
+    },[direct])
 
     return (
-        <div className='circle'>
-            <div className='homeComponent'>
+        <div className='circle' ref={upperRef}>
+            <div className='homeComponent' >
 
                 {loggedInStatus != true && guest !== true ?
                     <div className='loginSignUp'>
@@ -67,7 +72,6 @@ const NavSquares = () => {
                                         <Button
                                             onClick={() => {
                                                 setDirect('login');
-                                                
                                             }}
                                             className='loginButton logInbuttons' variant='light'>
                                             Login
@@ -94,7 +98,7 @@ const NavSquares = () => {
                         </div>
         {
             direct === 'signup' || direct === 'login' ?
-                <div onClick={handleClick} className="arrow bounce">
+                <div className="arrow bounce">
                     <p className="fa fa-arrow-down fa-2x" href="#"> ↓ </p>
                 </div> : ''
         }

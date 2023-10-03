@@ -121,6 +121,7 @@ export function CustomMap({ google }) {
                                 title={'you are here'} />
                         </Map> : <></>}
                     <div
+                        className='truckListContainer'
                         style={{
                             zIndex: 1,
                             position: "absolute",
