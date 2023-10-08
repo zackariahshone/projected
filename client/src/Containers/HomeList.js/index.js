@@ -8,14 +8,13 @@ import TruckSearchFilterButtons from '../TruckSearch/truckSearchFilterButtons';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { foodTruckDistance } from './utils';
 import { userLocation } from '../../appstore/Reducers/UserReducers'
-import ReactSlider from "react-slider";
 import { FilterModal } from '../../Components/FiltersModal/index'
 import truckIcon from './truckIcon.png'
-import { setFilters, getFilters, removeFilters, removeFilter, truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
+import { removeFilter, truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import './style.css'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
-// const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
-const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
+const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
+// const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
@@ -122,17 +121,7 @@ export function CustomMap({ google }) {
                         </Map> : <></>}
                     <div
                         className='truckListContainer'
-                        style={{
-                            zIndex: 1,
-                            position: "absolute",
-                            top: 40,
-                            left: 50,
-                            backgroundColor: "white", // you can use any color value
-                            width: "30%", // or you can use width: any_number
-                            height: "auto" // or you can use height: any_number
-                        }}
                     >
-                       {/* side display */}
                        <div className='scroll foodTruckList'>
                             {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
                         </div>
