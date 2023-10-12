@@ -34,7 +34,7 @@ const MobileNav = () => {
                 }
                 colorIndex = colorArray.length === colorIndex ? 0 : colorIndex;
                 textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
-                return (<Col key={`col_${x}`} xs={12}>
+                return (<Col key={`col_${x}`} xs={6} sm = {6} md={6} >
                     <div 
                     key={`square_${x}`}
                         // style={{}}
