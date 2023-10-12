@@ -33,9 +33,8 @@ const HomeNav = () => {
                     }
                     colorIndex = colorArray.length === colorIndex ? 0 : colorIndex;
                     textIndex = textIndex === -1 ? colorArray.length - 1 : textIndex;
-                    return (<Col key={`col_${x}`} xs={12}>
+                    return (<Col key={`col_${x}`} xs={3} sm={12}>
                         <div key={`square_${x}`}
-                            // style={{}}
                             className={`navSquare ${route.link}`}
                             style={{marginTop:'15%', backgroundColor: `${colorArray[colorIndex]}` }}
                         >

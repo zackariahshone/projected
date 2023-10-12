@@ -6,7 +6,7 @@
   height: auto;
   text-decoration: none;
   /* height:50%; */
-  width: 100%;
+  width: auto;
   background-color: black;
 }
 #guest{
@@ -95,10 +95,11 @@ h1 {
   .homeNavMobile {
     display: block;
     text-align: right;
-    background-color:rgba(172, 127, 6, 0.2) !important;
+    /* background-color:rgba(172, 127, 6, 0.2) !important; */
     padding-top: 10%;
     padding-bottom:10%;
     border-radius: 10%;
+    width:auto;
     /* opacity:0.6; */
   }
   .circle {
@@ -111,7 +112,9 @@ h1 {
     /* bottom: 0px; */
   }
   .navSquare{
-    opacity: 1;
+    /* opacity: 1; */
+    /* margin-left: 60%; */
+    width:auto;
   }
   .buttonContainer {
     margin-top: 1% !important;
