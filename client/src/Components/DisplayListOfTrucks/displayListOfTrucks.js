@@ -5,6 +5,7 @@ import {HoverDetailsComponent} from "../HoverDetails";
 
 export const TruckListDisplay = ({ trucks }) => {
     const [selectedTruck, setSelectedTruck] = useState(false);
+    const[truckKey, setTruckKey] = useState('');
     return (
         // <Container>
         <>
@@ -12,8 +13,8 @@ export const TruckListDisplay = ({ trucks }) => {
                 <>
                     <Row className='singleTruck' 
                             onClick ={(e)=>{
-                            
                                 selectedTruck === true ? setSelectedTruck(false) : setSelectedTruck(true);
+                                setTruckKey(truck.name);
                          }} 
                     >
 
@@ -24,7 +25,6 @@ export const TruckListDisplay = ({ trucks }) => {
                             className={'displayTruckDetails scroll'}
                          >
 
-                            <HoverDetailsComponent clicked ={selectedTruck}  truckData = {truck}/>
                             <b>{truck.name}</b>
                             <Row>
                                 <Col xs={12}>open</Col>
@@ -38,6 +38,8 @@ export const TruckListDisplay = ({ trucks }) => {
                     </Row>
                 </>
             )) : 'trucks empty'}
+            {console.log(selectedTruck)}
+        <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked ={selectedTruck}  truckData = {truckKey}/>
         </>
         // </Container>
     )
