@@ -10,19 +10,25 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 // add additional reducers here to build/combine reducers
-const rootReducer = combineReducers({
-  userState: UserState,
-  truckSearchState: truckSearchState,
-  venderState:VenderReducers,
-  venderPortalState:VenderPortalReducers,
-  truckSearchFilterState:SearchFilters
-})
 
 const persistConfig = {
   key: 'root',
   storage:storage,
   // blacklist:['']
 }
+const userConfig = {
+  key: 'userState',
+  storage: storage,
+  blacklist: ['userLocation']
+};
+const rootReducer = combineReducers({
+  userState: persistReducer(userConfig,UserState),
+  truckSearchState: truckSearchState,
+  venderState:VenderReducers,
+  venderPortalState:VenderPortalReducers,
+  truckSearchFilterState:SearchFilters
+})
+
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

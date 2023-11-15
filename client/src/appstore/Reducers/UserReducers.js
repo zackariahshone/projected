@@ -18,6 +18,7 @@ export const userSlice = createSlice({
         state.userData = action.payload
     },
     setLocation:(state, action)=>{
+        console.log('is this getting set')
         state.userLocation = action.payload
     }
   },

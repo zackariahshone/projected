@@ -25,7 +25,6 @@ function App() {
     
     
     GeoLoc.getCurrentPosition((loc) => {
-      console.log('this is called on load');
       dispatch(setLocation(
         {
           lat: loc.coords?.latitude,
