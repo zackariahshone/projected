@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
 import { Container, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
-
+import { applyFilters } from '../../genUtils';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import TruckSearchFilterButtons from '../TruckSearch/truckSearchFilterButtons';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
@@ -15,12 +15,15 @@ import './style.css'
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
 // const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
+
+//SearchFilterState
 export function CustomMap({ google }) {
     const foodTruckList = useSelector(truckSearchList);
     const [filteredList, setFilteredList] = useState();
     const [mainSearch, setMainSearch] = useState('')
     const [truckList, setTruckList] = useState(foodTruckList);
     const currentLoc = useSelector(userLocation);
+    const currentFilters = useSelector(truckSearchFilters);
     const dispatch = useDispatch();
 
     const truckSearchFilterList = useSelector(truckSearchFilters);
@@ -38,6 +41,9 @@ export function CustomMap({ google }) {
         const result = foodTruckList?.filter(truck => truck.name.toLowerCase().includes(mainSearch.toLowerCase()));
         mainSearch !== '' ? setFilteredList(result) : setFilteredList(foodTruckList);
     }, [mainSearch])
+    useEffect(()=>{
+        applyFilters(currentFilters);
+    },[currentFilters]);
     return (
         <>
             <Container style={{

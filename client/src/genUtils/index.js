@@ -14,6 +14,32 @@ export const sortByDate =(truckArray)=>{
     //  console.log(array);
 } 
 
+export const applyFilters = (filterObj,latLong) =>{
+  Object.keys(filterObj).forEach(key=>{
+    console.log(key);
+    console.log(filterObj[key]);
+    switch(key.toLowerCase()){
+      case 'distance':
+        filterByDistance(filterObj[key],latLong);  
+      break;
+      default:
+      break
+    }
+  })
+}
+
+const filterByDistance =(filterObj,latlong)=>{
+  console.log(filterObj);
+  const distanceTofilterBy = filterObj;
+  const currentLatLong = latlong;
+  //loop through food trucks
+    //get distance between food truck and current lat long 
+      // check to see if distance is less than filter distance
+        //if distance fits then add to array of trucks 
+        //else filter it out
+}
+
+
 export const calculateOffset = (numColumns)=>{
   switch (numColumns%3) {
     case 1:

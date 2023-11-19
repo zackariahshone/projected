@@ -2,14 +2,14 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {applyFilters} from '../../genUtils';
 import { truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import { setFilters,getFilters,removeFilters } from '../../appstore/Reducers/FilterReducers';
 import { truckCategories } from '../../appstore/Reducers/TruckSearch';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
-const currentFilters = ['distance', 'diect restrictions', 'categories', ' ratings']
 
 
 const filterObj = {
@@ -18,7 +18,6 @@ const filterObj = {
   'Categories': [],
   'Ratings': ['1', '2', '3', '4', '5'],
 }
-
 
 function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
@@ -36,8 +35,11 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+      <Row>
+
         {Object.keys(filterObj).map((filterType, i) => {
           return(
+            <Col>
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
                 {filterType}
@@ -54,9 +56,10 @@ function MyVerticallyCenteredModal(props) {
                
               </Dropdown.Menu>
             </Dropdown>
-
+            </Col>
           )
         })}
+      </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
