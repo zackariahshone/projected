@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './style.css';
 
@@ -26,44 +26,68 @@ export const CreateTruck = () => {
             </center>
             <div className='signup-container'>
                 <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Food Truck Name</Form.Label>
-                        <Form.Control
-                            onChange={(e) => {
+                    <Row>
+                    <Col>
+                        <Form.Group className="mb-3">
+
+                            <Form.Label>Food Truck Name</Form.Label>
+                            <Form.Control
+                                onChange={(e) => {
+                                    setUserData({
+                                        ...userData,
+                                        'name': e.target.value.trim()
+                                    })
+                                }}
+                                type="text" placeholder="Enter email" />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Vender First Name</Form.Label>
+                            <Form.Control onChange={(e) => {
                                 setUserData({
                                     ...userData,
-                                    'name': e.target.value.trim()
+                                    'venderFirstName': e.target.value.trim()
                                 })
-                            }}
-                            type="text" placeholder="Enter email" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Vender First Name</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'venderFirstName': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Enter First Name" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Vender Last Name</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'venderLastName': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Enter Last Name" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Food Truck Address</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'address': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
+                            }} type="text" placeholder="Enter First Name" />
+                        </Form.Group>
+                    </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+
+                        <Form.Group>
+                            <Form.Label>Vender Last Name</Form.Label>
+                            <Form.Control onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'venderLastName': e.target.value.trim()
+                                })
+                            }} type="text" placeholder="Enter Last Name" />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Food Truck Address</Form.Label>
+                            <Form.Control onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'address': e.target.value.trim()
+                                })
+                            }} type="text" placeholder="Address can change daily if needed" />
+                        </Form.Group>
+                        </Col>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Password for your Food truck account</Form.Label>
+                            <Form.Control onChange={(e) => {
+                                setUserData({
+                                    ...userData,
+                                    'pwd': e.target.value.trim()
+                                })
+                            }} type="text" placeholder="Address can change daily if needed" />
+                        </Form.Group>
+                    </Row>
                     <Form.Group className="mb-3">
                         <Form.Label>What flavors or food you have to offer</Form.Label>
                         <Form.Control onChange={(e) => {
@@ -79,15 +103,6 @@ export const CreateTruck = () => {
                             setUserData({
                                 ...userData,
                                 'IMG': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password for your Food truck account</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'pwd': e.target.value.trim()
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
                     </Form.Group>
