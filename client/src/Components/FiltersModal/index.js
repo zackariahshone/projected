@@ -2,7 +2,6 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
-import {applyFilters} from '../../genUtils';
 import { truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import { setFilters,getFilters,removeFilters } from '../../appstore/Reducers/FilterReducers';
 import { truckCategories } from '../../appstore/Reducers/TruckSearch';
@@ -13,7 +12,7 @@ import { Col, Row } from 'react-bootstrap';
 
 
 const filterObj = {
-  'Distance': ['10', '20', '30', '40'],
+  'Distance': ['1','5','10', '20', '30', '40'],
   'Diet Restriction': ['Gluten Free', 'No Peanuts', 'Alergy Free'],
   'Categories': [],
   'Ratings': ['1', '2', '3', '4', '5'],

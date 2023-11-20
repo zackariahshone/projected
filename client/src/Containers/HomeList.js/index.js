@@ -42,7 +42,10 @@ export function CustomMap({ google }) {
         mainSearch !== '' ? setFilteredList(result) : setFilteredList(foodTruckList);
     }, [mainSearch])
     useEffect(()=>{
-        applyFilters(currentFilters);
+        console.log(Object.keys(currentFilters).length);
+        if(Object.keys(currentFilters).length > 0 && currentFilters){
+           setFilteredList(applyFilters(currentFilters,currentLoc,foodTruckList));
+        }
     },[currentFilters]);
     return (
         <>
