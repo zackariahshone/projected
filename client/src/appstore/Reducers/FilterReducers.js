@@ -29,19 +29,17 @@ export const truckSearchFilterSlice = createSlice({
                 state.SearchFilterState = {};
         },
         removeFilter: (state, action)=>{
-            const currentFilters = current(state).SearchFilterState;
+            var currentFilters = current(state).SearchFilterState;
             const filterToBeRemoved = action.payload;
             const filterValueTobeRemoved = Object.values(filterToBeRemoved)
-            console.log(filterValueTobeRemoved);
-            console.log(filterToBeRemoved)
             Object.keys(filterToBeRemoved).forEach(key=>{
-                const newFilter = []
+                const newFilter = [];
                 currentFilters[key].forEach((value)=>{
                    if( value != filterValueTobeRemoved[0]){
                     newFilter.push(value);
                    }
                 })
-                state.SearchFilterState = { ...currentFilters, [key]: newFilter} 
+                    state.SearchFilterState = { ...currentFilters, [key]: newFilter} 
             })
         },
     }

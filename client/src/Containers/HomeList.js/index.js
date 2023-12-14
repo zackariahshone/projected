@@ -69,6 +69,8 @@ export function CustomMap({ google }) {
                     <Col>
                         <FilterModal />
                         {truckSearchFilterList !== null && truckSearchFilterList !== undefined ? Object.keys(truckSearchFilterList)?.map(filterKey => (
+                            truckSearchFilterList[filterKey].length == 0 ?
+                                <></>:
                             (
                                 <>
                                     <text> <b>{filterKey}:</b></text>

@@ -1,4 +1,5 @@
 import haversine from 'haversine-distance'
+import { filter, forEach } from 'lodash';
 
 export const dateFormat = (date) => {
   const formatedDate = new Date(date);
@@ -17,19 +18,43 @@ export const sortByDate = (truckArray) => {
 }
 
 export const applyFilters = (filterObj, latLong, startingListToFilter) => {
-  let list;
-  Object.keys(filterObj).forEach(key => {
-    console.log(key);
-    console.log(filterObj[key]);
-    switch (key.toLowerCase()) {
-      case 'distance':
+  console.log(startingListToFilter);
+  let list = [];
+  let trucksFiltered = 0
+  startingListToFilter.forEach(truck=>{
+    Object.keys(filterObj).forEach(key=>{
+      if(key === 'Distance'){
+        console.log(key)
         list = getListFromDistanceFilter(filterObj[key], latLong, startingListToFilter);
-        break;
-      default:
-        break
-    }
+      }
+      Object.keys(truck).forEach(truckKey=>{
+        if(truckKey == key && key != 'Distance'){
+          trucksFiltered ++;
+        }
+      })
+    })
   })
-  console.log(list);
+  console.log(`filteed list ${trucksFiltered}`);
+console.log(list);
+
+  // Object.keys(filterObj).forEach(key => {
+  //   console.log(key);
+  //   console.log(filterObj[key]);
+  //   switch (key.toLowerCase()) {
+  //     case 'distance':
+  //       list.concat(getListFromDistanceFilter(filterObj[key], latLong, startingListToFilter));
+  //       break;
+  //     case 'categories':
+  //       if(list.length > 0){
+  //        list.concat(filterOutNonMatchingCategories(list));
+  //       }else{
+  //        list.concat(filterOutNonMatchingCategories(startingListToFilter),key, filterObj);
+  //       }
+  //       break;
+  //     default:
+  //       break
+  //   }
+  // })
   if (list.length > 0) {
     return list;
   } else {
@@ -54,4 +79,8 @@ const getListFromDistanceFilter = (userDistance, userLatLon, TruckList) => {
     }
   });
   return trucksWithinDistance;
+}
+
+const filterOutNonMatchingCategories = (filterList, filter)=>{
+  
 }

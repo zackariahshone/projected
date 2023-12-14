@@ -11,16 +11,19 @@ import { Col, Row } from 'react-bootstrap';
 
 
 
-const filterObj = {
-  'Distance': ['1','5','10', '20', '30', '40'],
-  'Diet Restriction': ['Gluten Free', 'No Peanuts', 'Alergy Free'],
-  'Categories': [],
-  'Ratings': ['1', '2', '3', '4', '5'],
-}
 
 function MyVerticallyCenteredModal(props) {
   const dispatch = useDispatch();
   // const currentFilters = useSelector(truckSearchFilters);
+  const categoryList = useSelector(truckCategories);
+  
+  const filterObj = {
+    'Distance': ['1','5','10', '20', '30', '40'],
+    'Diet Restriction': ['Gluten Free', 'No Peanuts', 'Alergy Free'],
+    'Categories': categoryList,
+    'Ratings': ['1', '2', '3', '4', '5'],
+  }
+
   return (
     <Modal
       {...props}
