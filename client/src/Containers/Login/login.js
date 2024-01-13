@@ -70,7 +70,11 @@ const Login = ({ scrollUp }) => {
       dispatch(login({ value: true, type: 'login' }))
       dispatch(setVenderCred(venderData))
       setLoginError(false);
-      scrollUp("toTop");
+      if(scrollUp){
+        scrollUp("toTop");
+      }else{
+        navigate("/homelist")
+      }
     }
     if (userFound === false) {
       setLoginError(true);
