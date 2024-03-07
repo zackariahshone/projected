@@ -8,7 +8,7 @@ export const dateFormat = (date) => {
 
 export const sortByDate = (truckArray) => {
   truckArray.sort(function (a, b) {
-    console.log(new Date(a.dateAdded), new Date(b.dateAdded));
+    // console.log(new Date(a.dateAdded), new Date(b.dateAdded));
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
     return new Date(b.dateAdded) - new Date(a.dateAdded);
@@ -18,13 +18,13 @@ export const sortByDate = (truckArray) => {
 }
 
 export const applyFilters = (filterObj, latLong, startingListToFilter) => {
-  console.log(startingListToFilter);
+  // console.log(startingListToFilter);
   let list = [];
   let trucksFiltered = 0
   startingListToFilter.forEach(truck=>{
     Object.keys(filterObj).forEach(key=>{
       if(key === 'Distance'){
-        console.log(key)
+        // console.log(key)
         list = getListFromDistanceFilter(filterObj[key], latLong, startingListToFilter);
       }
       Object.keys(truck).forEach(truckKey=>{
@@ -34,8 +34,8 @@ export const applyFilters = (filterObj, latLong, startingListToFilter) => {
       })
     })
   })
-  console.log(`filteed list ${trucksFiltered}`);
-console.log(list);
+  // console.log(`filteed list ${trucksFiltered}`);
+// console.log(list);
 
   // Object.keys(filterObj).forEach(key => {
   //   console.log(key);

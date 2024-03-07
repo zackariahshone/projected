@@ -42,7 +42,7 @@ export function CustomMap({ google }) {
         mainSearch !== '' ? setFilteredList(result) : setFilteredList(foodTruckList);
     }, [mainSearch])
     useEffect(()=>{
-        console.log(Object.keys(currentFilters).length);
+        // console.log(Object.keys(currentFilters).length);
         if(Object.keys(currentFilters).length > 0 && currentFilters){
            setFilteredList(applyFilters(currentFilters,currentLoc,foodTruckList));
         }
@@ -79,7 +79,7 @@ export function CustomMap({ google }) {
                                         <>
                                             <text className={'filterButtons'}>{filterItem}
                                                 <span onClick={() => {
-                                                    console.log({ [filterKey]: filterItem })
+                                                    // console.log({ [filterKey]: filterItem })
                                                     dispatch(removeFilter({ [filterKey]: filterItem }))
                                                 }} className='delete'>x</span>
                                             </text>

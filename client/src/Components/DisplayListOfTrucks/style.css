@@ -25,6 +25,11 @@
     margin-left:-1%;
 }
 
+.favHeart{
+    font-size:x-large;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 992px) {
     .singleTruckImg{
         width: 100%;

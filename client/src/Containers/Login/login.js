@@ -57,7 +57,6 @@ const Login = ({ scrollUp }) => {
         dispatch(login({ value: true, type: 'login' }))
         dispatch(setVenderCred(venderData))
         setLoginError(false);
-        // scrollUp("toTop");
       }
     }
   }
@@ -76,7 +75,7 @@ const Login = ({ scrollUp }) => {
         navigate("/homelist")
       }
     }
-    if (userFound === false) {
+    else if (userFound === false) {
       setLoginError(true);
     }
   }, [userFound, loggedInStatus])

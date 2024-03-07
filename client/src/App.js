@@ -23,7 +23,7 @@ function App() {
   
   function handlePermission() {
     navigator.permissions.query({ name: "geolocation" }).then((result) => {
-      console.log(result);
+      // console.log(result);
       if (result.state === "granted") {
         report(result.state);
         setPermissions(result.state);
@@ -39,7 +39,7 @@ function App() {
         fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          // console.log(data);
           setIPAddress(data.ip)
         })
         .catch(error => console.log(error));
@@ -52,7 +52,7 @@ function App() {
   }
   
   function report(state) {
-    console.log(`Permission ${state}`);
+    // console.log(`Permission ${state}`);
   }
   
   
@@ -65,8 +65,8 @@ function App() {
     handlePermission();
     if(permissions != 'denied'){
       GeoLoc.getCurrentPosition((loc) => {
-        console.log(loc);
-        console.log(loc.coords?.latitude);
+        // console.log(loc);
+        // console.log(loc.coords?.latitude);
       dispatch(setLocation(
         {
           lat: loc.coords?.latitude,

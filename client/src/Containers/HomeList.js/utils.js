@@ -15,3 +15,6 @@ export const foodTruckDistance = (userDistance, userLatLon, TruckList) => {
     });
     return trucksWithinDistance;
 }
+export const singlgeFoodTruckDistance = (userLatLon,truckLatlon)=>{
+    return haversine([userLatLon?.lat, userLatLon?.lng], [truckLatlon?.lat, truckLatlon?.lon]) * 0.000621371192
+}

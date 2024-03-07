@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import {setFavoriteTruck} from '../../appstore/Reducers/TruckSearch.js';
 import { useSelector, useDispatch } from 'react-redux';
+import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Col, Row } from 'react-bootstrap';
-
-
-export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) => {
+import {singlgeFoodTruckDistance} from "../../Containers/HomeList.js/utils.js"
+import {userLocation} from "../../appstore/Reducers/UserReducers.js"
+export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truck }) => {
+  const listOftrucks = useSelector(truckSearchList);
+  // const dataFromKey = listOftrucks.filter((truck)=>truck.name == truckData);
+  // console.log(dataFromKey);
+  
+  const dispatch = useDispatch();
+  const userLatLon = useSelector(userLocation);
+  console.log(truck.coordinates);
+  console.log(userLatLon);
   return (
     <Modal
       show={clicked}
       size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
+      // aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+    { console.log()}
       <Modal.Header>
         <Col>
           {/* <img src={IMG} alt = {`${name}_truck`}/> */}
         </Col>
         <Modal.Title id="contained-modal-title-vcenter">
-          <b>{truckData}</b>
+          <b>{truck.name}</b>
         </Modal.Title>
         <Row>
           <Col>
@@ -29,7 +39,8 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) =
             open/closed
           </Col>
           <Col>
-            distance from you 00 miles
+          {/* singlgeFoodTruckDistance(userLatLon,truck.coordinates) */}
+            distance from you {singlgeFoodTruckDistance(userLatLon,truck.coordinates).toFixed(1)} miles
           </Col>
         </Row>
         <Row>
@@ -39,6 +50,11 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) =
       <Modal.Body>
         <Row>
           {/* {description} */}
+          <Col 
+            onClick={()=>{
+              dispatch(setFavoriteTruck(clicked))
+            }}
+            className = "favHeart"xs = {6}> ♡ </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>

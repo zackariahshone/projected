@@ -50,9 +50,6 @@ export function CustomMap({ google }) {
             }
         // }
     }, [distance])
-    console.log(markerSet);
-    console.log(nameSet);
-    console.log(filteredList);
     return (
         <Container>
         <Row>
