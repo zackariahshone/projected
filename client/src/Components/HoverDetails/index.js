@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {setFavoriteTruck} from '../../appstore/Reducers/TruckSearch.js';
+// import {setFavoriteTruck} from '../../appstore/Reducers/TruckSearch.js';
+import { setFavoriteTruck,removeFavoriteTruck } from '../../appstore/Reducers/UserReducers.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Col, Row } from 'react-bootstrap';
 import {singlgeFoodTruckDistance} from "../../Containers/HomeList.js/utils.js"
-import {userLocation} from "../../appstore/Reducers/UserReducers.js"
+import {userLocation,userFavorites} from "../../appstore/Reducers/UserReducers.js"
 export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truck }) => {
   const listOftrucks = useSelector(truckSearchList);
   // const dataFromKey = listOftrucks.filter((truck)=>truck.name == truckData);
@@ -14,6 +15,7 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
   
   const dispatch = useDispatch();
   const userLatLon = useSelector(userLocation);
+  const userFavoritesList = useSelector(userFavorites);
   console.log(truck.coordinates);
   console.log(userLatLon);
   return (
@@ -52,9 +54,9 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
           {/* {description} */}
           <Col 
             onClick={()=>{
-              dispatch(setFavoriteTruck(clicked))
+              dispatch(setFavoriteTruck(truckData))
             }}
-            className = "favHeart"xs = {6}> ♡ </Col>
+            className = "favHeart"xs = {6}> {userFavoritesList?.includes(truckData) ? '♡':'♥'}  </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>

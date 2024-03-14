@@ -2,12 +2,14 @@ import React, { Fragment, useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import "./style.css";
 import { HoverDetailsComponent } from "../HoverDetails";
-
+import { userFavorites } from "../../appstore/Reducers/UserReducers";
+import { useSelector } from "react-redux";
 export const TruckListDisplay = ({ trucks }) => {
     const [selectedTruck, setSelectedTruck] = useState(false);
     const [truckKey, setTruckKey] = useState('');
-    const [modaltruck, setmodalTruck] = useState('')
-    let selected = '♡';
+    const [modaltruck, setmodalTruck] = useState('');
+    const userFavoritesList = useSelector(userFavorites);
+
     return (
         // <Container>
         <>
@@ -31,6 +33,7 @@ export const TruckListDisplay = ({ trucks }) => {
                                 >
 
                                     <b>{truck.name}</b>
+                                   <div> {userFavoritesList.includes(truck.name)? '♥' : ''}</div>
                                     <Row>
                                         <Col xs={12}>open</Col>
                                         <Col>{truck?.address}</Col>

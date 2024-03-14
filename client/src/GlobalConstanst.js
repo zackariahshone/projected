@@ -82,7 +82,6 @@ export const BROWSER_ROUTER_CONFIGS =
         {
             path:'vender/register',
             element:VenderSignup,
-            // protected:true,
         }
     ]
 
