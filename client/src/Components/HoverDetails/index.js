@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Col, Row } from 'react-bootstrap';
 import {singlgeFoodTruckDistance} from "../../Containers/HomeList.js/utils.js"
-import {userLocation,userFavorites} from "../../appstore/Reducers/UserReducers.js"
+import {userLocation, userFavorites} from "../../appstore/Reducers/UserReducers.js"
 export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truck }) => {
   const listOftrucks = useSelector(truckSearchList);
   // const dataFromKey = listOftrucks.filter((truck)=>truck.name == truckData);

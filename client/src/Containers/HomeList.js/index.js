@@ -41,14 +41,14 @@ export function CustomMap({ google }) {
         const result = foodTruckList?.filter(truck => truck.name.toLowerCase().includes(mainSearch.toLowerCase()));
         mainSearch !== '' ? setFilteredList(result) : setFilteredList(foodTruckList);
     }, [mainSearch])
-    useEffect(()=>{
+    useEffect(() => {
         // console.log(Object.keys(currentFilters).length);
-        if(currentFilters){
-            if(Object?.keys(currentFilters)?.length > 0 && currentFilters){
-                setFilteredList(applyFilters(currentFilters,currentLoc,foodTruckList));
+        if (currentFilters) {
+            if (Object?.keys(currentFilters)?.length > 0 && currentFilters) {
+                setFilteredList(applyFilters(currentFilters, currentLoc, foodTruckList));
             }
         }
-    },[currentFilters]);
+    }, [currentFilters]);
     return (
         <>
             <Container style={{
@@ -72,23 +72,23 @@ export function CustomMap({ google }) {
                         <FilterModal />
                         {truckSearchFilterList !== null && truckSearchFilterList !== undefined ? Object.keys(truckSearchFilterList)?.map(filterKey => (
                             truckSearchFilterList[filterKey].length == 0 ?
-                                <></>:
-                            (
-                                <>
-                                    <text> <b>{filterKey}:</b></text>
+                                <></> :
+                                (
+                                    <>
+                                        <text> <b>{filterKey}:</b></text>
 
-                                    {truckSearchFilterList[filterKey]?.map(filterItem => (
-                                        <>
-                                            <text className={'filterButtons'}>{filterItem}
-                                                <span onClick={() => {
-                                                    // console.log({ [filterKey]: filterItem })
-                                                    dispatch(removeFilter({ [filterKey]: filterItem }))
-                                                }} className='delete'>x</span>
-                                            </text>
-                                        </>
-                                    ))}
-                                </>
-                            )
+                                        {truckSearchFilterList[filterKey]?.map(filterItem => (
+                                            <>
+                                                <text className={'filterButtons'}>{filterItem}
+                                                    <span onClick={() => {
+                                                        // console.log({ [filterKey]: filterItem })
+                                                        dispatch(removeFilter({ [filterKey]: filterItem }))
+                                                    }} className='delete'>x</span>
+                                                </text>
+                                            </>
+                                        ))}
+                                    </>
+                                )
                         )) : ""}
                     </Col>
                 </Row>
@@ -96,50 +96,50 @@ export function CustomMap({ google }) {
                     <Col>{SearchFilterButtons.map((filter) => <button className={'PrimaryFilterButtons'}>{filter}</button>)}</Col>
                 </Row>
             </Container>
-            
-                <div
-                    style={{
-                        position: "absolute",
-                        zIndex: 0,
-                        width: "100%", // or you can use width: '100vw'
-                        height: "75%", // or you can use height: '100vh'
+
+            <div
+                style={{
+                    position: "absolute",
+                    zIndex: 0,
+                    width: "100%", // or you can use width: '100vw'
+                    height: "75%", // or you can use height: '100vh'
+                }}
+            >
+                {markerSet ? <Map
+                    google={google}
+                    // className={'mapContainer'}
+                    containerStyle={{
+                        // width: "50%",
+                        // height: "65vh"
                     }}
+                    center={markerSet[0]}
+                    initialCenter={markerSet[0]}
+                    zoom={markerSet.length === 1 ? 18 : 13}
+                    disableDefaultUI={true}
                 >
-                   {markerSet ? <Map
-                            google={google}
-                            // className={'mapContainer'}
-                            containerStyle={{
-                                // width: "50%",
-                                // height: "65vh"
+                    {markerSet.map(
+                        (coords, i) => <Marker
+                            icon={{
+                                url: truckIcon,
+                                anchor: new google.maps.Point(17, 46),
+                                scaledSize: new google.maps.Size(50, 50)
                             }}
-                            center={markerSet[0]}
-                            initialCenter={markerSet[0]}
-                            zoom={markerSet.length === 1 ? 18 : 13}
-                            disableDefaultUI={true}
-                        >
-                            {markerSet.map(
-                                (coords, i) => <Marker
-                                    icon={{
-                                        url: truckIcon,
-                                        anchor: new google.maps.Point(17, 46),
-                                        scaledSize: new google.maps.Size(50, 50)
-                                    }}
-                                    position={coords}
-                                    title={`${nameSet[i].name}`} />
-                            )}
-                            <Marker
-                                // icon = {{url:'RiMapPinUserFill'}} 
-                                position={currentLoc}
-                                title={'you are here'} />
-                        </Map> : <></>}
-                    <div
-                        className='truckListContainer'
-                    >
-                       <div className='scroll foodTruckList'>
-                            {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
-                        </div>
+                            position={coords}
+                            title={`${nameSet[i].name}`} />
+                    )}
+                    <Marker
+                        // icon = {{url:'RiMapPinUserFill'}} 
+                        position={currentLoc}
+                        title={'you are here'} />
+                </Map> : <></>}
+                <div
+                    className='truckListContainer'
+                >
+                    <div className='scroll foodTruckList'>
+                        {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
                     </div>
                 </div>
+            </div>
 
         </>
     )

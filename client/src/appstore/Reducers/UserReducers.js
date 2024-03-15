@@ -24,6 +24,7 @@ export const userSlice = createSlice({
     setFavoriteTruck:(state,action)=>{
       // state.favorites = null; 
       if(state.favorites?.includes(action.payload)){
+        state.favorites = state.favorites?.filter((word) => word != action.payload);
         return;
       }
       if(state.favorites == null){
@@ -35,9 +36,6 @@ export const userSlice = createSlice({
         state.favorites = favTrucks;
       }
     },
-    removeFavoriteTruck:(state,action)=>{
-      console.log(action);
-    }
   },
 })
 
@@ -47,8 +45,7 @@ export const {
   logout, 
   setUserData,
   setLocation,
-  setFavoriteTruck,
-  removeFavoriteTruck 
+  setFavoriteTruck 
 } = userSlice.actions;
 
 export const currentUser = (state)=> state.userState.userData;
