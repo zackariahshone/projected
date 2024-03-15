@@ -22,7 +22,6 @@ export const userSlice = createSlice({
         state.userLocation = action.payload
     },
     setFavoriteTruck:(state,action)=>{
-      // state.favorites = null; 
       if(state.favorites?.includes(action.payload)){
         state.favorites = state.favorites?.filter((word) => word != action.payload);
         return;
@@ -30,7 +29,6 @@ export const userSlice = createSlice({
       if(state.favorites == null){
         state.favorites = [action.payload];
       }else{
-        // console.log('add to favorites exists')
         const favTrucks = state.favorites;
         favTrucks.push(action.payload);
         state.favorites = favTrucks;

@@ -56,7 +56,7 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
             onClick={()=>{
               dispatch(setFavoriteTruck(truckData))
             }}
-            className = "favHeart"xs = {6}> {userFavoritesList?.includes(truckData) ? '♡':'♥'}  </Col>
+            className = "favHeart"xs = {6}> {userFavoritesList?.includes(truckData) ? '♥':'♡'}  </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
