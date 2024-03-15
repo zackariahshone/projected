@@ -33,7 +33,7 @@ export const TruckListDisplay = ({ trucks }) => {
                                 >
 
                                     <b>{truck.name}</b>
-                                   <div> {userFavoritesList?.includes(truck.name)? '♥' : ''}</div>
+                                   <div> {userFavoritesList != undefined && userFavoritesList?.includes(truck.name) ? '♥' : ''}</div>
                                     <Row>
                                         <Col xs={12}>open</Col>
                                         <Col>{truck?.address}</Col>
