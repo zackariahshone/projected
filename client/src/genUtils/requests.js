@@ -1,13 +1,15 @@
 //all requests stored here
 import { directReducer } from "./reduxUtils"
 
-export const getData = (route, method, body, action, type) => {
+export const getData = (route, method, body, action, type, headers) => {
+    console.log(headers);
     if (method.toLowerCase() !== 'get') {
         fetch(route, {
             method: method,
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...headers
             },
             body: JSON.stringify(body) || '',
         })

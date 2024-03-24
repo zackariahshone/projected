@@ -4,19 +4,20 @@ import Modal from 'react-bootstrap/Modal';
 // import {setFavoriteTruck} from '../../appstore/Reducers/TruckSearch.js';
 import { setFavoriteTruck,removeFavoriteTruck } from '../../appstore/Reducers/UserReducers.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Col, Row } from 'react-bootstrap';
 import {singlgeFoodTruckDistance} from "../../Containers/HomeList.js/utils.js"
-import {userLocation, userFavorites} from "../../appstore/Reducers/UserReducers.js"
+import {userLocation, userFavorites,currentUser} from "../../appstore/Reducers/UserReducers.js"
+import { getData } from '../../genUtils/requests';
+
 export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truck }) => {
-  const listOftrucks = useSelector(truckSearchList);
-  // const dataFromKey = listOftrucks.filter((truck)=>truck.name == truckData);
-  // console.log(dataFromKey);
+
   
   const dispatch = useDispatch();
   const userLatLon = useSelector(userLocation);
   const userFavoritesList = useSelector(userFavorites);
-  console.log(truck.coordinates);
+  const userInfo = useSelector(currentUser);
+
+  console.log(userInfo);
   console.log(userLatLon);
   return (
     <Modal
@@ -35,18 +36,15 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
         </Modal.Title>
         <Row>
           <Col>
-            {/* {address} */}
           </Col>
           <Col>
             open/closed
           </Col>
           <Col>
-          {/* singlgeFoodTruckDistance(userLatLon,truck.coordinates) */}
             distance from you {singlgeFoodTruckDistance(userLatLon,truck.coordinates).toFixed(1)} miles
           </Col>
         </Row>
         <Row>
-          {/* been with us since {dateAdded} */}
         </Row>
       </Modal.Header>
       <Modal.Body>
@@ -54,6 +52,15 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
           {/* {description} */}
           <Col 
             onClick={()=>{
+              // route, method, body, action, type
+              getData(
+                  '/setFavoriteTrucks',
+                  'POST',
+                  {truckData},
+                  setFavoriteTruck,
+                  '',
+                  {'x-access-token':userInfo.authToken}
+                  );
               dispatch(setFavoriteTruck(truckData))
             }}
             className = "favHeart"xs = {6}> {userFavoritesList?.includes(truckData) ? '♥':'♡'}  </Col>

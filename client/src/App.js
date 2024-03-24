@@ -52,7 +52,7 @@ function App() {
   }
   
   function report(state) {
-    // console.log(`Permission ${state}`);
+    console.log(`Permission ${state}`);
   }
   
   

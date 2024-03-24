@@ -48,4 +48,17 @@ router.post('/editUser', async (req, res) => {
       authToken: token
     });
 });
+
+router.post('/setFavoriteTrucks',async(req, res)=>{
+  const userCred = jwt.decode(req.headers['x-access-token']);
+  const updatedUser = await User.findOne({ email: userCred.email }).lean();
+
+  if(!updatedUser.favFoodTrucks.includes(req.body.truckData)){
+    await User.updateOne({ $push: { favFoodTrucks: req.body.truckData}})
+  }else{
+    const refinedList =  updatedUser.favFoodTrucks.filter((truck)=>truck != req.body.truckData);
+    console.log(`refinedList${refinedList}`);
+    debug = await User.findByIdAndUpdate(updatedUser._id, {favFoodTrucks: refinedList})
+  }
+});
 module.exports = router;

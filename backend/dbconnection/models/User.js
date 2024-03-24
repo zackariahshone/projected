@@ -14,6 +14,7 @@ const { Schema, model } = require('mongoose');
     type:String,
   },
   category:[String],
+  favFoodTrucks:[String],
   vender:{
     type:Boolean,
     default:false

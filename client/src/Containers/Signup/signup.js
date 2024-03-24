@@ -46,7 +46,6 @@ const SignUp = () => {
             },
             body: JSON.stringify(userInfo),
         }).then(response =>response.json()).then((userData)=>{
-          
             dispatch(setUserData({ ...userInfo }))
             dispatch(login({ value: true, type: 'login' }))
             navigate("/")
