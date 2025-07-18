@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    
 }
 
 export const truckSearchSlice = createSlice({
@@ -9,17 +8,16 @@ export const truckSearchSlice = createSlice({
     initialState,
     reducers: {
         loadReducer: (state,action)=>{
-            console.log(`is this hit?`);
             state.listOfTrucks = action.payload.data;
         },
         setCategories:(state, action)=>{
-            console.log(`is this hit?`);
-            state.truckCategories= action.payload.data
+            console.log(`is this hit?`,action.payload.data);
+            state.truckCategories = action.payload.data
         }
     }
 })
 
-export const {loadReducer,setCategories } = truckSearchSlice.actions;
+export const {loadReducer,setCategories } = truckSearchSlice.actions;  
 export const truckSearchList = (state) => state.truckSearchState.listOfTrucks;
 export const truckCategories = (state) => state.truckSearchState.truckCategories;
 export default truckSearchSlice.reducer

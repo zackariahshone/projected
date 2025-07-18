@@ -6,6 +6,7 @@ const nodeGeocoder = require('node-geocoder');
 const jwt = require("jsonwebtoken");
 const User = require('../../dbconnection/models/User');
 const UTILS = require('./utils');
+const { current } = require('@reduxjs/toolkit');
 
 
 const listOfTrucks = {
@@ -37,7 +38,7 @@ const listOfTrucks = {
       "IMG": dummyImage,
       "dateAdded": "12/2/2022",
       "category": [
-        'burger','poutine','smash burger','panini'
+        'burger', 'poutine', 'smash burger', 'panini'
       ]
     },
     {
@@ -132,34 +133,46 @@ const listOfTrucks = {
     }
   ]
 }
-const rmvWhiteSpace = (array)=>{
+const rmvWhiteSpace = (array) => {
   const cleanArray = []
-  array.forEach((el)=>{
+  array.forEach((el) => {
     cleanArray.push(el.trim())
   })
   return cleanArray
 }
 const getLatLong = async (address) => {
-  let options = {
-    provider: 'openstreetmap'
-  };
-  const geoCoder = nodeGeocoder(options);
-  const location = await geoCoder.geocode(address);
-
-  return (
-    {
-      lat: location[0].latitude,
-      lon: location[0].longitude
+  const openstreemapURL = `https://nominatim.openstreetmap.org/search?q=${address}&format=json`
+  try {
+    const response = await fetch(openstreemapURL, {
+      headers: {
+        'User-Agent': 'clustertruck/v1.0 zackariahshone@gmail.com'
+      }
+    });
+    if (!response.ok) {
+      console.log(response);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  )
+    const data = await response.json();
+    return (
+      {
+        lat: data[0].latitude,
+        lon: data[0].longitude
+      }
+    )
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; 
+  }
 }
 router.get('/api/getcategories', async (req, res) => {
   try {
-    const categories = await Categories.find().lean();
-    res.json(categories[0].categories);
+    const categories = await Categories.findOne({name:"categories"}).lean();
+    console.log('get cat ====',categories.filters );
     
+    res.json(categories.filters);
+
   } catch (error) {
-    req.json({status:error})
+    // req.json({status:error})
   }
 });
 
@@ -168,39 +181,103 @@ router.get('/api/foodtrucklists', async (req, res) => {
   try {
     const truckData = await Truck.find().lean()
     res.json(truckData)
-    
+
   } catch (error) {
-    res.send({status:error});
+    // res.send({status:error});  
   }
 });
+
 
 router.post('/api/createTruck', async (req, res) => {
   //handle adding truck 
   const date = new Date();
   const truckToAdd = req.body;
-  truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category):'';
+  truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category):[];
+  let catForUpdate = [];
+  let currentCategories = truckToAdd.category;
   truckToAdd.coordinates = { ...await getLatLong(truckToAdd.address) };
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   const addedTruck = await Truck.create(truckToAdd);
   //handle adding new categories
-  const currentCategories = await Categories.find().lean();
-  if(truckToAdd.category){
+  currentCategories = await Categories.find().lean();
+  console.log('===========',currentCategories);
+  
+  if(truckToAdd.category && currentCategories[0] != undefined && currentCategories[0]?.categories){
     truckToAdd.category.forEach((cat) => {
       if (!currentCategories[0].categories.includes(cat.trim()) &&
       cat.trim().length !== 0) {
         currentCategories[0].categories.push(cat.trim())
       }
+      catForUpdate = currentCategories[0].categories
     })
+  }else{
+    catForUpdate = truckToAdd.category
   }
-  await Categories.updateOne({categories:currentCategories[0].categories})
+  console.log(catForUpdate);
+  
+  const filter = { name: 'categories' }; // Filter to find or create the document
+  // The string to add to the array
+
+   await Categories.findOneAndUpdate(
+      filter,
+      { $addToSet: { filters: catForUpdate } }, // Add newTag to the 'tags' array, avoiding duplicates
+      { new: true, upsert: true } // Return the modified document, create if not found
+    )
+
+  // await Categories.updateOne({categories:catForUpdate},{ upsert: true })
   // handle assigning new trucks to logged in user profile
   const userInfo = jwt.decode(req.headers.token);
   const currentUser = await User.find({ email: userInfo.email })
   const trucksUpdate = currentUser[0].foodtrucks;
   trucksUpdate.push(addedTruck._id);
   await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
-  res.send({ status: 200 })
+  // res.send({ status: 200 })
 })
+
+// router.post('/api/createTruck', async (req, res) => {
+//   //handle adding truck 
+//   try {
+
+//     const date = new Date();
+//     const truckToAdd = req.body;
+//     truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category) : [];
+//     console.log('line 183', req.body);
+//     truckToAdd.coordinates = { ... await getLatLong(truckToAdd.address) };
+//     truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+//     const addedTruck = await Truck.create(truckToAdd);
+//     //handle adding new categories
+//     let currentCategories = await Categories.find().lean();
+//     if (truckToAdd.category) {
+//       truckToAdd.category.forEach((cat) => {
+//         console.log('after query',currentCategories);
+        
+//         if(currentCategories[0] == undefined && cat.trim().length !== 0) {
+//           currentCategories.push({categories:[cat.trim()]});
+//           console.log('create cat',currentCategories[0].categories);
+//         }
+//        else if (!currentCategories[0] == undefined && !currentCategories[0].categories.includes(cat.trim()) &&
+       
+//        cat.trim().length !== 0) {
+//           console.log('fall into created',currentCategories);
+//           currentCategories[0].categories.push(cat.trim())
+//         }
+//       })
+//     }
+//     console.log('create cat',currentCategories);
+//     await Categories.updateOne({ categories: currentCategories[0].categories })
+//     // handle assigning new trucks to logged in user profile
+//     const userInfo = jwt.decode(req.headers.token);
+//     const currentUser = await User.find({ email: userInfo.email })
+//     const trucksUpdate = currentUser[0].foodtrucks; 
+//     trucksUpdate.push(addedTruck._id);
+//     await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
+//     res.send({ status: 200 })
+//   } catch (e) {
+//     console.log(e);
+
+//     res.send({ status: 400 })
+//   }
+// })
 
 router.delete('/api/deletetruck', async (req, res) => {
   //delete truck as requested
@@ -210,19 +287,19 @@ router.delete('/api/deletetruck', async (req, res) => {
   const currentCategories = await Categories.find().lean()
   const truckData = await Truck.find({}).lean()
   const truckCategories = new Set();
-  truckData.forEach(truck=>{
-    truck.category.forEach((cat)=>{
+  truckData.forEach(truck => {
+    truck.category.forEach((cat) => {
       truckCategories.add(cat);
     });
   })
-  const filterdCategories = currentCategories[0].categories.filter((category)=>[...truckCategories].includes(category));
-  await Categories.updateOne({categories:filterdCategories})
+  const filterdCategories = currentCategories[0].categories.filter((category) => [...truckCategories].includes(category));
+  await Categories.updateOne({ categories: filterdCategories })
   res.json({ deleted: true });
 })
-router.post('/api/editTruck',async(req,res)=>{
+router.post('/api/editTruck', async (req, res) => {
   const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
   const currentUser = jwt.decode(req.headers.token)
-  const user = await User.findOneAndUpdate({email:currentUser.email},{foodtrucks:updatedTruck._id})
+  const user = await User.findOneAndUpdate({ email: currentUser.email }, { foodtrucks: updatedTruck._id })
 })
 /**
  * just dirty util 
@@ -230,40 +307,40 @@ router.post('/api/editTruck',async(req,res)=>{
  * to clean what ever you need
  */
 // router.get('/dbClean', async (req, res) => {
-  // await Categories.updateOne({categories:[]})
+// await Categories.updateOne({categories:[]})
 
-  //find all users
-  // const users = await User.find({}).lean();
-  //drop the truck collection
-  //  Truck.collection.drop();
-  //create list of trucks off of dummy data
-  //  Truck.create(listOfTrucks.listOfTrucks)
-  //drop the users
-  //  User.collection.drop();
-  //set geoLocation for all trucks 
-  // let options = {
-  //   provider: 'openstreetmap'
-  // };
-  // const geoCoder = nodeGeocoder(options);
-  // const truckData = await Truck.find().lean()
-  // truckData.forEach(async (truck) => {
-  //   const location = await geoCoder.geocode(truck.address);
-  //   const truckCoord = {
-  //     coordinates:
-  //     {
-  //       lat: location[0]?.latitude,
-  //       lon: location[0]?.longitude
-  //     }
-  //   }
-  //  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
-  // })
-  // const _truckData = await Truck.find().lean()
-  // res.send(cats)
+//find all users
+// const users = await User.find({}).lean();
+//drop the truck collection
+//  Truck.collection.drop();
+//create list of trucks off of dummy data
+//  Truck.create(listOfTrucks.listOfTrucks)
+//drop the users
+//  User.collection.drop();
+//set geoLocation for all trucks 
+// let options = {
+//   provider: 'openstreetmap'
+// };
+// const geoCoder = nodeGeocoder(options);
+// const truckData = await Truck.find().lean()
+// truckData.forEach(async (truck) => {
+//   const location = await geoCoder.geocode(truck.address);
+//   const truckCoord = {
+//     coordinates:
+//     {
+//       lat: location[0]?.latitude,
+//       lon: location[0]?.longitude
+//     }
+//   }
+//  await Truck.findOneAndUpdate({name:truck.name},truckCoord)
+// })
+// const _truckData = await Truck.find().lean()
+// res.send(cats)
 
 // })
 
 module.exports = router;
- /**
+/**
 * Saving algo for later use
-*  */ 
+*  */
 

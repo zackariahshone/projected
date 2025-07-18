@@ -6,11 +6,11 @@ import './style.css';
 import { colorArray } from '../../GlobalConstanst';
 
 export const DisplayCategories =({setUserCategories,userCategories})=>{
-    const categories = useSelector(truckCategories);
+    const categories = useSelector(truckCategories);    
     let colorIndex = 0;
     let textIndex = colorArray.length-1;
      return (
-         Object.values(categories).map((category, i) => {
+         Object?.values(categories)?.map((category, i) => {
              if(i>0){
          colorIndex++;
          textIndex--;

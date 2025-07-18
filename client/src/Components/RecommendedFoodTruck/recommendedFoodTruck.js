@@ -9,7 +9,7 @@ import './style.css';
 
 const RecommendedTrucks = () => {
     const [userCategories, setUserCategories] = useState([]);
-    const [checked, setChecked] = useState();
+    const [checked, setChecked] = useState(false);
     const userInfo = useSelector(currentUser);
 
     useEffect(()=>{
