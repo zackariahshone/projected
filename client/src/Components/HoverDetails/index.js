@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 
 
-export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) => {
+export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
+  console.log(truckData);
+
   return (
     <Modal
       show={clicked}
@@ -15,11 +17,11 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) =
       centered
     >
       <Modal.Header>
-        <Col>
-          {/* <img src={IMG} alt = {`${name}_truck`}/> */}
-        </Col>
+        <b>{truckName}</b>
+        </Modal.Header>
+
         <Modal.Title id="contained-modal-title-vcenter">
-          <b>{truckData}</b>
+              <img src={truckData.IMG} alt={`${truckData.name}_truck`} />
         </Modal.Title>
         <Row>
           <Col>
@@ -35,17 +37,16 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData }) =
         <Row>
           {/* been with us since {dateAdded} */}
         </Row>
-      </Modal.Header>
       <Modal.Body>
         <Row>
           {/* {description} */}
         </Row>
       </Modal.Body>
       <Modal.Footer>
-      <Button onClick={()=>{
-        console.log('close this out')
-        setSelectedTruck(false)
-      }}>Close</Button>
+        <Button onClick={() => {
+          console.log('close this out')
+          setSelectedTruck(false)
+        }}>Close</Button>
       </Modal.Footer>
     </Modal>
   );
