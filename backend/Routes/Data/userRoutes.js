@@ -48,4 +48,12 @@ router.post('/editUser', async (req, res) => {
       authToken: token
     });
 });
+
+// will need to be protected by admin rules
+
+router.get('/getallusers', async (req, res) => {
+  const allUsers = await User.find();  
+  res.send(allUsers)
+});
+
 module.exports = router;

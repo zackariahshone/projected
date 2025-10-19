@@ -166,13 +166,13 @@ const getLatLong = async (address) => {
 }
 router.get('/api/getcategories', async (req, res) => {
   try {
-    const categories = await Categories.findOne({name:"categories"}).lean();
-    console.log('get cat ====',categories.filters );
+    const categories = await Categories.findOne().lean();
+    console.log('get cat ====',categories );
     
-    res.json(categories.filters);
+    res.json(categories.categories);
 
   } catch (error) {
-    // req.json({status:error})
+    res.json({})
   }
 });
 
