@@ -61,9 +61,12 @@ function App() {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
     
     getData('api/getcategories', 'GET', {}, setCategories, {});
-    
-    
-    GeoLoc.getCurrentPosition((loc) => {
+
+    handlePermission();
+    if(permissions != 'denied'){
+      GeoLoc.getCurrentPosition((loc) => {
+        // console.log(loc);
+        // console.log(loc.coords?.latitude);
       dispatch(setLocation(
         {
           lat: loc.coords?.latitude,

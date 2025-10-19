@@ -11,6 +11,7 @@ import { FilterModal } from '../../Components/FiltersModal/index'
 import truckIcon from './truckIcon.png'
 import { removeFilter, truckSearchFilters } from '../../appstore/Reducers/FilterReducers';
 import './style.css'
+import { applyFilters } from '../../genUtils';
 const SearchFilterButtons = ['Recommended For You', 'Favorites', 'Closest', 'Newest'];
 const GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
 // const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
