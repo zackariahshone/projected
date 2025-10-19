@@ -39,7 +39,7 @@ const SignUp = () => {
     };
     const handleRegister = (userInfo) => {
         fetch('signup', {
-            method: 'POST', // or 'PUT'
+            method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

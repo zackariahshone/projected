@@ -20,6 +20,8 @@ export const getData = (route, method, body, action, type) => {
                 'Accept': 'application/json',
             },
         }).then(response => response.json()).then(data => {
+            console.log("yes get");
+            
             directReducer(action, data, type)
         })
     }

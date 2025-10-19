@@ -28,6 +28,8 @@ const rootReducer = combineReducers({
   venderPortalState:VenderPortalReducers,
   truckSearchFilterState:SearchFilters
 })
+
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

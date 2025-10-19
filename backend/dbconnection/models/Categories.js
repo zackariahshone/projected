@@ -1,7 +1,8 @@
 const { Schema, model } = require('mongoose');
 
  const CategoriesSchema = new Schema({
- categories:[String],
+    name:String,
+    filters:[String],
 });
 
 const Categories = model('Categories', CategoriesSchema);

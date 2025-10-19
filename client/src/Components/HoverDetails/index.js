@@ -6,6 +6,7 @@ import { setFavoriteTruck,removeFavoriteTruck } from '../../appstore/Reducers/Us
 import { useSelector, useDispatch } from 'react-redux';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import { Col, Row } from 'react-bootstrap';
+<<<<<<< HEAD
 import {singlgeFoodTruckDistance} from "../../Containers/HomeList.js/utils.js"
 import {userLocation,userFavorites} from "../../appstore/Reducers/UserReducers.js"
 export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truck }) => {
@@ -18,6 +19,13 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
   const userFavoritesList = useSelector(userFavorites);
   console.log(truck.coordinates);
   console.log(userLatLon);
+=======
+
+
+export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
+  console.log(truckData);
+
+>>>>>>> 5ba7dc360d77881f0cf2fd8921fbfec7adad298f
   return (
     <Modal
       show={clicked}
@@ -27,11 +35,15 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
     >
     { console.log()}
       <Modal.Header>
-        <Col>
-          {/* <img src={IMG} alt = {`${name}_truck`}/> */}
-        </Col>
+        <b>{truckName}</b>
+        </Modal.Header>
+
         <Modal.Title id="contained-modal-title-vcenter">
+<<<<<<< HEAD
           <b>{truck.name}</b>
+=======
+              <img src={truckData.IMG} alt={`${truckData.name}_truck`} />
+>>>>>>> 5ba7dc360d77881f0cf2fd8921fbfec7adad298f
         </Modal.Title>
         <Row>
           <Col>
@@ -48,7 +60,6 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
         <Row>
           {/* been with us since {dateAdded} */}
         </Row>
-      </Modal.Header>
       <Modal.Body>
         <Row>
           {/* {description} */}
@@ -60,10 +71,10 @@ export const HoverDetailsComponent = ({setSelectedTruck, clicked, truckData,truc
         </Row>
       </Modal.Body>
       <Modal.Footer>
-      <Button onClick={()=>{
-        console.log('close this out')
-        setSelectedTruck(false)
-      }}>Close</Button>
+        <Button onClick={() => {
+          console.log('close this out')
+          setSelectedTruck(false)
+        }}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

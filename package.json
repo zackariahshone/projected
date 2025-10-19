@@ -5,7 +5,8 @@
   "main": "client/index.js",
   "options": {
     "allowedHosts": [
-      "localhost"
+      "localhost",
+      ".localhost"
     ],
     "proxy": "https://localhost:5000/"
   },
@@ -18,6 +19,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
+    "node-geocoder": "^4.4.1",
     "react": "^16.13.0",
     "react-bootstrap": "^2.7.0",
     "react-chartjs-2": "^4.3.1",

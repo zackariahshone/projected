@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TruckListDisplay } from '../../Components/DisplayListOfTrucks/displayListOfTrucks';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
-import { applyFilters } from '../../genUtils';
 import { truckSearchList } from '../../appstore/Reducers/TruckSearch';
 import TruckSearchFilterButtons from '../TruckSearch/truckSearchFilterButtons';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
@@ -22,6 +21,7 @@ export function CustomMap({ google }) {
     const [filteredList, setFilteredList] = useState();
     const [mainSearch, setMainSearch] = useState('')
     const [truckList, setTruckList] = useState(foodTruckList);
+    const [mapview, setMapview]  = useState(false);
     const currentLoc = useSelector(userLocation);
     const currentFilters = useSelector(truckSearchFilters);
     const dispatch = useDispatch();
@@ -68,6 +68,13 @@ export function CustomMap({ google }) {
                 <Row>
                     <Col>
                         <FilterModal />
+                        <Button
+                            onClick={()=>{
+                                setMapview(!mapview)
+                            }}
+                        >
+                            Map View
+                        </Button>
                         {truckSearchFilterList !== null && truckSearchFilterList !== undefined ? Object.keys(truckSearchFilterList)?.map(filterKey => (
                             truckSearchFilterList[filterKey].length == 0 ?
                                 <></>:
@@ -103,7 +110,7 @@ export function CustomMap({ google }) {
                         height: "75%", // or you can use height: '100vh'
                     }}
                 >
-                   {markerSet ? <Map
+                   {markerSet && mapview ? <Map
                             google={google}
                             // className={'mapContainer'}
                             containerStyle={{
@@ -133,9 +140,11 @@ export function CustomMap({ google }) {
                     <div
                         className='truckListContainer'
                     >
+                        {!mapview ?
                        <div className='scroll foodTruckList'>
-                            {filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
+                            { filteredList ? <TruckListDisplay trucks={filteredList} /> : <TruckListDisplay trucks={foodTruckList} />}
                         </div>
+                :<></>}
                     </div>
                 </div>
 
