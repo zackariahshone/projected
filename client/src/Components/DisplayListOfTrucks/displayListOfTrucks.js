@@ -6,6 +6,8 @@ import { HoverDetailsComponent } from "../HoverDetails";
 export const TruckListDisplay = ({ trucks }) => {
     const [selectedTruck, setSelectedTruck] = useState(false);
     const [truckKey, setTruckKey] = useState('');
+    const [truckData, setTruckData] = useState('');
+    
     return (
         <>
             {trucks ? trucks.map((truck) => (
@@ -14,16 +16,16 @@ export const TruckListDisplay = ({ trucks }) => {
                         onClick={(e) => {
                             selectedTruck === true ? setSelectedTruck(false) : setSelectedTruck(true);
                             setTruckKey(truck.name);
+                            setTruckData(truck);
                         }}
                     >
 
-                        <Col xs={12} sm={12} md={4}>
+                        {/* <Col xs={12} sm={12} md={4}>
                             <img className="singleTruckImg" src={truck.IMG} alt={'truckimage'} />
-                        </Col>
+                        </Col> */}
                         <Row
                             className={'displayTruckDetails scroll'}
                         >
-
                             <Col><b>{truck.name}</b></Col>
                             <Col>open</Col>
                             <Col>{truck?.address}</Col>
@@ -32,8 +34,8 @@ export const TruckListDisplay = ({ trucks }) => {
                     </Row>
                 </>
             )) : 'trucks empty'}
-            {console.log(selectedTruck)}
-            <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked={selectedTruck} truckData={truckKey} />
+            {console.log(selectedTruck,'selected truck')}
+            <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked={selectedTruck} truckName={truckKey} truckData={truckData}/>
         </>
     )
 }
