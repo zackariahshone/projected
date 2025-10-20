@@ -15,7 +15,7 @@ import authHeader from '../../userServices/authHeader'
 import localStorage from 'redux-persist/es/storage';
 const Login = ({ scrollUp }) => {
   // may remove signIn/setSignIn 
-  const [userCred, setUserCred] = useState();
+  const [userCred, setUserCred] = useState({});
   const [userFound, setUserFound] = useState();
   const [loginError, setLoginError] = useState();
   const [emailError, setEmailError] = useState(false);
@@ -26,15 +26,17 @@ const Login = ({ scrollUp }) => {
   const loggedInStatus = useSelector(isLoggedIn);
 
   const getUser = () => {
-    fetch('/login', {
-      method: 'POST',
-      headers:
-      {
-        'Content-Type': 'application/json',
-        'x-access-token': authHeader(userCred).toString()
-      },
-      body: JSON.stringify(userCred),
-    })
+    if(userCred.email && userCred.password){
+
+      fetch('/login', {
+        method: 'POST',
+        headers:
+        {
+          'Content-Type': 'application/json',
+          'x-access-token': authHeader(userCred).toString()
+        },
+        body: JSON.stringify(userCred),
+      })
       .then(response => {
         return response.json()
       })
@@ -44,10 +46,14 @@ const Login = ({ scrollUp }) => {
         setUserFound(data.token);
         localStorage.setItem('authToken', data.authToken)
       });
+    }
+    else{
+      setLoginError(true)
+    }
   }
 
   const handleClick = () => {
-    if (pwdError === false && emailError === false) {
+    if ( pwdError === false && emailError === false) {
       getUser()
       if (
         (loggedInStatus === false ||
@@ -57,7 +63,6 @@ const Login = ({ scrollUp }) => {
         dispatch(login({ value: true, type: 'login' }))
         dispatch(setVenderCred(venderData))
         setLoginError(false);
-        // scrollUp("toTop");
       }
     }
   }
@@ -70,10 +75,16 @@ const Login = ({ scrollUp }) => {
       dispatch(login({ value: true, type: 'login' }))
       dispatch(setVenderCred(venderData))
       setLoginError(false);
-      scrollUp("toTop");
     }
     if (userFound === false) {
       setLoginError(true);
+    } else if(userFound === true){
+        if(typeof scrollUp == "function"){
+         scrollUp("toTop")
+        }
+        else{
+          navigate("/homelist")
+        }
     }
   }, [userFound, loggedInStatus])
   return (

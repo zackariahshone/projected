@@ -38,7 +38,7 @@ router.get('/vendortrucks', async (req, res) => {
         res.json(aggrigateTrucks);
     } catch (error) {
         console.log('line 40 vendor trucks',error);
-        req.json({ 'error': error })
+        res.json({ 'error': error })
     }
 })
 

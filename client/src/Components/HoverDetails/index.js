@@ -22,9 +22,9 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
         <b>{truckName}</b>
         </Modal.Header>
 
-        <Modal.Title id="contained-modal-title-vcenter">
-              <img src={truckData.IMG} alt={`${truckData.name}_truck`} />
-        </Modal.Title>
+        <Modal.Header>
+          <img className='singleTruckImg' src={truckData.IMG} alt={`${truckData.name}_truck`} />
+        </Modal.Header>
         <Row>
           <Col>
             {truckData.address}

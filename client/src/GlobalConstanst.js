@@ -1,7 +1,5 @@
 import NavSquares from './Components/NavSquares/navSquares';
 import HomeList from './Containers/HomeList.js';
-import NewTrucks from './Containers/NewTrucks/newTrucks';
-import TruckSearch from './Containers/TruckSearch/trucksearch';
 import RecommendedTrucks from './Containers/RecommendedTrucks';
 import Login from './Containers/Login/login';
 import SignUp from './Containers/Signup/signup';
@@ -15,16 +13,8 @@ export const DUMMY_IMG = 'https://media.istockphoto.com/id/1301655857/vector/foo
 
 export const ROUTES = [
     {
-        name: 'Home List',
+        name: 'Truck List',
         link: "homelist",
-    },
-    {
-        name: 'New Food-Trucks',
-        link: "newfoodtrucks"
-    },
-    {
-        name: 'Food-Truck Search',
-        link: "trucksearch"
     },
     {
         name: 'Recommended For You!',
@@ -34,7 +24,6 @@ export const ROUTES = [
         name: 'Vender Portal',
         link: 'vender',
         protected: true
-
     }
    
 ];
@@ -52,14 +41,6 @@ export const BROWSER_ROUTER_CONFIGS =
         {
             path: 'homelist',
             element: HomeList
-        },
-        {
-            path: 'newfoodtrucks',
-            element: NewTrucks
-        },
-        {
-            path: 'trucksearch',
-            element: TruckSearch
         },
         {
             path: 'recommendedtrucks',
