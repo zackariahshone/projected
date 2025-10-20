@@ -15,8 +15,13 @@
     border-color: #936a01cc;
     border-width: 2px;
     border-radius: 10px;
-    /* margin-bottom: 2px; */
     background-color: rgba(233, 178, 37, 0.8);
+
+}
+
+.singleTruck:hover{
+     background-color: rgba(225, 204, 152, 0.8);
+     cursor: pointer;
 }
 .singleTruckImg{
     width:100%;

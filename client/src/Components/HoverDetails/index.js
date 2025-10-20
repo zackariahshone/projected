@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import { userLocation } from '../../appstore/Reducers/UserReducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
+import { truckDistanceFromUser } from '../../Containers/HomeList.js/utils';
 
 
 export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
+  const currentLoc = useSelector(userLocation);
   console.log(truckData);
 
   return (
@@ -25,13 +27,13 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
         </Modal.Title>
         <Row>
           <Col>
-            {/* {address} */}
+            {truckData.address}
           </Col>
           <Col>
             open/closed
           </Col>
           <Col>
-            distance from you 00 miles
+            distance from you {truckDistanceFromUser(currentLoc, truckData?.coordinates)} miles
           </Col>
         </Row>
         <Row>
@@ -39,11 +41,19 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
         </Row>
       <Modal.Body>
         <Row>
-          {/* {description} */}
+          {truckData.description}
         </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => {
+          console.log('close this out')
+          setSelectedTruck(false)
+        }}>Visit Our WebSite</Button>
+         <Button onClick={() => {
+          console.log('close this out')
+          setSelectedTruck(false)
+        }}>Leave a Review</Button>
+         <Button onClick={() => {
           console.log('close this out')
           setSelectedTruck(false)
         }}>Close</Button>

@@ -7,7 +7,7 @@ export const TruckListDisplay = ({ trucks }) => {
     const [selectedTruck, setSelectedTruck] = useState(false);
     const [truckKey, setTruckKey] = useState('');
     const [truckData, setTruckData] = useState('');
-    
+
     return (
         <>
             {trucks ? trucks.map((truck) => (
@@ -19,23 +19,22 @@ export const TruckListDisplay = ({ trucks }) => {
                             setTruckData(truck);
                         }}
                     >
-
-                        {/* <Col xs={12} sm={12} md={4}>
-                            <img className="singleTruckImg" src={truck.IMG} alt={'truckimage'} />
-                        </Col> */}
                         <Row
                             className={'displayTruckDetails scroll'}
                         >
                             <Col><b>{truck.name}</b></Col>
                             <Col>open</Col>
-                            <Col>{truck?.address}</Col>
                             <Col>Reviews: 4.5/5</Col>
                         </Row>
                     </Row>
                 </>
             )) : 'trucks empty'}
-            {console.log(selectedTruck,'selected truck')}
-            <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked={selectedTruck} truckName={truckKey} truckData={truckData}/>
+            {console.log(selectedTruck, 'selected truck')}
+            {truckData ?
+                <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked={selectedTruck} truckName={truckKey} truckData={truckData} />
+                : <></>
+            }
+
         </>
     )
 }

@@ -15,3 +15,17 @@ export const foodTruckDistance = (userDistance, userLatLon, TruckList) => {
     });
     return trucksWithinDistance;
 }
+
+export const truckDistanceFromUser=(userLatLon, truckLatLon )=>{
+    console.log(truckLatLon);
+
+    
+    const { lat, lon } = truckLatLon;
+    const userLat = userLatLon?.lat;
+    const userLon = userLatLon?.lng;
+    console.log(lat, lon, userLat, userLon);
+    
+    console.log(haversine([userLat, userLon], [lat, lon])* 0.000621371192);
+    
+return  Math.round(haversine([userLat, userLon], [lat, lon])* 0.000621371192 * 100) / 100;;
+}
