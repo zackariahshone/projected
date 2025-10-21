@@ -39,7 +39,9 @@ export const TruckDisplay = ({  trucks, vendorDisplay, showDelete }) => {
                         <Row>
 
                         <Col xs={4}>
-                            <img src={truck.IMG} />
+                            <img 
+                            className="vendorImg"
+                            src={truck.IMG} />
                         </Col>
                         <Col xs={8} >
                             {truckConfig.map((key) => {

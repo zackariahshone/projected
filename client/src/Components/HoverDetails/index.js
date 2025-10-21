@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { userLocation } from '../../appstore/Reducers/UserReducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { Col, Container, Row, Form } from 'react-bootstrap';
+import { Col, Container, Row, Form, InputGroup } from 'react-bootstrap';
 import { truckDistanceFromUser } from '../../Containers/HomeList.js/utils';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -29,10 +29,10 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
       </Modal.Header>
       <Modal.Body>
         <Tabs
-          defaultActiveKey="profile"
-          id="justify-tab-example"
+          defaultActiveKey="Info"
+          id="fill-tab-example"
           className="mb-3"
-          justify
+          fill
         >
           <Tab eventKey="Info" title="Info">
             <Row>
@@ -46,56 +46,54 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
                 distance from you {truckDistanceFromUser(currentLoc, truckData?.coordinates)} miles
               </Col>
             </Row>
-             <Row>
-                {truckData.description}
-              </Row>
+            <Row>
+              {truckData.description}
+            </Row>
           </Tab>
           <Tab eventKey="menu" title="Menu">
             Menu
           </Tab>
           <Tab eventKey="Location" title="Location">
             <Row>
-            <Col>
+              <Col>
                 {truckData.address}
               </Col>
             </Row>
           </Tab>
           <Tab eventKey="contact" title="Contact">
-            www.ordernow.com 
-            <br/>
+            www.ordernow.com
+            <br />
             www.ourfoodtruck.com
-            <br/>
+            <br />
             phone : email :
           </Tab>
           <Tab eventKey="rate" title="Rate US">
-                 <Container>
-            <Col xs={12}>
-              <Form>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Leave a Review : ⭐⭐⭐⭐⭐</Form.Label>
-                  <Form.Control as="textarea" rows={3} />
-                </Form.Group>
-              </Form>
-            </Col>
-          </Container>
-          <Row>
-            <Col>
-              <Button
-                variant='warning'
-                className="w-25 float-end"
-                onClick={() => {
-                  setLeaveReview(false)
-                }}
-              >Submit</Button>
-            </Col>
-          </Row>
+            <InputGroup className="w-100">
+              <InputGroup.Text>Leave a Review : ⭐⭐⭐⭐⭐</InputGroup.Text>
+              <Form.Control as="textarea" aria-label="With textarea" />
+            </InputGroup>
+            <Row
+              className='justify-content-end'
+            >
+              <Col
+                xs={3}
+              >
+                <Button
+                  variant='warning'
+                  className=" float-end"
+                  onClick={() => {
+                    setLeaveReview(false)
+                  }}
+                >Submit</Button>
+              </Col>
+            </Row>
           </Tab>
         </Tabs>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => {
           setSelectedTruck(false)
-        }}>Close</Button> 
+        }}>Close</Button>
       </Modal.Footer>
     </Modal>
   );
