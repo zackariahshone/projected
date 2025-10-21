@@ -20,11 +20,10 @@ function App() {
   
   useEffect(() => {
     getData('api/foodtrucklists', 'GET', {}, loadReducer, {});
-    
     getData('api/getcategories', 'GET', {}, setCategories, {});
-    
-    
     GeoLoc.getCurrentPosition((loc) => {
+      console.log('location set');
+      
       dispatch(setLocation(
         {
           lat: loc.coords?.latitude,
