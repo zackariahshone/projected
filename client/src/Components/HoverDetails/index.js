@@ -98,6 +98,7 @@ function TruckCardMiniNav({ truckData }) {
         activeKey={key}
         onSelect={(k) => setKey(k)}
         className="mb-3"
+        fill
       >
         <Tab eventKey="Info" title="Info">
           Info
@@ -154,14 +155,14 @@ function DisplaySelected({ selected, truckData }) {
       return (
         <>
       <Row>
-            <Col xs={3}>
-              M - F 10:00am - 7pm
+            <Col xs={12} md={3}>
+             Hours: M - F 10:00am - 7pm
             </Col>
-            <Col xs={3}>
-              open/closed
+            <Col xs={12} md={3}>
+             Status: open/closed
             </Col>
-            <Col xs={3}>
-              distance from you {truckDistanceFromUser(currentLoc, truckData?.coordinates)} miles
+            <Col xs={12} md={3}>
+              Distance from you: {truckDistanceFromUser(currentLoc, truckData?.coordinates)} miles
             </Col>
           </Row>
           <Row>
@@ -171,10 +172,11 @@ function DisplaySelected({ selected, truckData }) {
       );
     case 'Menu':
       // Code to execute if expression matches value2
+      return(
       <>
         <h1>working on menu options</h1>
       </>
-      break;
+      )
     case 'Location':
       return(
         <>
