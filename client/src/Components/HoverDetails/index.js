@@ -153,7 +153,7 @@ function DisplaySelected({ selected, truckData }) {
     case 'Info':
       // Code to execute if expression matches value1
       return (
-        <>
+        <Container>
       <Row>
             <Col xs={12} md={3}>
              Hours: M - F 10:00am - 7pm
@@ -168,7 +168,7 @@ function DisplaySelected({ selected, truckData }) {
           <Row>
             {truckData.description}
           </Row>
-        </>
+        </Container>
       );
     case 'Menu':
       // Code to execute if expression matches value2
