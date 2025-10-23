@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Categories = require('../../dbconnection/models/Categories');
 const Truck = require('../../dbconnection/models/Trucks');
+const Reviews = require('../../dbconnection/models/Reviews');
 const dummyImage = 'https://media.istockphoto.com/id/1301655857/vector/food-truck-illustration.jpg?s=1024x1024&w=is&k=20&c=GVgNLfVIJFCwH70eMQZd5dRvNbP0F7WcixupUFJtl6g=';
 const nodeGeocoder = require('node-geocoder');
 const jwt = require("jsonwebtoken");
@@ -200,7 +201,6 @@ router.post('/api/createTruck', async (req, res) => {
   const addedTruck = await Truck.create(truckToAdd);
   //handle adding new categories
   currentCategories = await Categories.find().lean();
-  console.log('===========',currentCategories);
   
   if(truckToAdd.category && currentCategories[0] != undefined && currentCategories[0]?.categories){
     truckToAdd.category.forEach((cat) => {
@@ -234,51 +234,6 @@ router.post('/api/createTruck', async (req, res) => {
   // res.send({ status: 200 })
 })
 
-// router.post('/api/createTruck', async (req, res) => {
-//   //handle adding truck 
-//   try {
-
-//     const date = new Date();
-//     const truckToAdd = req.body;
-//     truckToAdd.category = req.body.category ? rmvWhiteSpace(req.body.category) : [];
-//     console.log('line 183', req.body);
-//     truckToAdd.coordinates = { ... await getLatLong(truckToAdd.address) };
-//     truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-//     const addedTruck = await Truck.create(truckToAdd);
-//     //handle adding new categories
-//     let currentCategories = await Categories.find().lean();
-//     if (truckToAdd.category) {
-//       truckToAdd.category.forEach((cat) => {
-//         console.log('after query',currentCategories);
-        
-//         if(currentCategories[0] == undefined && cat.trim().length !== 0) {
-//           currentCategories.push({categories:[cat.trim()]});
-//           console.log('create cat',currentCategories[0].categories);
-//         }
-//        else if (!currentCategories[0] == undefined && !currentCategories[0].categories.includes(cat.trim()) &&
-       
-//        cat.trim().length !== 0) {
-//           console.log('fall into created',currentCategories);
-//           currentCategories[0].categories.push(cat.trim())
-//         }
-//       })
-//     }
-//     console.log('create cat',currentCategories);
-//     await Categories.updateOne({ categories: currentCategories[0].categories })
-//     // handle assigning new trucks to logged in user profile
-//     const userInfo = jwt.decode(req.headers.token);
-//     const currentUser = await User.find({ email: userInfo.email })
-//     const trucksUpdate = currentUser[0].foodtrucks; 
-//     trucksUpdate.push(addedTruck._id);
-//     await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
-//     res.send({ status: 200 })
-//   } catch (e) {
-//     console.log(e);
-
-//     res.send({ status: 400 })
-//   }
-// })
-
 router.delete('/api/deletetruck', async (req, res) => {
   //delete truck as requested
   const truckId = req.body.id
@@ -301,12 +256,27 @@ router.post('/api/editTruck', async (req, res) => {
   const currentUser = jwt.decode(req.headers.token)
   const user = await User.findOneAndUpdate({ email: currentUser.email }, { foodtrucks: updatedTruck._id })
 })
+router.post('/api/review',async(req,res)=>{
+  const review = {text:req.body.reviewText,rating:req.body.rating} 
+  const setReview = await Reviews.findOneAndUpdate(
+      { _id: req.body.id }, // Specify how to find the document (e.g., by _id or another field)
+      {
+        $push: 
+          {reviews: { rating: review.rating, ratingtext: review.text }}
+      },
+      { upsert: true, new: true } // If no document is found, create a new one; return the updated document
+    ); 
+  res.send(setReview)
+})
+router.get('/api/review',async(req,res)=>{
+  res.json(await Reviews.find());
+})
 /**
- * just dirty util 
- * uncoment lines that you need the run /dbClean 
+ * just dirty utils 
+ * uncoment lines that you need the run /dbDoDirty 
  * to clean what ever you need
  */
-// router.get('/dbClean', async (req, res) => {
+// router.get('/dbDoDirty', async (req, res) => {
 // await Categories.updateOne({categories:[]})
 
 //find all users
@@ -340,7 +310,4 @@ router.post('/api/editTruck', async (req, res) => {
 // })
 
 module.exports = router;
-/**
-* Saving algo for later use
-*  */
 
