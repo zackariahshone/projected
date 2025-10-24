@@ -258,15 +258,17 @@ router.post('/api/editTruck', async (req, res) => {
 })
 router.post('/api/review',async(req,res)=>{
   const review = {text:req.body.reviewText,rating:req.body.rating} 
-  const setReview = await Reviews.findOneAndUpdate(
+  if(review.text && review.rating){
+
+    const setReview = await Reviews.findOneAndUpdate(
       { _id: req.body.id }, 
       {
         $push: 
-          {reviews: { rating: review.rating, ratingtext: review.text }}
+        {reviews: { rating: review.rating, ratingtext: review.text }}
       },
       { upsert: true, new: true } 
     ); 
-  const truck = await Truck.findById(req.body.id)
+    const truck = await Truck.findById(req.body.id)
     if(!truck){
       console.log("no truck");
     }
@@ -274,9 +276,17 @@ router.post('/api/review',async(req,res)=>{
     truck.rating = truck.ratingCount == 0 ? review.rating : (((truck.rating * truck.ratingCount) + review.rating) / (truck.ratingCount + 1)).toFixed(2);
     await truck.save();
     res.send(setReview)
+  }else{
+    res.send({status:400, reason:"emptyData"})
+  }
   })
-router.get('/api/review',async(req,res)=>{
-  res.json(await Reviews.findById(req.body.id));
+router.get('/api/reviews',async(req,res)=>{
+  const truckRevie = await Reviews.findById(req.query.id);
+  
+  truckRevie.reviews = truckRevie.reviews.filter(r => Object.keys(r).length > 0);
+  console.log(truckRevie.reviews);
+  await truckRevie.save()
+  res.json(await Reviews.findById(req.query.id)); 
 })
 /**
  * just dirty utils 

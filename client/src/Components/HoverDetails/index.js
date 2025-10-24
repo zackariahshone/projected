@@ -3,12 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { userLocation } from '../../appstore/Reducers/UserReducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { Col, Container, Row, Form, InputGroup } from 'react-bootstrap';
+import { Col, Container, Row, Form, InputGroup, Card } from 'react-bootstrap';
 import { truckDistanceFromUser } from '../../Containers/HomeList.js/utils';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { getData } from '../../genUtils/requests';
 import "./style.css"
+import { ShowStarRating } from '../DisplayListOfTrucks/displayListOfTrucks';
 
 export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
   return (
@@ -35,6 +36,10 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
   );
 }
 
+const ShowReviewsForSelectedTruck = ({})=>{
+    <>reviews for selected truck</>
+}
+
 function TruckCardMiniNav({ truckData }) {
   const [key, setKey] = useState('Info');
 
@@ -59,8 +64,8 @@ function TruckCardMiniNav({ truckData }) {
         <Tab eventKey="Contact" title="Contact" >
           Contact
         </Tab>
-        <Tab eventKey="Review" title="Review" >
-          Review
+        <Tab eventKey="Reviews" title="Reviews" >
+          Reviews
         </Tab>
       </Tabs>
       <DisplaySelected selected={key} truckData={truckData} />
@@ -103,7 +108,27 @@ function StarRating({
 function DisplaySelected({ selected, truckData }) {
   const currentLoc = useSelector(userLocation);
   const [review, setReview] = useState({});
+  const [reviewData, setReviewData] = useState();
+  useEffect(() => {
+    if(!reviewData){
 
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`/api/reviews?id=${truckData._id}`); // Replace with your actual API endpoint
+          // if (!response.ok) {
+          //   throw new Error(`HTTP error! Status: ${response.status}`);
+          // }
+          const result = await response.json();
+          setReviewData(result);
+        } catch (error) {
+          // setError(error);
+        } finally {
+          // setLoading(false);
+        }
+      }; 
+      fetchData();
+    }
+    },[reviewData]);
   switch (selected) {
     case 'Info':
       // Code to execute if expression matches value1
@@ -150,9 +175,18 @@ function DisplaySelected({ selected, truckData }) {
           <p>phone : email :</p>
         </>
       )
-    case 'Review':
+    case 'Reviews':
+      // const reviews = getData(`/api/reviews?id=${truckData._id}`,"GET")
+      
       return (
         <>
+        {reviewData?.reviews?.map((review)=>(
+          <Card>
+            {/* <>Rating: {review.rating}</>: */}
+            <>{<ShowStarRating rating={review.rating} />}</>
+            <>{review.ratingtext}</>
+          </Card>
+        ))}
           <InputGroup >
             <InputGroup.Text>
               <StarRating 

@@ -8,7 +8,7 @@ export const TruckListDisplay = ({ trucks }) => {
     const [selectedTruck, setSelectedTruck] = useState(false);
     const [truckKey, setTruckKey] = useState('');
     const [truckData, setTruckData] = useState('');
-
+    const [showRating, setShowRating] = useState(false);
     return (
         <>
             {trucks ? trucks.map((truck) => (
@@ -25,7 +25,10 @@ export const TruckListDisplay = ({ trucks }) => {
                         >
                             <Col><b>{truck.name}</b></Col>
                             <Col>open</Col>
-                            <Col>{ truck?.rating >= 0 ? <ShowStar rating = {truck.rating}/> : 'give us a review!' }</Col>
+                            <Col>{ truck?.rating >= 0 ? <ShowStarRating 
+                                                            setShowRating={setShowRating} 
+                                                            showRating={showRating} 
+                                                            rating = {truck.rating}/> : 'give us a review!' }</Col>
                         </Row>
                     </Row>
                 </>
@@ -39,14 +42,20 @@ export const TruckListDisplay = ({ trucks }) => {
     )
 }
 
-const ShowStar =({rating})=>{
+
+
+export const ShowStarRating =({rating})=>{
     const starArray = []
     for (let i = 0; i < rating; i++) {
           starArray.push("&#9733;"); 
     }
     return(
-        starArray.map((star)=>(
-            <>&#9733;</>
-        ))
+        <div
+            className="ratingDiv"
+        >
+           { starArray.map((star)=>(
+                <>&#9733;</>
+            ))}
+        </div>
     )
 }

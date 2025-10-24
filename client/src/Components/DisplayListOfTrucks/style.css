@@ -18,7 +18,10 @@
     background-color: rgba(233, 178, 37, 0.8);
 
 }
-
+.ratingDiv:hover{
+    background-color: rgba(252, 251, 248, 0.8);
+     cursor: pointer;
+}
 .singleTruck:hover{
      background-color: rgba(225, 204, 152, 0.8);
      cursor: pointer;

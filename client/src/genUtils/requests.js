@@ -21,8 +21,11 @@ export const getData = (route, method, body, action, type) => {
             },
         }).then(response => response.json()).then(data => {
             console.log("yes get");
-            
-            directReducer(action, data, type)
+            if (action) {
+                directReducer(action, data, type)
+            }else{                
+                return data;
+            }
         })
     }
 }
