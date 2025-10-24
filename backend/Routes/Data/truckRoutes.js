@@ -259,17 +259,24 @@ router.post('/api/editTruck', async (req, res) => {
 router.post('/api/review',async(req,res)=>{
   const review = {text:req.body.reviewText,rating:req.body.rating} 
   const setReview = await Reviews.findOneAndUpdate(
-      { _id: req.body.id }, // Specify how to find the document (e.g., by _id or another field)
+      { _id: req.body.id }, 
       {
         $push: 
           {reviews: { rating: review.rating, ratingtext: review.text }}
       },
-      { upsert: true, new: true } // If no document is found, create a new one; return the updated document
+      { upsert: true, new: true } 
     ); 
-  res.send(setReview)
-})
+  const truck = await Truck.findById(req.body.id)
+    if(!truck){
+      console.log("no truck");
+    }
+    truck.ratingCount = !truck.ratingCount ? 0 : setReview.length
+    truck.rating = truck.ratingCount == 0 ? review.rating : (((truck.rating * truck.ratingCount) + review.rating) / (truck.ratingCount + 1)).toFixed(2);
+    await truck.save();
+    res.send(setReview)
+  })
 router.get('/api/review',async(req,res)=>{
-  res.json(await Reviews.find());
+  res.json(await Reviews.findById(req.body.id));
 })
 /**
  * just dirty utils 
@@ -277,6 +284,13 @@ router.get('/api/review',async(req,res)=>{
  * to clean what ever you need
  */
 // router.get('/dbDoDirty', async (req, res) => {
+//   const truck = await Truck.findById({_id:"646d4739f472fc6d7ab56974"})
+
+//   truck.rating = 0;
+//   truck.ratingCount = 0;
+//   await truck.save();
+//   res.json(await Truck.find({_id:"646d4739f472fc6d7ab56974"}));
+// }) 
 // await Categories.updateOne({categories:[]})
 
 //find all users

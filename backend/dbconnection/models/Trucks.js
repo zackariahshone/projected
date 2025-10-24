@@ -30,8 +30,14 @@ const FoodTruckSchema = new Schema({
   },
   pwd: {
     type: String
+  },
+  rating: {
+    type: Number
+  },
+  ratingCount: {
+    type: Number
   }
-});
+},{strict:false});
 
 const FoodTruck = model('Trucks', FoodTruckSchema);
 module.exports = FoodTruck;
