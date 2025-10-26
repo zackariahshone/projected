@@ -19,28 +19,20 @@ export function CustomMap({ google, truck }) {
     let markerSet = [];
     let nameSet = [];
     
-    useEffect(() => {
-                filteredList?.forEach((truck) => {
-                    markerSet = [];
-                    nameSet = []
-                    if (truck.coordinates) {
-                        const { lat, lon } = truck?.coordinates;
-                        markerSet.push({ lat: lat, lng: lon })
-                        nameSet.push({ name: truck.name })
-                    }
-                })
-    }, [])
     return (
-        <Container>
-            <Row>
-                <Col xs={0} md={6} >
+        <div
+                    style={{
+                        width: "100%", // or you can use width: '100vw'
+                        height: "50vh", // or you can use height: '100vh'
+                    }}
+                >
                     {markerSet ? <Map
                         google={google}
                         // className={'mapContainer'}
-                        // containerStyle={{
-                        //     width: "50%",
-                        //     height: "65vh"
-                        // }}
+                        containerStyle={{
+                            width: "80%",
+                            height: "80%"
+                        }}
                         center={currentLoc}
                         initialCenter={currentLoc}
                         zoom={markerSet.length === 1 ? 18 : 13}
@@ -58,9 +50,8 @@ export function CustomMap({ google, truck }) {
                         position={currentLoc} 
                         title={'you are here'} />
                     </Map> : <></>}
-                </Col>
-            </Row>
-        </Container>
+                    </div>
+               
     )
 };
 
