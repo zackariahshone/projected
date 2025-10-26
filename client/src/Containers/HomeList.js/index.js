@@ -99,6 +99,8 @@ export function CustomMap({ google }) {
                         height: "75%", // or you can use height: '100vh'
                     }}
                 >
+                    {console.log(markerSet)}
+                    
                    {markerSet && mapview ? <Map
                             google={google}
                             // className={'mapContainer'}
@@ -121,6 +123,8 @@ export function CustomMap({ google }) {
                                     position={coords}
                                     title={`${nameSet[i].name}`} />
                             )}
+                            {console.log('location',currentLoc)}
+                            
                             <Marker
                                 // icon = {{url:'RiMapPinUserFill'}} 
                                 position={currentLoc}

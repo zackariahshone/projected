@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { userLocation } from '../../appstore/Reducers/UserReducers';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Container, Row, Form, InputGroup, Card } from 'react-bootstrap';
 import { truckDistanceFromUser } from '../../Containers/HomeList.js/utils';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { getData } from '../../genUtils/requests';
 import "./style.css"
 import { ShowStarRating } from '../DisplayListOfTrucks/displayListOfTrucks';
+import FoodTruckNearBy from '../../Containers/FoodTruckNearBy/index'
 
 export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
   return (
@@ -26,7 +28,9 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
       <Modal.Header>
         <img className='singleTruckImg' src={truckData.IMG} alt={`${truckData.name}_truck`} />
       </Modal.Header>
-      <TruckCardMiniNav truckData={truckData} />
+      <Modal.Body>
+        <TruckCardMiniNav truckData={truckData} />
+      </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => {
           setSelectedTruck(false)
@@ -34,10 +38,6 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
       </Modal.Footer>
     </Modal>
   );
-}
-
-const ShowReviewsForSelectedTruck = ({})=>{
-    <>reviews for selected truck</>
 }
 
 function TruckCardMiniNav({ truckData }) {
@@ -79,8 +79,8 @@ function StarRating({
 }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
-    console.log(userReview);
-    
+  console.log(userReview);
+
   const stars = [1, 2, 3, 4, 5];
 
   return (
@@ -91,7 +91,7 @@ function StarRating({
           style={{ cursor: 'pointer', fontSize: '24px', color: starValue <= (hoverRating || rating) ? 'gold' : 'grey' }}
           onClick={() => {
             setRating(starValue)
-            setUserReview({...userReview,'rating':starValue})
+            setUserReview({ ...userReview, 'rating': starValue })
           }}
           onMouseEnter={() => setHoverRating(starValue)}
           onMouseLeave={() => setHoverRating(rating)}
@@ -110,7 +110,7 @@ function DisplaySelected({ selected, truckData }) {
   const [review, setReview] = useState({});
   const [reviewData, setReviewData] = useState();
   useEffect(() => {
-    if(!reviewData){
+    if (!reviewData) {
 
       const fetchData = async () => {
         try {
@@ -125,10 +125,10 @@ function DisplaySelected({ selected, truckData }) {
         } finally {
           // setLoading(false);
         }
-      }; 
+      };
       fetchData();
     }
-    },[reviewData]);
+  }, [reviewData]);
   switch (selected) {
     case 'Info':
       // Code to execute if expression matches value1
@@ -159,13 +159,14 @@ function DisplaySelected({ selected, truckData }) {
       )
     case 'Location':
       return (
-        <>
+        <Container>
           <Row>
             <Col>
               {truckData.address}
+              <FoodTruckNearBy truck={truckData?.coordinates}/>
             </Col>
           </Row>
-        </>
+        </Container>
       )
     case 'Contact':
       return (
@@ -176,29 +177,26 @@ function DisplaySelected({ selected, truckData }) {
         </>
       )
     case 'Reviews':
-      // const reviews = getData(`/api/reviews?id=${truckData._id}`,"GET")
-      
       return (
         <>
-        {reviewData?.reviews?.map((review)=>(
-          <Card>
-            {/* <>Rating: {review.rating}</>: */}
-            <>{<ShowStarRating rating={review.rating} />}</>
-            <>{review.ratingtext}</>
-          </Card>
-        ))}
+          {reviewData?.reviews?.map((review) => (
+            <Card>
+              <>{<ShowStarRating rating={review.rating} />}</>
+              <>{review.ratingtext}</>
+            </Card>
+          ))}
           <InputGroup >
             <InputGroup.Text>
-              <StarRating 
-                userReview = {review} 
-                setUserReview ={setReview} 
+              <StarRating
+                userReview={review}
+                setUserReview={setReview}
               /></InputGroup.Text>
-            <Form.Control 
-              className="reviewField" 
-              as="textarea" 
-              aria-label="With textarea" 
-              onBlur={(e)=>{
-                setReview({...review,'reviewText':e.target.value})
+            <Form.Control
+              className="reviewField"
+              as="textarea"
+              aria-label="With textarea"
+              onBlur={(e) => {
+                setReview({ ...review, 'reviewText': e.target.value })
               }} />
           </InputGroup>
           <Row
@@ -210,22 +208,62 @@ function DisplaySelected({ selected, truckData }) {
               <Button
                 variant='warning'
                 className=" float-end"
-                onClick={()=>{
+                onClick={() => {
                   console.log(truckData);
-                  
-                  console.log({[truckData._id]:{...review}});
-                  // getData = (route, method, body, action, type)
-                getData('./api/review','POST',{
-                  id:truckData._id,
-                  ...review
+
+                  console.log({ [truckData._id]: { ...review } });
+                  getData('./api/review', 'POST', {
+                    id: truckData._id,
+                    ...review
                   })
                 }}
               >Submit</Button>
             </Col>
           </Row>
         </>
-      )    // ... more cases
+      )
     default:
-    // Code to execute if expression does not match any case
   }
 }
+
+
+// function SingleTruckMapPoint({truckLocation,google}) {
+//   const currentLoc = useSelector(userLocation);
+
+  
+//   return(
+
+//     <Map
+//     google={google}
+//     // className={'mapContainer'}
+//     containerStyle={{
+//       // width: "50%",
+//       // height: "65vh"
+//     }}
+//     center={currentLoc}
+//     // initialCenter={markerSet[0]}
+//     // zoom={markerSet.length === 1 ? 18 : 13}
+//     disableDefaultUI={true}
+//     >
+//     {/* {markerSet.map(
+//       (coords, i) => <Marker
+//         icon={{
+//           url: truckIcon,
+//           anchor: new google.maps.Point(17, 46),
+//           scaledSize: new google.maps.Size(50, 50)
+//         }}
+//         position={coords}
+//         title={`${nameSet[i].name}`} />
+//     )} */}
+//     <Marker
+//       // icon = {{url:'RiMapPinUserFill'}} 
+//       position={currentLoc}
+//       title={'you are here'} />
+//   </Map>
+// )
+// }
+// const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
+
+// GoogleApiWrapper({
+//     apiKey: GOOGLE_KEY
+// })(SingleTruckMapPoint);

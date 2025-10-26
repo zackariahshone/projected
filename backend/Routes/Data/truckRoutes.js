@@ -283,7 +283,7 @@ router.post('/api/review',async(req,res)=>{
 router.get('/api/reviews',async(req,res)=>{
   const truckRevie = await Reviews.findById(req.query.id);
   
-  truckRevie.reviews = truckRevie.reviews.filter(r => Object.keys(r).length > 0);
+  truckRevie.reviews = truckRevie?.reviews?.filter(r => Object.keys(r).length > 0);
   console.log(truckRevie.reviews);
   await truckRevie.save()
   res.json(await Reviews.findById(req.query.id)); 
