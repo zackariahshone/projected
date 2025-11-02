@@ -1,5 +1,5 @@
 const { isInteger, uniqueId } = require('lodash');
-const { Schema, model, Mongoose } = require('mongoose');
+const { Schema, model, Mongoose, default: mongoose } = require('mongoose');
 const FoodTruckSchema = new Schema({
   name: {
     type: String
@@ -32,10 +32,10 @@ const FoodTruckSchema = new Schema({
     type: String
   },
   rating: {
-    type: Number
+    type: mongoose.Mixed
   },
   ratingCount: {
-    type: Number
+    type: mongoose.Mixed
   }
 },{strict:false});
 

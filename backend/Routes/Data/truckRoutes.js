@@ -272,19 +272,27 @@ router.post('/api/review',async(req,res)=>{
     if(!truck){
       console.log("no truck");
     }
-    truck.ratingCount = !truck.ratingCount ? 0 : setReview.length
-    truck.rating = truck.ratingCount == 0 ? review.rating : (((truck.rating * truck.ratingCount) + review.rating) / (truck.ratingCount + 1)).toFixed(2);
+
+    
+    truck.ratingCount =  setReview.reviews.length 
+
+    
+    // setReview.reviews.forEach(()=>)
+      const validRatings = setReview.reviews.map(r => r.rating).filter(r => typeof r === 'number' && r >= 1 && r <= 5);
+      if (validRatings.length === 0) return 0;
+      const sum = validRatings.reduce((acc, val) => acc + val, 0);
+      const average = sum / validRatings.length;
+      console.log(Math.round(average * 10) / 10);
+      
+      truck.rating = Math.round(average * 10) / 10;   
+    // truck.rating =  setReview.reviews.reduce((sum, item) => sum + item.rating, 0) / setReview.reviews.length
     await truck.save();
-    res.send(setReview)
-  }else{
     res.send({status:400, reason:"emptyData"})
   }
   })
 router.get('/api/reviews',async(req,res)=>{
   const truckRevie = await Reviews.findById(req.query.id);
-  
   truckRevie.reviews = truckRevie?.reviews?.filter(r => Object.keys(r).length > 0);
-  console.log(truckRevie.reviews);
   await truckRevie.save()
   res.json(await Reviews.findById(req.query.id)); 
 })
