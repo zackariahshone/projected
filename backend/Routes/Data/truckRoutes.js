@@ -258,13 +258,14 @@ router.post('/api/editTruck', async (req, res) => {
 })
 router.post('/api/review',async(req,res)=>{
   const review = {text:req.body.reviewText,rating:req.body.rating} 
+  const ratingID = req.body.ratingID || "annonymous"
   if(review.text && review.rating){
 
     const setReview = await Reviews.findOneAndUpdate(
       { _id: req.body.id }, 
       {
         $push: 
-        {reviews: { rating: review.rating, ratingtext: review.text }}
+        {reviews: { rating: review.rating, ratingtext: review.text, ratingID : ratingID }}
       },
       { upsert: true, new: true } 
     ); 
@@ -275,17 +276,12 @@ router.post('/api/review',async(req,res)=>{
 
     
     truck.ratingCount =  setReview.reviews.length 
-
-    
-    // setReview.reviews.forEach(()=>)
       const validRatings = setReview.reviews.map(r => r.rating).filter(r => typeof r === 'number' && r >= 1 && r <= 5);
       if (validRatings.length === 0) return 0;
       const sum = validRatings.reduce((acc, val) => acc + val, 0);
       const average = sum / validRatings.length;
-      console.log(Math.round(average * 10) / 10);
       
       truck.rating = Math.round(average * 10) / 10;   
-    // truck.rating =  setReview.reviews.reduce((sum, item) => sum + item.rating, 0) / setReview.reviews.length
     await truck.save();
     res.send({status:400, reason:"emptyData"})
   }

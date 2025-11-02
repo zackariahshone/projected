@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './style.css';
-
+import BusinessHoursForm from "./TruckHours.js"
 export const CreateTruck = () => {
     const [userData, setUserData] = useState();
     const navigate = useNavigate();
@@ -64,6 +64,7 @@ export const CreateTruck = () => {
                             })
                         }} type="text" placeholder="Address can change daily if needed" />
                     </Form.Group>
+                    <BusinessHoursForm/>
                     <Form.Group className="mb-3">
                         <Form.Label>What flavors or food you have to offer</Form.Label>
                         <Form.Control onChange={(e) => {

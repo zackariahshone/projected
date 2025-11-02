@@ -3,15 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { userLocation } from '../../appstore/Reducers/UserReducers';
-import { useSelector, useDispatch } from 'react-redux';
+import { currentUser, userLocation } from '../../appstore/Reducers/UserReducers';
+import { useSelector } from 'react-redux';
 import { Col, Container, Row, Form, InputGroup, Card } from 'react-bootstrap';
 import { truckDistanceFromUser } from '../../Containers/HomeList.js/utils';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { getData } from '../../genUtils/requests';
-import "./style.css"
 import { ShowStarRating } from '../DisplayListOfTrucks/displayListOfTrucks';
 import FoodTruckNearBy from '../../Containers/FoodTruckNearBy/index'
+import "./style.css"
 
 export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, truckData }) => {
   return (
@@ -107,14 +106,17 @@ function StarRating({
 
 function DisplaySelected({ selected, truckData }) {
   const currentLoc = useSelector(userLocation);
+  const loggedinUser = useSelector(currentUser);
   const [review, setReview] = useState({});
   const [reviewData, setReviewData] = useState();
+ console.log();
+ 
   useEffect(() => {
     if (!reviewData) {
 
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/reviews?id=${truckData._id}`); // Replace with your actual API endpoint
+          const response = await fetch(`/api/reviews?id=${truckData._id}`); 
           // if (!response.ok) {
           //   throw new Error(`HTTP error! Status: ${response.status}`);
           // }
@@ -209,11 +211,9 @@ function DisplaySelected({ selected, truckData }) {
                 variant='warning'
                 className=" float-end"
                 onClick={() => {
-                  console.log(truckData);
-
-                  console.log({ [truckData._id]: { ...review } });
                   getData('./api/review', 'POST', {
                     id: truckData._id,
+                    ratingID:loggedinUser?._id || null,
                     ...review
                   })
                 }}
@@ -225,45 +225,3 @@ function DisplaySelected({ selected, truckData }) {
     default:
   }
 }
-
-
-// function SingleTruckMapPoint({truckLocation,google}) {
-//   const currentLoc = useSelector(userLocation);
-
-  
-//   return(
-
-//     <Map
-//     google={google}
-//     // className={'mapContainer'}
-//     containerStyle={{
-//       // width: "50%",
-//       // height: "65vh"
-//     }}
-//     center={currentLoc}
-//     // initialCenter={markerSet[0]}
-//     // zoom={markerSet.length === 1 ? 18 : 13}
-//     disableDefaultUI={true}
-//     >
-//     {/* {markerSet.map(
-//       (coords, i) => <Marker
-//         icon={{
-//           url: truckIcon,
-//           anchor: new google.maps.Point(17, 46),
-//           scaledSize: new google.maps.Size(50, 50)
-//         }}
-//         position={coords}
-//         title={`${nameSet[i].name}`} />
-//     )} */}
-//     <Marker
-//       // icon = {{url:'RiMapPinUserFill'}} 
-//       position={currentLoc}
-//       title={'you are here'} />
-//   </Map>
-// )
-// }
-// const GOOGLE_KEY = 'AIzaSyBsmkoBaVsoBXyrBUxE7kpMJaIJ9HU-9CA';
-
-// GoogleApiWrapper({
-//     apiKey: GOOGLE_KEY
-// })(SingleTruckMapPoint);
