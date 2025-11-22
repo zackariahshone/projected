@@ -11,6 +11,7 @@
 }
 
 .singleTruck{
+    color:#000;
     border-style: solid;
     border-color: #936a01cc;
     border-width: 2px;
@@ -37,4 +38,22 @@
         width: 90%;
         margin-top: 15%;
     }
+}
+/* ADA-compliant text color for dark mode */
+@media (prefers-color-scheme: dark) {
+    .singleTruck,
+    .displayTruckDetails,
+    .ratingDiv {
+        color: #000; /* Black text for dark mode */
+    }
+  .singleTruck {
+     background-color: #2C2C2C;
+     border-color: #FFD700;
+  }
+  .displayTruckDetails {
+     background-color: transparent;
+  }
+  .ratingDiv {
+     background-color: #222;
+  }
 }

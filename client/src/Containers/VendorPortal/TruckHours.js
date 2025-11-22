@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Card, ButtonGroup } from 'react-bootstrap';
 
-const BusinessHoursForm = ({ onSubmit }) => {
+const BusinessHoursForm = ({ onSubmit, onChange }) => {
   const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
   ];
@@ -39,9 +39,15 @@ const BusinessHoursForm = ({ onSubmit }) => {
     setHours(updated);
   };
 
+  // Emit initial/default hours and any changes to parent via onChange
+  useEffect(() => {
+    if (typeof onChange === 'function') onChange(hours);
+  }, [hours, onChange]);
+
   const handleSubmit = e => {
     e.preventDefault();
     if (onSubmit) onSubmit(hours);
+    if (typeof onChange === 'function') onChange(hours);
     console.log('Business hours:', hours);
   };
 
@@ -91,11 +97,9 @@ const BusinessHoursForm = ({ onSubmit }) => {
             </Col>
           </Row>
         ))}
-
+        
         <div className="text-end">
-          <Button variant="primary" type="submit">
-            Save Hours
-          </Button>
+          <Button variant="primary" type="submit">Save Hours</Button>
         </div>
       </Form>
     </Card>

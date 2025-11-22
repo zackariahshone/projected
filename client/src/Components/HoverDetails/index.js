@@ -19,11 +19,13 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      onHide={() => setSelectedTruck(false)}
+      backdrop={true}
+      keyboard={true}
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <b>{truckName}</b>
       </Modal.Header>
-
       <Modal.Header>
         <img className='singleTruckImg' src={truckData.IMG} alt={`${truckData.name}_truck`} />
       </Modal.Header>
@@ -48,8 +50,7 @@ function TruckCardMiniNav({ truckData }) {
         id="controlled-tab-example"
         activeKey={key}
         onSelect={(k) => setKey(k)}
-        className="mb-3"
-        fill
+        className="mb-3 hover-details-tabs"
       >
         <Tab eventKey="Info" title="Info">
           Info

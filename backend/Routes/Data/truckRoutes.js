@@ -200,29 +200,26 @@ router.post('/api/createTruck', async (req, res) => {
   truckToAdd.dateAdded = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   const addedTruck = await Truck.create(truckToAdd);
   //handle adding new categories
-  currentCategories = await Categories.find().lean();
-  
-  if(truckToAdd.category && currentCategories[0] != undefined && currentCategories[0]?.categories){
-    truckToAdd.category.forEach((cat) => {
-      if (!currentCategories[0].categories.includes(cat.trim()) &&
-      cat.trim().length !== 0) {
-        currentCategories[0].categories.push(cat.trim())
-      }
-      catForUpdate = currentCategories[0].categories
-    })
-  }else{
-    catForUpdate = truckToAdd.category
+  try {
+    const existing = await Categories.findOne() || null;
+    if (truckToAdd.category && truckToAdd.category.length > 0) {
+      const cleanCats = truckToAdd.category.map(c => c.trim()).filter(c => c.length > 0);
+      // add each new category to canonical categories array
+      await Categories.findOneAndUpdate(
+        {},
+        { $addToSet: { categories: { $each: cleanCats } } },
+        { upsert: true, new: true }
+      );
+      // also keep legacy `filters` in sync
+      await Categories.findOneAndUpdate(
+        {},
+        { $addToSet: { filters: { $each: cleanCats } } },
+        { upsert: true }
+      );
+    }
+  } catch (e) {
+    console.error('Error updating categories', e);
   }
-  console.log(catForUpdate);
-  
-  const filter = { name: 'categories' }; // Filter to find or create the document
-  // The string to add to the array
-
-   await Categories.findOneAndUpdate(
-      filter,
-      { $addToSet: { filters: catForUpdate } }, // Add newTag to the 'tags' array, avoiding duplicates
-      { new: true, upsert: true } // Return the modified document, create if not found
-    )
 
   // await Categories.updateOne({categories:catForUpdate},{ upsert: true })
   // handle assigning new trucks to logged in user profile
@@ -231,65 +228,77 @@ router.post('/api/createTruck', async (req, res) => {
   const trucksUpdate = currentUser[0].foodtrucks;
   trucksUpdate.push(addedTruck._id);
   await User.findByIdAndUpdate(currentUser[0]._id, { foodtrucks: trucksUpdate })
-  // res.send({ status: 200 })
+  res.status(200).json({ status: 200, truck: addedTruck });
 })
 
 router.delete('/api/deletetruck', async (req, res) => {
-  //delete truck as requested
-  const truckId = req.body.id
-  await Truck.findByIdAndDelete({ _id: truckId });
-  //clean up categories when truck is removed and categorie no longer matches a truck. 
-  const currentCategories = await Categories.find().lean()
-  const truckData = await Truck.find({}).lean()
-  const truckCategories = new Set();
-  truckData.forEach(truck => {
-    truck.category.forEach((cat) => {
-      truckCategories.add(cat);
-    });
-  })
-  const filterdCategories = currentCategories[0].categories.filter((category) => [...truckCategories].includes(category));
-  await Categories.updateOne({ categories: filterdCategories })
-  res.json({ deleted: true });
+  try {
+    //delete truck as requested
+    const truckId = req.body.id
+    await Truck.findByIdAndDelete({ _id: truckId });
+    //clean up categories when truck is removed and categorie no longer matches a truck. 
+    const currentCategories = await Categories.find().lean()
+    const truckData = await Truck.find({}).lean()
+    const truckCategories = new Set();
+    truckData.forEach(truck => {
+      truck.category.forEach((cat) => {
+        truckCategories.add(cat);
+      });
+    })
+    const filterdCategories = currentCategories[0].categories.filter((category) => [...truckCategories].includes(category));
+    await Categories.updateOne({ categories: filterdCategories })
+    res.json({ deleted: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 })
 router.post('/api/editTruck', async (req, res) => {
-  const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
-  const currentUser = jwt.decode(req.headers.token)
-  const user = await User.findOneAndUpdate({ email: currentUser.email }, { foodtrucks: updatedTruck._id })
+  try {
+    const updatedTruck = await Truck.findOneAndUpdate({ _id: req.headers.truckid }, UTILS.rmvEmpty(req.body)).lean();
+    const currentUser = jwt.decode(req.headers.token)
+    const user = await User.findOneAndUpdate({ email: currentUser.email }, { foodtrucks: updatedTruck._id })
+    res.json({ status: 200, truck: updatedTruck });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 })
 router.post('/api/review',async(req,res)=>{
-  const review = {text:req.body.reviewText,rating:req.body.rating} 
-  const ratingID = req.body.ratingID || "annonymous"
-  if(review.text && review.rating){
-
-    const setReview = await Reviews.findOneAndUpdate(
-      { _id: req.body.id }, 
-      {
-        $push: 
-        {reviews: { rating: review.rating, ratingtext: review.text, ratingID : ratingID }}
-      },
-      { upsert: true, new: true } 
-    ); 
-    const truck = await Truck.findById(req.body.id)
-    if(!truck){
-      console.log("no truck");
-    }
-
-    
-    truck.ratingCount =  setReview.reviews.length 
+  try {
+    const review = {text:req.body.reviewText,rating:req.body.rating} 
+    const ratingID = req.body.ratingID || "annonymous"
+    if(review.text && review.rating){
+      const setReview = await Reviews.findOneAndUpdate(
+        { _id: req.body.id }, 
+        {
+          $push: 
+          {reviews: { rating: review.rating, ratingtext: review.text, ratingID : ratingID }}
+        },
+        { upsert: true, new: true } 
+      ); 
+      const truck = await Truck.findById(req.body.id)
+      if(!truck){
+        console.log("no truck");
+      }
+      truck.ratingCount =  setReview.reviews.length 
       const validRatings = setReview.reviews.map(r => r.rating).filter(r => typeof r === 'number' && r >= 1 && r <= 5);
       if (validRatings.length === 0) return 0;
       const sum = validRatings.reduce((acc, val) => acc + val, 0);
       const average = sum / validRatings.length;
-      
       truck.rating = Math.round(average * 10) / 10;   
-    await truck.save();
-    res.send({status:400, reason:"emptyData"})
+      await truck.save();
+      res.send({status:400, reason:"emptyData"})
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
   })
 router.get('/api/reviews',async(req,res)=>{
   const truckRevie = await Reviews.findById(req.query.id);
+  if (!truckRevie) {
+    return res.status(404).json({ error: 'Truck review not found' });
+  }
   truckRevie.reviews = truckRevie?.reviews?.filter(r => Object.keys(r).length > 0);
-  await truckRevie.save()
+  await truckRevie.save();
   res.json(await Reviews.findById(req.query.id)); 
 })
 /**

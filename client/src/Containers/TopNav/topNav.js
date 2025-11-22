@@ -22,6 +22,23 @@ const TopNav = () => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(window.location.pathname.replace('/',''));
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return window.localStorage.getItem('darkMode') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      if (darkMode) document.body.classList.add('dark-mode');
+      else document.body.classList.remove('dark-mode');
+      window.localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
+    } catch (e) {
+      // ignore
+    }
+  }, [darkMode]);
 
   return (
 
@@ -55,6 +72,16 @@ const TopNav = () => {
               })}
             </Nav>
             <Nav className="justify-content-end">
+              <Nav.Item>
+                <button
+                  className="dark-toggle"
+                  title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                  aria-pressed={darkMode}
+                  onClick={() => setDarkMode(d => !d)}
+                >
+                  {darkMode ? '🌞' : '🌙'}
+                </button>
+              </Nav.Item>
               <Nav.Link
                 onClick={() => {
                   setSelected('login')

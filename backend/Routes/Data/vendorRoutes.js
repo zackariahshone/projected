@@ -8,23 +8,18 @@ const jwt = require("jsonwebtoken");
  */
 router.post('/registration', async (req, res) => {
     try {
-
-
         const key = jwt.decode(req.headers.token).email;
-
-        await User.findOneAndUpdate({ email: key },
-            {
-                vender: true,
-                venderCredentials: { ...req.body }
-            })
-        res.json(
-            {
-                status: 200,
-                venderdata: { ...req.body }
-            });
+        await User.findOneAndUpdate({ email: key }, {
+            vender: true,
+            venderCredentials: { ...req.body }
+        })
+        res.json({
+            status: 200,
+            venderdata: { ...req.body }
+        });
     } catch (e) {
-
         console.log('line 27',e);
+        res.status(500).json({ error: e.message });
     }
 });
 router.get('/vendortrucks', async (req, res) => {
@@ -34,11 +29,10 @@ router.get('/vendortrucks', async (req, res) => {
         const usersTrucks = currentUser[0].foodtrucks;
         const validatedIds = [];
         const aggrigateTrucks = await Truck.find({ '_id': { $in: usersTrucks } });
-        // const aggrigateTrucks = await Truck.find().lean();
         res.json(aggrigateTrucks);
     } catch (error) {
         console.log('line 40 vendor trucks',error);
-        res.json({ 'error': error })
+        res.status(500).json({ error: error.message });
     }
 })
 

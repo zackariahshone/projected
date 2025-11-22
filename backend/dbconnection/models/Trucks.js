@@ -28,6 +28,19 @@ const FoodTruckSchema = new Schema({
   coordinates: {
     type: Object
   },
+  // structured business hours
+  hours: {
+    type: [
+      {
+        day: String,
+        open: String,
+        close: String,
+        closed: Boolean
+      }
+    ]
+  },
+  phone: { type: String },
+  website: { type: String },
   pwd: {
     type: String
   },

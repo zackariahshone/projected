@@ -1,116 +1,209 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './style.css';
 import BusinessHoursForm from "./TruckHours.js"
+import { useDispatch } from 'react-redux';
+import { setTruckData } from '../../appstore/Reducers/VenderReducers';
+
 export const CreateTruck = () => {
-    const [userData, setUserData] = useState();
+    const [form, setForm] = useState({});
+    const [hours, setHours] = useState(null);
+    const [error, setError] = useState(null);
+    const [saving, setSaving] = useState(false);
     const navigate = useNavigate();
-    const handleRegister = (venderInfo) => {
-        fetch('/api/createTruck', {
-            method: 'POST', // or 'PUT'
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'token': localStorage.getItem('authToken')
-            },
-            body: JSON.stringify(venderInfo),
-        }).then(response => (
-            console.log(response)
-        ))
+    const dispatch = useDispatch();
+    const [photoFile, setPhotoFile] = useState(null);
+
+    const setField = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
+
+    const validate = () => {
+        if (!form.name || form.name.trim().length < 2) return 'Please enter a valid truck name';
+        if (!form.address || form.address.trim().length < 5) return 'Please enter a valid address';
+        // validate hours: ensure open < close for days that are not closed
+        if (hours && Array.isArray(hours)) {
+            const timeToMinutes = (t) => {
+                if (!t || typeof t !== 'string') return null;
+                const parts = t.split(':');
+                if (parts.length !== 2) return null;
+                const hh = parseInt(parts[0], 10);
+                const mm = parseInt(parts[1], 10);
+                if (Number.isNaN(hh) || Number.isNaN(mm)) return null;
+                return hh * 60 + mm;
+            }
+            for (let i = 0; i < hours.length; i++) {
+                const h = hours[i];
+                if (!h) continue;
+                if (!h.closed) {
+                    if (!h.open || !h.close) return `Please set open and close times for ${h.day}`;
+                    const o = timeToMinutes(h.open);
+                    const c = timeToMinutes(h.close);
+                    if (o === null || c === null) return `Invalid time format for ${h.day}`;
+                    if (o >= c) return `${h.day}: opening time must be before closing time`;
+                }
+            }
+        }
+        return null;
     }
+
+    const handleRegister = async () => {
+        const validationError = validate();
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
+        setError(null);
+        setSaving(true);
+
+        // compose payload and include hours if provided
+        const payload = {
+            ...form,
+            hours: hours || undefined
+        };
+
+        try {
+            const token = window.localStorage.getItem('authToken');
+            const res = await fetch('/api/createTruck', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'token': token
+                },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                setError(data?.message || 'Failed to create truck');
+                setSaving(false);
+                return;
+            }
+            // success: update redux and clear form
+            const created = data?.truck || data;
+            try {
+                dispatch(setTruckData(created));
+            } catch (e) {
+                // ignore dispatch errors
+            }
+            // clear local form
+            setForm({});
+            setHours(null);
+            setPhotoFile(null);
+            // navigate back to vendor portal
+            navigate('/vender');
+        } catch (e) {
+            setError(e.message || 'Network error');
+        } finally {
+            setSaving(false);
+        }
+    }
+
     return (
-        <Container >
+        <Container>
             <center>
-                <h1> Set up you first truck or another truck </h1>
+                <h1> Add / Register Food Truck </h1>
+                <p className="text-muted">Complete the fields below to list your food truck.</p>
             </center>
             <div className='signup-container'>
+                {error ? <Alert variant="danger">{error}</Alert> : null}
                 <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Food Truck Name</Form.Label>
-                        <Form.Control
-                            onChange={(e) => {
-                                setUserData({
-                                    ...userData,
-                                    'name': e.target.value.trim()
-                                })
-                            }}
-                            type="text" placeholder="Enter email" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Vender First Name</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'venderFirstName': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Enter First Name" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Vender Last Name</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'venderLastName': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Enter Last Name" />
-                    </Form.Group>
+                    <Row>
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Food Truck Name</Form.Label>
+                                <Form.Control
+                                    value={form.name || ''}
+                                    onChange={(e) => setField('name', e.target.value)}
+                                    type="text" placeholder="e.g. Tasty Tacos" />
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Primary Contact Phone</Form.Label>
+                                <Form.Control
+                                    value={form.phone || ''}
+                                    onChange={(e) => setField('phone', e.target.value)}
+                                    type="tel" placeholder="(555) 555-5555" />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Vendor First Name</Form.Label>
+                                <Form.Control
+                                    value={form.venderFirstName || ''}
+                                    onChange={(e) => setField('venderFirstName', e.target.value)}
+                                    type="text" placeholder="First name" />
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Vendor Last Name</Form.Label>
+                                <Form.Control
+                                    value={form.venderLastName || ''}
+                                    onChange={(e) => setField('venderLastName', e.target.value)}
+                                    type="text" placeholder="Last name" />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+
                     <Form.Group className="mb-3">
                         <Form.Label>Food Truck Address</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'address': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
-                    <BusinessHoursForm/>
-                    <Form.Group className="mb-3">
-                        <Form.Label>What flavors or food you have to offer</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'category': e.target.value.split(',')
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Food truck image</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'IMG': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password for your Food truck account</Form.Label>
-                        <Form.Control onChange={(e) => {
-                            setUserData({
-                                ...userData,
-                                'pwd': e.target.value.trim()
-                            })
-                        }} type="text" placeholder="Address can change daily if needed" />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Tell the Searchers about your truck!!</Form.Label>
                         <Form.Control
-                            onChange={(e) => {
-                                setUserData({
-                                    ...userData,
-                                    'description': e.target.value
-                                })
-                            }}
+                            value={form.address || ''}
+                            onChange={(e) => setField('address', e.target.value)}
+                            type="text" placeholder="Street, City, State, ZIP" />
+                    </Form.Group>
+
+                    <BusinessHoursForm onChange={(h) => setHours(h)} onSubmit={(h) => setHours(h)} />
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>What flavors or food you have to offer (comma separated)</Form.Label>
+                        <Form.Control
+                            value={form.category ? form.category.join(',') : ''}
+                            onChange={(e) => setField('category', e.target.value.split(',').map(s => s.trim()))}
+                            type="text" placeholder="e.g. tacos, burgers, vegan" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Food truck image URL</Form.Label>
+                        <Form.Control
+                            value={form.IMG || ''}
+                            onChange={(e) => setField('IMG', e.target.value)}
+                            type="text" placeholder="https://..." />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Optional: Website or Menu URL</Form.Label>
+                        <Form.Control
+                            value={form.website || ''}
+                            onChange={(e) => setField('website', e.target.value)}
+                            type="text" placeholder="https://..." />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password for your Food truck account (optional)</Form.Label>
+                        <Form.Control
+                            value={form.pwd || ''}
+                            onChange={(e) => setField('pwd', e.target.value)}
+                            type="password" placeholder="optional" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Tell the Searchers about your truck</Form.Label>
+                        <Form.Control
+                            value={form.description || ''}
+                            onChange={(e) => setField('description', e.target.value)}
                             as="textarea" rows={3} />
                     </Form.Group>
+
+                    <div className="text-end">
+                        <Button variant="secondary" onClick={() => navigate('/vender')} className="me-2">Cancel</Button>
+                        <Button variant="primary" disabled={saving} onClick={handleRegister}>{saving ? 'Saving...' : 'Save Truck'}</Button>
+                    </div>
                 </Form>
-                <Button
-                    value={`Get Registered! `}
-                    onClick={() => {
-                        handleRegister(userData);
-                        navigate('/vender')
-                    }}
-                >Get Registered!!!</Button>
             </div>
         </Container>
     )

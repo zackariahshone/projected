@@ -3,3 +3,57 @@
 {
     width:100%;
 }
+/* Force all text in HoverDetailsComponent to be black */
+.modal-content,
+.modal-header,
+.modal-body,
+.hover-details-tabs .nav-link,
+.hover-details-tabs + .tab-content,
+.hover-details-tabs .nav-item,
+.hover-details-tabs,
+.tabcontent,
+.reviewField, .nav-link {
+    color: #000 !important;
+}
+
+body.dark-mode .nav-link, body.dark-mode .brandLogo, body.dark-mode .navbar-brand{
+    color: #000 !important;
+}
+
+/* Keep tab labels on a single line; allow horizontal scroll on small screens */
+.hover-details-tabs .nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow-x: unset;
+}
+
+.hover-details-tabs .nav-link {
+    white-space: normal;
+    flex: 1 1 0;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Improve spacing/contrast on small screens */
+.hover-details-tabs .nav-item {
+    margin-right: 8px;
+    flex: 1 1 0;
+}
+
+/* Ensure tab content doesn't force the header to wrap */
+.hover-details-tabs + .tab-content {
+    min-width: 100%;
+}
+/* Dark mode override for HoverDetails modal and tab content */
+@media (prefers-color-scheme: dark) {
+    .modal-content,
+    .modal-header,
+    .modal-body,
+    .hover-details-tabs .nav-link,
+    .hover-details-tabs + .tab-content {
+         color: #000 !important;
+         background-color: #fff !important;
+    }
+    /* Removed stray selector and ensured proper closing */
+}

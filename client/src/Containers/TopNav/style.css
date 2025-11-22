@@ -43,3 +43,40 @@
         margin-left:5%;
     }
 }
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e6e6e6;
+}
+
+body.dark-mode .navbar,
+body.dark-mode .navbar-light {
+    background-color: #1f1f1f !important;
+}
+
+body.dark-mode .nav-link,
+body.dark-mode .brandLogo,
+body.dark-mode .navbar-brand {
+    color: #e6e6e6 !important;
+}
+
+.dark-toggle {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+body.dark-mode .dark-toggle {
+    border-color: rgba(255,255,255,0.12);
+    color: #ffd54f;
+}
+
+.dark-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(100,100,255,0.08);
+}
