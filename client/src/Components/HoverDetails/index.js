@@ -27,7 +27,7 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
         <b>{truckName}</b>
       </Modal.Header>
       <Modal.Header>
-        <img className='singleTruckImg' src={truckData.IMG} alt={`${truckData.name}_truck`} />
+        <TruckImage src={truckData.IMG} alt={`${truckData.name}_truck`} />
       </Modal.Header>
       <Modal.Body>
         <TruckCardMiniNav truckData={truckData} />
@@ -225,4 +225,20 @@ function DisplaySelected({ selected, truckData }) {
       )
     default:
   }
+}
+
+// Placeholder image URL
+const PLACEHOLDER_IMG = 'https://media.istockphoto.com/id/1301655857/vector/food-truck-illustration.jpg?s=1024x1024&w=is&k=20&c=GVgNLfVIJFCwH70eMQZd5dRvNbP0F7WcixupUFJtl6g=';
+
+function TruckImage({ src, alt }) {
+  const [imgSrc, setImgSrc] = useState(src);
+  useEffect(() => { setImgSrc(src); }, [src]);
+  return (
+    <img
+      className='singleTruckImg'
+      src={imgSrc || PLACEHOLDER_IMG}
+      alt={alt}
+      onError={() => setImgSrc(PLACEHOLDER_IMG)}
+    />
+  );
 }
