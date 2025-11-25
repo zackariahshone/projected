@@ -19,7 +19,7 @@
 }
 @media (prefers-color-scheme: dark) {
     .singleTruck {
-        background: #23272f;
+        /* background: #23272f; */
         color: #f9fafb;
     }
 }
@@ -110,20 +110,3 @@
     }
 }
 /* ADA-compliant text color for dark mode */
-@media (prefers-color-scheme: dark) {
-    .singleTruck,
-    .displayTruckDetails,
-    .ratingDiv {
-        color: #000; /* Black text for dark mode */
-    }
-  .singleTruck {
-     background-color: #2C2C2C;
-     border-color: #FFD700;
-  }
-  .displayTruckDetails {
-     background-color: transparent;
-  }
-  .ratingDiv {
-     background-color: #222;
-  }
-}
