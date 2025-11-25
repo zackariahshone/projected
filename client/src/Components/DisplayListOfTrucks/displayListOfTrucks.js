@@ -10,35 +10,27 @@ export const TruckListDisplay = ({ trucks }) => {
     const [truckData, setTruckData] = useState('');
     const [showRating, setShowRating] = useState(false);
     return (
-        <>
+        <div className="truck-list-row">
             {trucks ? trucks.map((truck) => (
-                <>
-                    <Row className='singleTruck'
-                        onClick={(e) => {
-                            selectedTruck === true ? setSelectedTruck(false) : setSelectedTruck(true);
-                            setTruckKey(truck.name);
-                            setTruckData(truck);
-                        }}
-                    >
-                        <Row
-                            className={'displayTruckDetails scroll'}
-                        >
-                            <Col><b>{truck.name}</b></Col>
-                            <Col>open</Col>
-                            <Col>{ truck?.rating >= 0 ? <ShowStarRating 
-                                                            setShowRating={setShowRating} 
-                                                            showRating={showRating} 
-                                                            rating = {truck.rating}/> : 'give us a review!' }</Col>
-                        </Row>
-                    </Row>
-                </>
-            )) : 'trucks empty'}
+                <div className='singleTruck'
+                    key={truck._id || truck.name}
+                    onClick={() => {
+                        selectedTruck === true ? setSelectedTruck(false) : setSelectedTruck(true);
+                        setTruckKey(truck.name);
+                        setTruckData(truck);
+                    }}
+                >
+                    <div className={'displayTruckDetails scroll'}>
+                        <div className="col truck-name">{truck.name}</div>
+                        <div className={`col truck-status ${truck.open ? 'open' : 'closed'}`}>{truck.open ? 'Open' : 'Closed'}</div>
+                        <div className="col truck-rating">{ truck?.rating >= 0 ? <ShowStarRating rating={truck.rating}/> : <span className="truck-review">Give us a review!</span> }</div>
+                    </div>
+                </div>
+            )) : <div className="truck-list-empty">No trucks available.</div>}
             {truckData ?
                 <HoverDetailsComponent setSelectedTruck={setSelectedTruck} clicked={selectedTruck} truckName={truckKey} truckData={truckData} />
-                : <></>
-            }
-
-        </>
+                : null}
+        </div>
     )
 }
 

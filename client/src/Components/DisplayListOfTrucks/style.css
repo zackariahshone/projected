@@ -1,3 +1,73 @@
+/* Enhanced row-based truck list styles */
+.truck-list-row {
+    width: 100%;
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.singleTruck {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 0.2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+    padding: 0.5rem 0.7rem;
+    display: flex;
+    flex-direction: column;
+}
+@media (prefers-color-scheme: dark) {
+    .singleTruck {
+        background: #23272f;
+        color: #f9fafb;
+    }
+}
+.singleTruck:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    transform: translateY(-2px) scale(1.01);
+}
+.displayTruckDetails {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+.displayTruckDetails .col {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: #222;
+}
+.truck-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+}
+.truck-status {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.2em 0.7em;
+    border-radius: 8px;
+    background: #eee;
+    color: #666;
+    margin-left: 0.5rem;
+}
+.truck-status.open {
+    background: #d4f7d4;
+    color: #1a7f1a;
+}
+.truck-status.closed {
+    background: #f7d4d4;
+    color: #a71a1a;
+}
+.truck-rating {
+    margin-left: 0.5rem;
+}
+.truck-review {
+    color: #888;
+    font-size: 0.95rem;
+}
 .missingImg {
     width:300px;
     height: 300px;

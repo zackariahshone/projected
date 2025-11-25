@@ -1,3 +1,39 @@
+/* App container modern styles */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f6f8fa;
+}
+
+.App-header {
+  background: #2563eb;
+  color: #fff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-radius: 0 0 18px 18px;
+}
+
+.App-content {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .App-header {
+    font-size: 1.3rem;
+    padding: 1rem 0.5rem;
+    border-radius: 0 0 12px 12px;
+  }
+  .App-content {
+    padding: 1rem 0.2rem;
+  }
+}
 .App {
   text-align: center;
   display: flex;

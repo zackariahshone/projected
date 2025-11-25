@@ -1,3 +1,69 @@
+/* Custom scrollable tab bar styles */
+.custom-scrollable-tabs {
+    width: 100%;
+}
+/* Custom tab bar with scroll indicators */
+/* Gradient indicators fixed at tab bar edges */
+.custom-tab-bar-wrapper {
+    position: relative;
+    width: 100%;
+}
+.custom-tab-bar {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    padding-bottom: 4px;
+    scrollbar-width: none; /* Firefox */
+}
+.custom-tab-bar::-webkit-scrollbar {
+    display: none;
+}
+.custom-tab-bar-gradient {
+    position: absolute;
+    top: 0;
+    width: 24px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+.custom-tab-bar-gradient.left {
+    left: 0;
+    background: linear-gradient(to right, #fff 60%, rgba(255,255,255,0));
+}
+.custom-tab-bar-gradient.right {
+    right: 0;
+    background: linear-gradient(to left, #fff 60%, rgba(255,255,255,0));
+}
+.custom-tab-btn {
+    flex: 0 0 auto;
+    min-width: 80px;
+    max-width: 160px;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #000;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-bottom 0.2s, background 0.2s;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+}
+.custom-tab-btn.active {
+    border-bottom: 2px solid #FFD700;
+    background: #f9f9f9;
+    font-weight: bold;
+}
+/* Make tabs scrollable on mobile */
+.scrollable-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
 .reviewField
 .tabcontent
 {
@@ -23,22 +89,36 @@ body.dark-mode .nav-link, body.dark-mode .brandLogo, body.dark-mode .navbar-bran
 /* Keep tab labels on a single line; allow horizontal scroll on small screens */
 .hover-details-tabs .nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     width: 100%;
-    overflow-x: unset;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+    max-width: 100%;
 }
 
+@media (max-width: 600px) {
+    .hover-details-tabs .nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .hover-details-tabs .nav-link {
+        min-width: 120px;
+    }
+}
+/* } */
+
 .hover-details-tabs .nav-link {
-    white-space: normal;
-    flex: 1 1 0;
-    min-width: 80px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    min-width: 120px;
     text-align: center;
 }
 
 /* Improve spacing/contrast on small screens */
 .hover-details-tabs .nav-item {
     margin-right: 8px;
-    flex: 1 1 0;
+    flex: 0 0 auto;
 }
 
 /* Ensure tab content doesn't force the header to wrap */

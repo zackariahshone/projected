@@ -43,33 +43,34 @@ export const HoverDetailsComponent = ({ setSelectedTruck, clicked, truckName, tr
 
 function TruckCardMiniNav({ truckData }) {
   const [key, setKey] = useState('Info');
+  const tabs = [
+    { label: 'Info', value: 'Info' },
+    { label: 'Menu', value: 'Menu' },
+    { label: 'Location', value: 'Location' },
+    { label: 'Contact', value: 'Contact' },
+    { label: 'Reviews', value: 'Reviews' }
+  ];
 
   return (
-    <>
-      <Tabs
-        id="controlled-tab-example"
-        activeKey={key}
-        onSelect={(k) => setKey(k)}
-        className="mb-3 hover-details-tabs"
-      >
-        <Tab eventKey="Info" title="Info">
-          Info
-        </Tab>
-        <Tab eventKey="Menu" title="Menu">
-          Menu
-        </Tab>
-        <Tab eventKey="Location" title="Location" >
-          Location
-        </Tab>
-        <Tab eventKey="Contact" title="Contact" >
-          Contact
-        </Tab>
-        <Tab eventKey="Reviews" title="Reviews" >
-          Reviews
-        </Tab>
-      </Tabs>
+    <div className="custom-scrollable-tabs">
+      <div className="custom-tab-bar-wrapper">
+        <div className="custom-tab-bar-gradient left" />
+        <div className="custom-tab-bar-gradient right" />
+        <div className="custom-tab-bar">
+          {tabs.map(tab => (
+            <button
+              key={tab.value}
+              className={`custom-tab-btn${key === tab.value ? ' active' : ''}`}
+              onClick={() => setKey(tab.value)}
+              type="button"
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
       <DisplaySelected selected={key} truckData={truckData} />
-    </>
+    </div>
   );
 }
 
